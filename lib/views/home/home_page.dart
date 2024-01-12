@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_bp/views/auth/ui/login_page.dart';
 
+import '../../main.dart';
 import '../../models/app_user.dart';
 import '../auth/bloc/auth_bloc.dart';
 
@@ -15,17 +16,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late AuthBloc _authBloc;
 
   @override
   void initState() {
-    _authBloc = BlocProvider.of(context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      authBloc.stream.listen((state) => (mounted ? onAuthBlocChange(context, state):null));
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
+    return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Scaffold(
           appBar:
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              _authBloc.add(LogOut());
+                              authBloc.add(LogOut());
                             },
                             child: const Text('Logout')),
                       ],
@@ -51,18 +53,21 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       },
-      listener: (BuildContext context, AuthState state) {
-        if (state is LogOutSuccess) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (_) => BlocProvider<AuthBloc>.value(
-                  value: AuthBloc(),
-                  child: const LoginPage(),
-                ),
-              ));
-        }
-      },
     );
+  }
+
+
+  void onAuthBlocChange(context, state) {
+    switch(state.runtimeType){
+      case const (LogOutSuccess):
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider<AuthBloc>.value(
+                value: AuthBloc(),
+                child: const LoginPage(),
+              ),
+            ));
+    }
   }
 }

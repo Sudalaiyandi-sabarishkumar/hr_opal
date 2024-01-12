@@ -56,14 +56,14 @@ class _LoginPageState extends State<LoginPage> {
 
   void onAuthBlocChange(context, state) {
     switch(state.runtimeType){
-      case LoginWithPasswordSuccess:
+      case const (LoginWithPasswordSuccess):
         final currentState = state as LoginWithPasswordSuccess;
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (_) => HomePage(user: currentState.user),
             ));
-      case AuthError:
+      case const (AuthError):
         final currentState = state as AuthError;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(currentState.errorMsg),

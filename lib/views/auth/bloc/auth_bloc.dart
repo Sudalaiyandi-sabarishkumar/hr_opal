@@ -42,9 +42,9 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   @override
   Future<void> eventHandlerMethod(AuthEvent event, Emitter<AuthState> emit) async {
     switch (event.runtimeType) {
-      case LoginWithPassword:
+      case const (LoginWithPassword):
         return _loginWithPassword(event as LoginWithPassword, emit);
-      case LogOut:
+      case const (LogOut):
         return _logOut(event as LogOut, emit);
     }
   }
