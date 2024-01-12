@@ -1,9 +1,8 @@
-
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc_bp/api_repository/api_repository.dart';
-import 'package:flutter_bloc_bp/models/access_token.dart';
 import 'package:flutter_bloc_bp/models/app_user.dart';
+import '../models/token.dart';
 
 
 class AuthService extends ApiRepository {
@@ -16,5 +15,14 @@ class AuthService extends ApiRepository {
       data: objToApi
     );
     return {'customer': AppUser.fromJson(res.data['employee']), 'token': Token.fromJson(res.data['token'])};
+  }
+
+//************************************ log-out *********************************//
+  logOut(
+      {Map<String, String>? headersToApi}) async {
+    await apiClient.delete(
+      '/user_management/employee/logout',
+      options: Options(headers: headersToApi)
+    );
   }
 }

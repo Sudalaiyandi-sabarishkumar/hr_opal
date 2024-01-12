@@ -2,12 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
+import 'package:flutter_bloc_bp/views/app/ui/init_page.dart';
 import 'package:flutter_bloc_bp/views/auth/bloc/auth_bloc.dart';
-import 'package:flutter_bloc_bp/views/init_page.dart';
-
 import 'base_bloc/base_bloc.dart';
 
 final AuthBloc authBloc = AuthBloc();
+final AppBloc appBloc = AppBloc();
 final navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
@@ -23,6 +24,7 @@ Future<void> main() async {
       MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => authBloc),
+            BlocProvider(create: (context) => appBloc),
           ],
           child: const MyApp()));
 }
