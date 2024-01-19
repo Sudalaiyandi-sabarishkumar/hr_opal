@@ -1,20 +1,24 @@
+import 'package:flutter_config/flutter_config.dart';
 
 enum Flavor { production, staging }
 
 class AppConfig {
-  String appName = "";
-  String baseUrl = "";
-  Flavor flavor = Flavor.staging;
+  Flavor flavor;
+  String appLabel;
+  String scheme;
+  String scope;
+  String host;
 
-  static AppConfig shared = AppConfig.create();
+  static AppConfig shared = AppConfig.initiate();
 
-  factory AppConfig.create({
-    String appName = "",
-    String baseUrl = "",
-    Flavor flavor = Flavor.staging,
-  }) {
-    return shared = AppConfig(appName, baseUrl, flavor);
+  factory AppConfig.initiate() {
+    return shared = AppConfig(
+        flavor: (FlutterConfig.get('ENVIRONMENT') == 'staging') ? Flavor.staging : Flavor.production,
+        appLabel: FlutterConfig.get('APP_LABEL'),
+        scheme: FlutterConfig.get('SCHEME'),
+        scope: FlutterConfig.get('SCOPE'),
+        host: FlutterConfig.get('HOST'));
   }
 
-  AppConfig(this.appName, this.baseUrl, this.flavor);
+  AppConfig({required this.flavor, required this.appLabel, required this.scheme, required this.scope, required this.host});
 }
