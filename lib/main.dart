@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
 import 'package:flutter_bloc_bp/views/app/ui/init_page.dart';
 import 'package:flutter_bloc_bp/views/auth/bloc/auth_bloc.dart';
+import 'package:flutter_config/flutter_config.dart';
+import 'app_config.dart';
 import 'base_bloc/base_bloc.dart';
 
 final AuthBloc authBloc = AuthBloc();
@@ -13,6 +15,10 @@ final navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// flavor & env setup
+  await FlutterConfig.loadEnvVariables();
+  AppConfig.initiate();
 
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
@@ -54,7 +60,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       navigatorKey: navigatorKey,
       title: 'MyApp',
       home: const InitPage(),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: AppConfig.shared.flavor == Flavor.staging,
     );
   }
 }
