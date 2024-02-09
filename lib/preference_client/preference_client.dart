@@ -1,15 +1,16 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:secure_shared_preferences/secure_shared_pref.dart';
+
 import '../models/token.dart';
 import '../models/app_user.dart';
 
 class PreferencesClient {
   PreferencesClient({required this.prefs});
 
-  final SharedPreferences prefs;
+  final SecureSharedPref prefs;
 
-  AppUser? getUser() {
-    final String? userString = prefs.getString('appUser');
+  Future<AppUser?> getUser() async {
+    final String? userString = await prefs.getString('appUser', isEncrypted: true);
     if (userString == null || userString == '') {
       return null;
     }
@@ -19,16 +20,16 @@ class PreferencesClient {
 
   void saveUser({AppUser? appUser}) {
     if (appUser == null) {
-      prefs.setString('appUser', '');
+      prefs.putString('appUser', '', isEncrypted: true);
       return;
     }
     final String userString = json.encode(appUser);
-    prefs.setString('appUser', userString);
+    prefs.putString('appUser', userString, isEncrypted: true);
   }
 
   //****************************** user-access-token **************************//
-  Token? getUserAccessToken() {
-    final String? tokenString = prefs.getString('token');
+  Future<Token?> getUserAccessToken() async {
+    final String? tokenString = await prefs.getString('token', isEncrypted: true);
     if (tokenString == null) {
       return null;
     }
@@ -38,10 +39,10 @@ class PreferencesClient {
 
   void setUserAccessToken({Token? token}) {
     if (token == null) {
-      prefs.setString('token', '');
+      prefs.putString('token', '', isEncrypted: true);
       return;
     }
     final String tokenString = json.encode(token);
-    prefs.setString('token', tokenString);
+    prefs.putString('token', tokenString, isEncrypted: true);
   }
 }
