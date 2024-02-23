@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_bp/base_bloc/base_bloc.dart';
 import 'package:flutter_bloc_bp/models/app_user.dart';
-import 'package:secure_shared_preferences/secure_shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../api_repository/auth_service.dart';
 import '../../../core/utils/utils.dart';
 import '../../../models/token.dart';
@@ -36,7 +36,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
       await authService.loginWithPassword(objToApi: objToApi);
       final AppUser? user = response?['customer'];
       final Token? token = response?['token'];
-      final SecureSharedPref prefs = await SecureSharedPref.getInstance();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       PreferencesClient(prefs: prefs).saveUser(appUser: user);
       PreferencesClient(prefs: prefs).setUserAccessToken(token: token);
       emit(loginWithPasswordSuccess..user = user);
@@ -44,7 +44,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
 
   FutureOr<void> _logOut(LogOut event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final SecureSharedPref prefs = await SecureSharedPref.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     Token? token = await PreferencesClient(prefs: prefs).getUserAccessToken();
     final Map<String, String> headersToApi = await Utils.getHeader(token?.accessToken);
     await authService.logOut(headersToApi: headersToApi);

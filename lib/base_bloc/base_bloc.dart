@@ -15,14 +15,21 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
       await eventHandlerMethod(event, emit);
     } on DioException catch (dioError) {
       debugPrint('============ eventHandler DioException: ${dioError.response?.data.toString()}');
-      final err = dioError.response?.data as Map<String, dynamic>;
-      if (err.containsKey("error")) {
+      try{
+        final err = dioError.response?.data as Map<String, dynamic>;
+        if (err.containsKey("error")) {
+          emit(getErrorState()
+            ..errorCode = dioError.response?.statusCode ?? 0
+            ..errorMsg = err["error"]);
+        } else {
+          emit(getErrorState()
+            ..errorCode = dioError.response?.statusCode ?? 0
+            ..errorMsg = err.toString());
+        }
+      } catch (err) {
+        debugPrint('============ eventHandler catch block: $err');
         emit(getErrorState()
-          ..errorCode = dioError.response?.statusCode ?? 0
-          ..errorMsg = err["error"]);
-      } else {
-        emit(getErrorState()
-          ..errorCode = dioError.response?.statusCode ?? 0
+          ..errorCode = 0
           ..errorMsg = err.toString());
       }
     } catch (err) {
