@@ -6,6 +6,10 @@ class Utils {
       'Authorization': 'Bearer $token',
     };
   }
+
+  static bool nullOrEmpty(String? token){
+    return (token == null || token == '');
+  }
 }
 
 

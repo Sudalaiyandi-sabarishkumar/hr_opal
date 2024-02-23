@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
-import 'package:flutter_bloc_bp/views/app/ui/init_page.dart';
+import 'package:flutter_bloc_bp/views/auth/ui/init_page.dart';
 import 'package:flutter_bloc_bp/views/auth/bloc/auth_bloc.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'app_config.dart';

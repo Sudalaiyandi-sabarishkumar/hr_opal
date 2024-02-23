@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/token.dart';
 import '../models/app_user.dart';
 
@@ -10,7 +10,7 @@ class PreferencesClient {
   final SharedPreferences prefs;
 
   Future<AppUser?> getUser() async {
-    final String? userString = await prefs.getString('appUser');
+    final String? userString = prefs.getString('appUser');
     if (userString == null || userString == '') {
       return null;
     }
@@ -29,7 +29,7 @@ class PreferencesClient {
 
   //****************************** user-access-token **************************//
   Future<Token?> getUserAccessToken() async {
-    final String? tokenString = await prefs.getString('token');
+    final String? tokenString = prefs.getString('token');
     if (tokenString == null) {
       return null;
     }

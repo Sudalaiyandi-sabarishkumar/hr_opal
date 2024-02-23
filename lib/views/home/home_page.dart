@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_bp/views/auth/ui/login_page.dart';
 
 import '../../main.dart';
-import '../../models/app_user.dart';
+import '../app/bloc/app_bloc.dart';
 import '../auth/bloc/auth_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  final AppUser? user;
 
-  const HomePage({super.key, required this.user});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,7 +30,11 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         return Scaffold(
           appBar:
-              AppBar(title: Text('Welcome ${widget.user?.firstname ?? ''}')),
+              AppBar(title:  BlocBuilder<AppBloc, AppState>(
+                  builder: (context, state) {
+                  return Text('Welcome ${appBloc.stateData.user?.firstname ?? ''}');
+                }
+              )),
           body: Center(
             child: Column(
               children: [

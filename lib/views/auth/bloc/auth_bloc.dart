@@ -19,6 +19,15 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   final authService = AuthService();
 
   LoginWithPasswordSuccess loginWithPasswordSuccess = LoginWithPasswordSuccess();
+  CheckForPreferenceSuccess checkForPreferenceSuccess = CheckForPreferenceSuccess();
+
+  FutureOr<void> _checkForPreference(
+      CheckForPreference event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    AppUser? user = await PreferencesClient(prefs: prefs).getUser();
+    emit(checkForPreferenceSuccess..user = user);
+  }
 
   FutureOr<void> _loginWithPassword(
       LoginWithPassword event, Emitter<AuthState> emit) async {
@@ -55,6 +64,8 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   @override
   Future<void> eventHandlerMethod(AuthEvent event, Emitter<AuthState> emit) async {
     switch (event.runtimeType) {
+      case const (CheckForPreference):
+        return _checkForPreference(event as CheckForPreference, emit);
       case const (LoginWithPassword):
         return _loginWithPassword(event as LoginWithPassword, emit);
       case const (LogOut):

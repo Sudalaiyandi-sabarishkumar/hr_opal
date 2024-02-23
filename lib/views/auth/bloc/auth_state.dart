@@ -10,6 +10,12 @@ class AuthError extends AuthState {}
 
 class LogOutSuccess extends AuthState {}
 
+class CheckForPreferenceSuccess extends AuthState {
+  AppUser? user;
+
+  CheckForPreferenceSuccess({this.user});
+}
+
 class LoginWithPasswordSuccess extends AuthState {
   AppUser? user;
 

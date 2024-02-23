@@ -16,21 +16,20 @@ class AppBloc extends BaseBloc<AppEvent, AppState> {
 
   final authService = AuthService();
 
-  CheckForPreferenceSuccess checkForPreferenceSuccess = CheckForPreferenceSuccess();
+  StateData stateData = StateData();
 
-  FutureOr<void> _checkForPreference(
-      CheckForPreference event, Emitter<AppState> emit) async {
-      emit(AppLoading());
+  FutureOr<void> _saveCurrentUser(
+      SaveCurrentUser event, Emitter<AppState> emit) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      AppUser? user = await PreferencesClient(prefs: prefs).getUser();
-      emit(checkForPreferenceSuccess..user = user);
+      PreferencesClient(prefs: prefs).saveUser(appUser: event.user);
+      emit(stateData..user = event.user);
   }
 
   @override
   Future<void> eventHandlerMethod(AppEvent event, Emitter<AppState> emit) async {
     switch (event.runtimeType) {
-      case const (CheckForPreference):
-        return _checkForPreference(event as CheckForPreference, emit);
+      case const (SaveCurrentUser):
+        return _saveCurrentUser(event as SaveCurrentUser, emit);
     }
   }
 
