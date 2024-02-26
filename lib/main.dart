@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nested/nested.dart';
 import 'app_config.dart';
 import 'base_bloc/base_bloc.dart';
@@ -28,13 +29,10 @@ Future<void> main() async {
 
   Bloc.observer = AppBlocObserver();
 
-  runApp(
-      MultiBlocProvider(
-          providers: <SingleChildWidget>[
-            BlocProvider<AppBloc>(create: (BuildContext context) => appBloc),
-            BlocProvider<AuthBloc>(create: (BuildContext context) => authBloc),
-          ],
-          child: const MyApp()));
+  runApp(MultiBlocProvider(providers: <SingleChildWidget>[
+    BlocProvider<AppBloc>(create: (BuildContext context) => appBloc),
+    BlocProvider<AuthBloc>(create: (BuildContext context) => authBloc),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -45,7 +43,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -55,15 +52,18 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   Future<void> _init() async {}
 
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      theme: themeData,
-      title: 'MyApp',
-      home: const InitPage(),
-      debugShowCheckedModeBanner: AppConfig.shared.flavor == Flavor.staging,
-    );
+    return ScreenUtilInit(
+        designSize: const Size(390, 835),
+        builder: (_, Widget? child) {
+          return MaterialApp(
+            navigatorKey: navigatorKey,
+            theme: themeData,
+            home: const InitPage(),
+            debugShowCheckedModeBanner:
+                AppConfig.shared.flavor == Flavor.staging,
+          );
+        });
   }
 }
