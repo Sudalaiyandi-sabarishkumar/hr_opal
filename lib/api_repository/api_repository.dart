@@ -7,14 +7,9 @@ class ApiRepository {
   static String scope = AppConfig.shared.scope;
   static String host = AppConfig.shared.host;
 
-  static BaseOptions options = BaseOptions(baseUrl: "$scheme://$host/$scope");
+  static BaseOptions options = BaseOptions(baseUrl: '$scheme://$host/$scope');
   final Dio apiClient = Dio(options)
     ..interceptors.add(PrettyDioLogger(
         requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90));
+        requestBody: true));
 }

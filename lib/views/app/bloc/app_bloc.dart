@@ -1,36 +1,34 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_bp/base_bloc/base_bloc.dart';
-import 'package:flutter_bloc_bp/models/app_user.dart';
-import 'package:secure_shared_preferences/secure_shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../api_repository/auth_service.dart';
+import '../../../base_bloc/base_bloc.dart';
+import '../../../models/app_user.dart';
 import '../../../preference_client/preference_client.dart';
 
 part 'app_event.dart';
-
 part 'app_state.dart';
 
 class AppBloc extends BaseBloc<AppEvent, AppState> {
   AppBloc() : super(AppInitial());
 
-  final authService = AuthService();
+  final AuthService authService = AuthService();
 
-  CheckForPreferenceSuccess checkForPreferenceSuccess = CheckForPreferenceSuccess();
+  StateData stateData = StateData();
 
-  FutureOr<void> _checkForPreference(
-      CheckForPreference event, Emitter<AppState> emit) async {
-      emit(AppLoading());
-      final SecureSharedPref prefs = await SecureSharedPref.getInstance();
-      AppUser? user = await PreferencesClient(prefs: prefs).getUser();
-      emit(checkForPreferenceSuccess..user = user);
+  FutureOr<void> _saveCurrentUser(
+      SaveCurrentUser event, Emitter<AppState> emit) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      PreferencesClient(prefs: prefs).saveUser(appUser: event.user);
+      emit(stateData..user = event.user);
   }
 
   @override
   Future<void> eventHandlerMethod(AppEvent event, Emitter<AppState> emit) async {
     switch (event.runtimeType) {
-      case const (CheckForPreference):
-        return _checkForPreference(event as CheckForPreference, emit);
+      case const (SaveCurrentUser):
+        return _saveCurrentUser(event as SaveCurrentUser, emit);
     }
   }
 
