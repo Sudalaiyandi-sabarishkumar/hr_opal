@@ -14,13 +14,13 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
     try {
       await eventHandlerMethod(event, emit);
     } on DioException catch (dioError) {
-      debugPrint('============ eventHandler DioException: ${dioError.response?.data.toString()}');
+      debugPrint('============ eventHandler DioException: ${dioError.response?.data}');
       try{
-        final err = dioError.response?.data as Map<String, dynamic>;
-        if (err.containsKey("error")) {
+        final Map<String, dynamic> err = dioError.response?.data as Map<String, dynamic>;
+        if (err.containsKey('error')) {
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
-            ..errorMsg = err["error"]);
+            ..errorMsg = err['error'].toString());
         } else {
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
@@ -47,31 +47,31 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
 
 abstract class ErrorState {
   int errorCode = 0;
-  String errorMsg = "";
+  String errorMsg = '';
 }
 
 
 class AppBlocObserver extends BlocObserver {
   @override
-  void onChange(BlocBase bloc, Change change) {
+  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
     debugPrint('${bloc.runtimeType} $change');
   }
 
   @override
-  void onTransition(Bloc bloc, Transition transition) {
+  void onTransition(Bloc<dynamic, dynamic> bloc, Transition<dynamic, dynamic> transition) {
     super.onTransition(bloc, transition);
     debugPrint('onTransition -- bloc: ${bloc.runtimeType}, transition: $transition');
   }
 
   @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
     debugPrint('onError -- bloc: ${bloc.runtimeType}, error: $error');
     super.onError(bloc, error, stackTrace);
   }
 
   @override
-  void onClose(BlocBase bloc) {
+  void onClose(BlocBase<dynamic> bloc) {
     super.onClose(bloc);
     debugPrint('onClose -- bloc: ${bloc.runtimeType}');
   }

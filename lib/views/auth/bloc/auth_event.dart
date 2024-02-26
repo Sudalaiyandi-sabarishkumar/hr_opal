@@ -6,11 +6,12 @@ abstract class AuthEvent {}
 class CheckForPreference extends AuthEvent {}
 
 class LoginWithPassword extends AuthEvent {
+  LoginWithPassword(this.mobile, this.password);
+
   final String? mobile;
   final String? password;
-
-  LoginWithPassword(this.mobile, this.password);
 }
 
-class LogOut extends AuthEvent {}
+class LogOut extends AuthEvent {
 
+}

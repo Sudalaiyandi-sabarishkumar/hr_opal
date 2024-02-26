@@ -2,16 +2,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
-import 'package:flutter_bloc_bp/views/auth/ui/init_page.dart';
-import 'package:flutter_bloc_bp/views/auth/bloc/auth_bloc.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:nested/nested.dart';
 import 'app_config.dart';
 import 'base_bloc/base_bloc.dart';
+import 'views/app/bloc/app_bloc.dart';
+import 'views/auth/bloc/auth_bloc.dart';
+import 'views/auth/ui/init_page.dart';
 
 final AuthBloc authBloc = AuthBloc();
 final AppBloc appBloc = AppBloc();
-final navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +29,9 @@ Future<void> main() async {
 
   runApp(
       MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => authBloc),
-            BlocProvider(create: (context) => appBloc),
+          providers: <SingleChildWidget>[
+            BlocProvider<AppBloc>(create: (BuildContext context) => appBloc),
+            BlocProvider<AuthBloc>(create: (BuildContext context) => authBloc),
           ],
           child: const MyApp()));
 }

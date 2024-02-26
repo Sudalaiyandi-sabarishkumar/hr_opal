@@ -8,8 +8,6 @@ class Utils {
   }
 
   static bool nullOrEmpty(String? token){
-    return (token == null || token == '');
+    return token == null || token == '';
   }
 }
-
-

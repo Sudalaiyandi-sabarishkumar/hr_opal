@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
-import 'package:flutter_bloc_bp/views/home/home_page.dart';
-
 import '../../../main.dart';
+import '../../app/bloc/app_bloc.dart';
+import '../../home/home_page.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,9 +15,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       authBloc.stream.listen(
-          (state) => (mounted ? onAuthBlocChange(context, state) : null));
+          (AuthState state) => (mounted ? onAuthBlocChange(context: context, state: state) : null));
     });
     super.initState();
   }
@@ -27,14 +26,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(children: [
+          child: Column(children: <Widget>[
         Expanded(
             child: Container(
                 width: double.infinity,
                 color: Colors.white,
                 child: Center(
                   child: BlocBuilder<AuthBloc, AuthState>(
-                      builder: (context, state) {
+                      builder: (BuildContext context, AuthState state) {
                     if (state is AuthLoading) {
                       return const Text('Logging in...');
                     } else {
@@ -51,18 +50,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void onAuthBlocChange(context, state) {
+  void onAuthBlocChange({required BuildContext context, required AuthState state}) {
     switch (state.runtimeType) {
       case const (LoginWithPasswordSuccess):
-        final currentState = state as LoginWithPasswordSuccess;
+        final LoginWithPasswordSuccess currentState = state as LoginWithPasswordSuccess;
         appBloc.add(SaveCurrentUser(user: currentState.user));
         Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<dynamic>(
               builder: (_) => const HomePage(),
             ));
       case const (AuthError):
-        final currentState = state as AuthError;
+        final AuthError currentState = state as AuthError;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(currentState.errorMsg),
         ));

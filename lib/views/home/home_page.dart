@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_bp/views/auth/ui/login_page.dart';
-
 import '../../main.dart';
 import '../app/bloc/app_bloc.dart';
 import '../auth/bloc/auth_bloc.dart';
+import '../auth/ui/login_page.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -18,8 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      authBloc.stream.listen((state) => (mounted ? onAuthBlocChange(context, state):null));
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      authBloc.stream.listen((AuthState state) => (mounted ? onAuthBlocChange(context: context, state: state):null));
     });
     super.initState();
   }
@@ -27,22 +26,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) {
+      builder: (BuildContext context, AuthState state) {
         return Scaffold(
           appBar:
               AppBar(title:  BlocBuilder<AppBloc, AppState>(
-                  builder: (context, state) {
+                  builder: (BuildContext context, AppState state) {
                   return Text('Welcome ${appBloc.stateData.user?.firstname ?? ''}');
                 }
               )),
           body: Center(
             child: Column(
-              children: [
-                (state is AuthLoading)
-                    ? const Text('Logging out...')
-                    : Row(
+              children: <Widget>[
+                if (state is AuthLoading) const Text('Logging out...') else Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
+                      children: <Widget>[
                         ElevatedButton(
                             onPressed: () {
                               authBloc.add(LogOut());
@@ -60,12 +57,12 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  void onAuthBlocChange(context, state) {
+  void onAuthBlocChange({required BuildContext context, required AuthState state}) {
     switch(state.runtimeType){
       case const (LogOutSuccess):
         Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<dynamic>(
               builder: (_) => BlocProvider<AuthBloc>.value(
                 value: AuthBloc(),
                 child: const LoginPage(),

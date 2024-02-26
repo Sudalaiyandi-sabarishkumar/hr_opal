@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/token.dart';
 import '../models/app_user.dart';
+import '../models/token.dart';
 
 class PreferencesClient {
   PreferencesClient({required this.prefs});
@@ -14,7 +13,7 @@ class PreferencesClient {
     if (userString == null || userString == '') {
       return null;
     }
-    final dynamic user = json.decode(userString);
+    final Map<String, dynamic> user = json.decode(userString) as Map<String, dynamic>;
     return AppUser.fromJson(user);
   }
 
@@ -33,7 +32,7 @@ class PreferencesClient {
     if (tokenString == null) {
       return null;
     }
-    final dynamic accessToken = json.decode(tokenString);
+    final Map<String, dynamic> accessToken = json.decode(tokenString) as Map<String, dynamic>;
     return Token.fromJson(accessToken);
   }
 

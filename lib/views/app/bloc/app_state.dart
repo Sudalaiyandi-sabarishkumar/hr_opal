@@ -10,7 +10,7 @@ class AppError extends AppState {}
 
 
 class StateData extends AppState {
-  AppUser? user;
-
   StateData({this.user});
+
+  AppUser? user;
 }
