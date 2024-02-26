@@ -27,6 +27,8 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
   ]);
 
+  await ScreenUtil.ensureScreenSize();
+
   Bloc.observer = AppBlocObserver();
 
   runApp(MultiBlocProvider(providers: <SingleChildWidget>[
