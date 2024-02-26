@@ -14,17 +14,19 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
     try {
       await eventHandlerMethod(event, emit);
     } on DioException catch (dioError) {
-      debugPrint('============ eventHandler DioException: ${dioError.response?.data}');
-      try{
-        final Map<String, dynamic> err = dioError.response?.data as Map<String, dynamic>;
-        if (err.containsKey('error')) {
+      debugPrint(
+          '============ eventHandler DioException: ${dioError.response?.data}');
+      try {
+        if (dioError.response?.statusCode == 422) {
+          final Map<String, dynamic> err =
+              dioError.response?.data as Map<String, dynamic>;
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
             ..errorMsg = err['error'].toString());
         } else {
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
-            ..errorMsg = err.toString());
+            ..errorMsg = dioError.message ?? 'Something Went Wrong');
         }
       } catch (err) {
         debugPrint('============ eventHandler catch block: $err');
@@ -50,7 +52,6 @@ abstract class ErrorState {
   String errorMsg = '';
 }
 
-
 class AppBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
@@ -59,9 +60,11 @@ class AppBlocObserver extends BlocObserver {
   }
 
   @override
-  void onTransition(Bloc<dynamic, dynamic> bloc, Transition<dynamic, dynamic> transition) {
+  void onTransition(
+      Bloc<dynamic, dynamic> bloc, Transition<dynamic, dynamic> transition) {
     super.onTransition(bloc, transition);
-    debugPrint('onTransition -- bloc: ${bloc.runtimeType}, transition: $transition');
+    debugPrint(
+        'onTransition -- bloc: ${bloc.runtimeType}, transition: $transition');
   }
 
   @override

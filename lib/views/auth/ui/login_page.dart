@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../main.dart';
 import '../../app/bloc/app_bloc.dart';
+import '../../global_widgets/common_button.dart';
+import '../../global_widgets/form_helper/text_field.dart';
+import '../../global_widgets/widget_helper.dart';
 import '../../home/home_page.dart';
 import '../bloc/auth_bloc.dart';
 
@@ -13,48 +17,73 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   void initState() {
+    userNameController.text = 'TCRO1';
+    passwordController.text = 'Password@123';
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      authBloc.stream.listen(
-          (AuthState state) => (mounted ? onAuthBlocChange(context: context, state: state) : null));
+      authBloc.stream.listen((AuthState state) =>
+          (mounted ? onAuthBlocChange(context: context, state: state) : null));
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> logInFormKey = GlobalKey<FormState>();
     final TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
+      appBar: AppBar(
+          title:
+              Text('Flutter BLoC Boiler Plate', style: textTheme.titleLarge)),
       body: SafeArea(
-          child: Column(children: <Widget>[
-        Expanded(
-            child: Container(
-                width: double.infinity,
-                color: Colors.white,
-                child: Center(
-                  child: BlocBuilder<AuthBloc, AuthState>(
-                      builder: (BuildContext context, AuthState state) {
-                    if (state is AuthLoading) {
-                      return Text('Logging in...', style: textTheme.bodyMedium);
-                    } else {
-                      return ElevatedButton(
-                          onPressed: () {
-                            authBloc.add(
-                                LoginWithPassword('TCRO1', 'Password@123'));
-                          },
-                          child: Text('Login', style: textTheme.bodyMedium));
-                    }
-                  }),
-                ))),
-      ])),
+          child: Form(
+        key: logInFormKey,
+        child: Column(
+          children: <Widget>[
+            const Spacer(),
+            CommonTextField(
+                controller: userNameController,
+                labelText: 'User Name',
+                validator: Validator.empty_validator),
+            getSpace(20.sp, 0),
+            CommonTextField(
+                controller: passwordController,
+                labelText: 'Password',
+                validator: Validator.password_validator),
+            const Spacer(),
+            const Spacer(),
+          ],
+        ),
+      )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: BlocBuilder<AuthBloc, AuthState>(
+          builder: (BuildContext context, AuthState state) {
+        return CommonButton(
+          onPressed: () {
+            if (logInFormKey.currentState?.validate() ?? false) {
+              authBloc.add(LoginWithPassword(
+                  userNameController.text, passwordController.text));
+            }
+          },
+          text: 'Login',
+          isLoading: state is AuthLoading,
+          loadingText: 'Logging in...',
+        );
+      }),
     );
   }
 
-  void onAuthBlocChange({required BuildContext context, required AuthState state}) {
+  void onAuthBlocChange(
+      {required BuildContext context, required AuthState state}) {
     switch (state.runtimeType) {
       case const (LoginWithPasswordSuccess):
-        final LoginWithPasswordSuccess currentState = state as LoginWithPasswordSuccess;
+        final LoginWithPasswordSuccess currentState =
+            state as LoginWithPasswordSuccess;
         appBloc.add(SaveCurrentUser(user: currentState.user));
         Navigator.pushReplacement(
             context,
