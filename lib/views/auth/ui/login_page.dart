@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
           child: Column(children: <Widget>[
@@ -35,14 +36,14 @@ class _LoginPageState extends State<LoginPage> {
                   child: BlocBuilder<AuthBloc, AuthState>(
                       builder: (BuildContext context, AuthState state) {
                     if (state is AuthLoading) {
-                      return const Text('Logging in...');
+                      return Text('Logging in...', style: textTheme.bodyMedium);
                     } else {
                       return ElevatedButton(
                           onPressed: () {
                             authBloc.add(
                                 LoginWithPassword('TCRO1', 'Password@123'));
                           },
-                          child: const Text('Login'));
+                          child: Text('Login', style: textTheme.bodyMedium));
                     }
                   }),
                 ))),

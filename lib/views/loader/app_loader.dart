@@ -10,13 +10,14 @@ class AppLoader extends StatefulWidget {
 class AppLoaderState extends State<AppLoader> {
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Stack(
         children: <Widget>[
           SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: const Center(child: Text('Loading...')),
+            child: Center(child: Text('Loading...', style: textTheme.bodyMedium)),
           ),
         ],
       ),

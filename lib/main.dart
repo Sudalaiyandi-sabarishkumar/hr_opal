@@ -6,6 +6,7 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:nested/nested.dart';
 import 'app_config.dart';
 import 'base_bloc/base_bloc.dart';
+import 'theme.dart';
 import 'views/app/bloc/app_bloc.dart';
 import 'views/auth/bloc/auth_bloc.dart';
 import 'views/auth/ui/init_page.dart';
@@ -59,6 +60,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
+      theme: themeData,
       title: 'MyApp',
       home: const InitPage(),
       debugShowCheckedModeBanner: AppConfig.shared.flavor == Flavor.staging,

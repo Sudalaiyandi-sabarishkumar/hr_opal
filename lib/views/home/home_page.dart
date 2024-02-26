@@ -25,26 +25,28 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (BuildContext context, AuthState state) {
         return Scaffold(
           appBar:
               AppBar(title:  BlocBuilder<AppBloc, AppState>(
                   builder: (BuildContext context, AppState state) {
-                  return Text('Welcome ${appBloc.stateData.user?.firstname ?? ''}');
+                  return Text('Welcome ${appBloc.stateData.user?.firstname ?? ''}', style: textTheme.titleLarge);
                 }
               )),
           body: Center(
             child: Column(
               children: <Widget>[
-                if (state is AuthLoading) const Text('Logging out...') else Row(
+                if (state is AuthLoading) Text('Logging out...', style: textTheme.bodyMedium) else Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         ElevatedButton(
                             onPressed: () {
                               authBloc.add(LogOut());
                             },
-                            child: const Text('Logout')),
+                            child: Text('Logout', style: textTheme.bodyMedium?.copyWith(color: colorScheme.error))),
                       ],
                     ),
                 const Spacer(),
