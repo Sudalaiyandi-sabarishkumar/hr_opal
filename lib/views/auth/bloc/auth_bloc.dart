@@ -32,13 +32,12 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
       LoginWithPassword event, Emitter<AuthState> emit) async {
       emit(AuthLoading());
       final Map<String, dynamic> objToApi = <String, dynamic>{
-        'employee': <String, Object>{
-          'email': event.mobile ?? '',
-          'password': event.password ?? '',
-          'build_number': 100,
-          'is_mobile': true,
-          'grant_type': 'password'
+        'customer':<String, String?>{
+          'email': event.mobile,
+          'password': event.password,
+          'grant_type': 'password',
         }
+
       };
       final Map<String, dynamic>? response =
       await authService.loginWithPassword(objToApi: objToApi);
