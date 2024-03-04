@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../main.dart';
 import '../app/bloc/app_bloc.dart';
 import '../auth/bloc/auth_bloc.dart';
 import '../auth/ui/login_page.dart';
@@ -14,8 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final AppBloc appBloc;
+  late final AuthBloc authBloc;
+
   @override
   void initState() {
+    appBloc = BlocProvider.of<AppBloc>(context);
+    authBloc = BlocProvider.of<AuthBloc>(context);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       authBloc.stream.listen((AuthState state) =>
           (mounted ? onAuthBlocChange(context: context, state: state) : null));

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../main.dart';
 import '../../app/bloc/app_bloc.dart';
 import '../../global_widgets/common_button.dart';
 import '../../global_widgets/form_helper/text_field.dart';
@@ -19,11 +18,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  late final AuthBloc authBloc;
+  late final AppBloc appBloc;
 
   @override
   void initState() {
-    userNameController.text = 'TCRO1';
+    userNameController.text = 'jackwilliap@gmail.com';
     passwordController.text = 'Password@123';
+    authBloc = BlocProvider.of<AuthBloc>(context);
+    appBloc = BlocProvider.of<AppBloc>(context);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       authBloc.stream.listen((AuthState state) =>
           (mounted ? onAuthBlocChange(context: context, state: state) : null));
@@ -82,8 +85,7 @@ class _LoginPageState extends State<LoginPage> {
       {required BuildContext context, required AuthState state}) {
     switch (state.runtimeType) {
       case const (LoginWithPasswordSuccess):
-        final LoginWithPasswordSuccess currentState =
-            state as LoginWithPasswordSuccess;
+        final LoginWithPasswordSuccess currentState = state as LoginWithPasswordSuccess;
         appBloc.add(SaveCurrentUser(user: currentState.user));
         Navigator.pushReplacement(
             context,
