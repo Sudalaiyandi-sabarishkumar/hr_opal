@@ -4,8 +4,8 @@ class AppUser {
 
   AppUser.fromJson(Map<String, dynamic> json) {
     id = int.parse(json['id'].toString());
-    firstname = json['first_name'].toString();
-    lastname = json['last_name'].toString();
+    firstname = json['firstname'].toString();
+    lastname = json['lastname'].toString();
   }
   int? id;
   String? firstname;
