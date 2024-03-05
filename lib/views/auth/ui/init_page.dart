@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/utils.dart';
-import '../../../main.dart';
 import '../../app/bloc/app_bloc.dart';
 import '../../home/home_page.dart';
 import '../../loader/app_loader.dart';
@@ -17,9 +16,13 @@ class InitPage extends StatefulWidget {
 }
 
 class _InitPageState extends State<InitPage> {
+  late final AuthBloc authBloc;
+  late final AppBloc appBloc;
 
   @override
   void initState() {
+    authBloc = BlocProvider.of<AuthBloc>(context);
+    appBloc = BlocProvider.of<AppBloc>(context);
     authBloc.add(CheckForPreference());
     super.initState();
   }

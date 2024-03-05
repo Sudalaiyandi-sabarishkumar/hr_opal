@@ -12,8 +12,6 @@ import 'views/app/bloc/app_bloc.dart';
 import 'views/auth/bloc/auth_bloc.dart';
 import 'views/auth/ui/init_page.dart';
 
-final AuthBloc authBloc = AuthBloc();
-final AppBloc appBloc = AppBloc();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
@@ -32,8 +30,8 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
 
   runApp(MultiBlocProvider(providers: <SingleChildWidget>[
-    BlocProvider<AppBloc>(create: (BuildContext context) => appBloc),
-    BlocProvider<AuthBloc>(create: (BuildContext context) => authBloc),
+    BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
+    BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
   ], child: const MyApp()));
 }
 
