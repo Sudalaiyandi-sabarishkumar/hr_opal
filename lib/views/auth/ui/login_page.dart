@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    userNameController.text = 'jackwilliap@gmail.com';
+    userNameController.text = 'TCRO1';
     passwordController.text = 'Password@123';
     authBloc = BlocProvider.of<AuthBloc>(context);
     appBloc = BlocProvider.of<AppBloc>(context);
