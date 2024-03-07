@@ -50,4 +50,6 @@ app.*.map.json
 *.g.dart
 
 #uncomment this
-.env*
+#.env*
+
+/coverage/

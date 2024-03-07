@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_bp/app_config.dart';
@@ -14,13 +13,9 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class MyTestApp extends StatefulWidget {
   const MyTestApp({
     super.key,
-    required this.appBloc,
-    required this.authBloc,
     required this.testWidget,
   });
   final Widget testWidget;
-  final AppBloc appBloc;
-  final AuthBloc authBloc;
 
   @override
   MyTestAppState createState() => MyTestAppState();
@@ -30,7 +25,7 @@ class MyTestAppState extends State<MyTestApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    TestWidgetsFlutterBinding.instance.addObserver(this);
     _init();
   }
 
@@ -40,8 +35,8 @@ class MyTestAppState extends State<MyTestApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <SingleChildWidget>[
-        BlocProvider<AppBloc>(create: (BuildContext context) => widget.appBloc),
-        BlocProvider<AuthBloc>(create: (BuildContext context) => widget.authBloc),
+        BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
+        BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(390, 835),

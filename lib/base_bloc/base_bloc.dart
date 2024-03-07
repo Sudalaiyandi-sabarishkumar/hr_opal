@@ -16,6 +16,7 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
     } on DioException catch (dioError) {
       debugPrint(
           '============ eventHandler DioException: ${dioError.response?.data}');
+      debugPrint('$dioError');
       try {
         if (dioError.response?.statusCode == 422) {
           final Map<String, dynamic> err =
