@@ -7,13 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../mock_api/login_mock_api/login_mock_api.dart';
-import '../../test_helpers/my_test_app.dart';
+import '../../test_helpers/testable_app.dart';
 import '../../test_helpers/widget_test_helper.dart';
 
 void main() {
-  const Key userNameFieldKey = Key('UserNameTextFieldKey');
-  const Key passwordFieldKey = Key('PasswordTextFieldKey');
-  const Key loginButtonKey = Key('LoginButtonKey');
+  const Key userNameFieldKey = Key('username_textfield_key');
+  const Key passwordFieldKey = Key('password_textfield_key');
+  const Key loginButtonKey = Key('login_button_key');
 
   setUp(() async {
     FlutterConfig.loadValueForTesting(<String, String>{
@@ -114,7 +114,7 @@ void main() {
 
       testWidgets('Successful validation', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const MyTestApp(
+          const TestableApp(
             testWidget: LoginPage(),
           ),
         );
@@ -139,7 +139,7 @@ void main() {
     group('LoginPage:- Login button tap', () {
       testWidgets('Check for loading text', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const MyTestApp(
+          const TestableApp(
             testWidget: LoginPage(),
           ),
         );
@@ -161,7 +161,7 @@ void main() {
 
       testWidgets('Successful Login', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const MyTestApp(
+          const TestableApp(
             testWidget: LoginPage(),
           ),
         );
@@ -182,7 +182,7 @@ void main() {
 
       testWidgets('Unauthorized Login', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const MyTestApp(
+          const TestableApp(
             testWidget: LoginPage(),
           ),
         );

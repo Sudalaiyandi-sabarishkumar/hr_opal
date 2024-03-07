@@ -10,12 +10,11 @@ enum Validator{
 
 class CommonTextField extends StatelessWidget {
   const CommonTextField(
-      {super.key, required this.controller, required this.labelText, this.validator = Validator.no_validator, this.customKey});
+      {super.key, required this.controller, required this.labelText, this.validator = Validator.no_validator, });
 
   final TextEditingController controller;
   final String labelText;
   final Validator validator;
-  final Key? customKey;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,6 @@ class CommonTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
-        key: customKey,
         controller: controller,
         validator: (String? val) {
           switch (validator){

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'my_test_app.dart';
+import 'testable_app.dart';
 
 class WidgetTestHelper {
   static FutureOr<void> widgetPresenceTestByKey({
@@ -12,7 +12,7 @@ class WidgetTestHelper {
     required Key widgetKey,
   }) async {
     await tester.pumpWidget(
-      MyTestApp(
+      TestableApp(
         testWidget: testWidget,
       ),
     );
@@ -28,7 +28,7 @@ class WidgetTestHelper {
     Type? parentOfText,
   }) async {
     await tester.pumpWidget(
-      MyTestApp(
+      TestableApp(
         testWidget: testWidget,
       ),
     );
@@ -46,7 +46,7 @@ class WidgetTestHelper {
     required String text,
   }) async {
     await tester.pumpWidget(
-      MyTestApp(
+      TestableApp(
         testWidget: testWidget,
       ),
     );
@@ -71,7 +71,7 @@ class WidgetTestHelper {
     String enteredText='',
   }) async {
     await tester.pumpWidget(
-      MyTestApp(
+      TestableApp(
         testWidget: testWidget,
       ),
     );
