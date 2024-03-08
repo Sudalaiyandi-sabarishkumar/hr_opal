@@ -10,18 +10,18 @@ import 'package:nested/nested.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-class TestableApp extends StatefulWidget {
-  const TestableApp({
+class TestApp extends StatefulWidget {
+  const TestApp({
     super.key,
     required this.testWidget,
   });
   final Widget testWidget;
 
   @override
-  TestableAppState createState() => TestableAppState();
+  TestAppState createState() => TestAppState();
 }
 
-class TestableAppState extends State<TestableApp> with WidgetsBindingObserver {
+class TestAppState extends State<TestApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_bp/api_repository/api_repository.dart';
 import 'package:flutter_bloc_bp/views/auth/ui/login_page.dart';
 import 'package:flutter_bloc_bp/views/home/home_page.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../mock_api/login_mock_api/login_mock_api.dart';
-import '../../test_helpers/testable_app.dart';
+import '../../test_helpers/load_test_env_variables.dart';
+import '../../test_helpers/test_app.dart';
 import '../../test_helpers/widget_test_helper.dart';
 
 void main() {
@@ -16,13 +16,8 @@ void main() {
   const Key loginButtonKey = Key('login_button_key');
 
   setUp(() async {
-    FlutterConfig.loadValueForTesting(<String, String>{
-      'ENVIRONMENT': 'staging',
-      'APP_LABEL': 'BP testing',
-      'SCHEME': 'http',
-      'SCOPE': 'api/v1',
-      'HOST': 'api.example.test'
-    });
+    TestWidgetsFlutterBinding.ensureInitialized();
+    loadTestEnvVariables();
     SharedPreferences.setMockInitialValues(<String, Object>{});
 
     final DioAdapter dioAdapter = DioAdapter(dio: ApiRepository.apiClient);
@@ -114,7 +109,7 @@ void main() {
 
       testWidgets('Successful validation', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const TestableApp(
+          const TestApp(
             testWidget: LoginPage(),
           ),
         );
@@ -139,7 +134,7 @@ void main() {
     group('LoginPage:- Login button tap', () {
       testWidgets('Check for loading text', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const TestableApp(
+          const TestApp(
             testWidget: LoginPage(),
           ),
         );
@@ -161,7 +156,7 @@ void main() {
 
       testWidgets('Successful Login', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const TestableApp(
+          const TestApp(
             testWidget: LoginPage(),
           ),
         );
@@ -182,7 +177,7 @@ void main() {
 
       testWidgets('Unauthorized Login', (WidgetTester tester) async {
         await tester.pumpWidget(
-          const TestableApp(
+          const TestApp(
             testWidget: LoginPage(),
           ),
         );

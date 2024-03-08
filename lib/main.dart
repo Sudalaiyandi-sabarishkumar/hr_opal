@@ -32,17 +32,17 @@ Future<void> main() async {
   runApp(MultiBlocProvider(providers: <SingleChildWidget>[
     BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
     BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
-  ], child: const MyApp()));
+  ], child: const App()));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
 
   @override
-  MyAppState createState() => MyAppState();
+  AppState createState() => AppState();
 }
 
-class MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
