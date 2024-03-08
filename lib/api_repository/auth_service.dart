@@ -10,7 +10,7 @@ class AuthService extends ApiRepository {
 //************************************ log-in *********************************//
   Future<Map<String, dynamic>?> loginWithPassword(
       {Map<String, dynamic>? objToApi}) async {
-    final Response<dynamic> res = await apiClient.post(
+    final Response<dynamic> res = await ApiRepository.apiClient.post(
       '/user_management/employee/login',
       data: objToApi
     );
@@ -20,7 +20,7 @@ class AuthService extends ApiRepository {
 //************************************ log-out *********************************//
   Future<Response<dynamic>> logOut(
       {Map<String, String>? headersToApi}) async {
-    final Response<dynamic> res = await apiClient.delete(
+    final Response<dynamic> res = await ApiRepository.apiClient.delete(
       '/user_management/employee/logout',
       options: Options(headers: headersToApi)
     );
