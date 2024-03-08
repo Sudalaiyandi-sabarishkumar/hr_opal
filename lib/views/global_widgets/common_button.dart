@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class CommonButton extends StatelessWidget {
   const CommonButton(
       {super.key,
+      this.customKey,
       this.onPressed,
       required this.text,
       this.isRedText = false,
@@ -14,6 +15,7 @@ class CommonButton extends StatelessWidget {
   final String loadingText;
   final bool isRedText;
   final bool isLoading;
+  final Key? customKey;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class CommonButton extends StatelessWidget {
         : Padding(
       padding: const EdgeInsets.all(20),
       child: ElevatedButton(
+              key: customKey,
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
                   backgroundColor: colorScheme.secondary

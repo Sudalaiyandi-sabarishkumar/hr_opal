@@ -50,13 +50,13 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             const Spacer(),
             CommonTextField(
-                key: const Key('username_textfield_key'),
+                customKey: const Key('username_textfield_key'),
                 controller: userNameController,
                 labelText: 'User Name',
                 validator: Validator.empty_validator),
             getSpace(20.sp, 0),
             CommonTextField(
-                key: const Key('password_textfield_key'),
+                customKey: const Key('password_textfield_key'),
                 controller: passwordController,
                 labelText: 'Password',
                 validator: Validator.password_validator),
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       floatingActionButton: BlocBuilder<AuthBloc, AuthState>(
           builder: (BuildContext context, AuthState state) {
         return CommonButton(
-          key: const Key('login_button_key'),
+          customKey: const Key('login_button_key'),
           onPressed: () {
             if (logInFormKey.currentState?.validate() ?? false) {
               authBloc.add(LoginWithPassword(
