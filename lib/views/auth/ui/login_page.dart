@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../app_router.dart';
 import '../../app/bloc/app_bloc.dart';
 import '../../global_widgets/common_button.dart';
 import '../../global_widgets/form_helper/text_field.dart';
 import '../../global_widgets/widget_helper.dart';
-import '../../home/home_page.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -90,11 +91,7 @@ class _LoginPageState extends State<LoginPage> {
       case const (LoginWithPasswordSuccess):
         final LoginWithPasswordSuccess currentState = state as LoginWithPasswordSuccess;
         appBloc.add(SaveCurrentUser(user: currentState.user));
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute<dynamic>(
-              builder: (_) => const HomePage(),
-            ));
+        context.goNamed(RouteConstants.homePage);
       case const (AuthError):
         final AuthError currentState = state as AuthError;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../app_router.dart';
 import '../app/bloc/app_bloc.dart';
 import '../auth/bloc/auth_bloc.dart';
-import '../auth/ui/login_page.dart';
 import '../global_widgets/common_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,11 +71,7 @@ class _HomePageState extends State<HomePage> {
       {required BuildContext context, required AuthState state}) {
     switch (state.runtimeType) {
       case const (LogOutSuccess):
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute<dynamic>(
-              builder: (_) => const LoginPage(),
-            ));
+        context.goNamed(RouteConstants.loginPage);
     }
   }
 }

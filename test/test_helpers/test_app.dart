@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_bp/app_config.dart';
+import 'package:flutter_bloc_bp/app_router.dart';
 import 'package:flutter_bloc_bp/theme.dart';
 import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
 import 'package:flutter_bloc_bp/views/auth/bloc/auth_bloc.dart';
@@ -41,11 +41,9 @@ class TestAppState extends State<TestApp> with WidgetsBindingObserver {
       child: ScreenUtilInit(
         designSize: const Size(390, 835),
         builder: (_, Widget? child) {
-          return MaterialApp(
-            navigatorKey: navigatorKey,
+          return MaterialApp.router(
             theme: themeData,
-            home: widget.testWidget,
-            debugShowCheckedModeBanner: AppConfig.shared.flavor == Flavor.staging,
+            routerConfig: AppRouter.getRouter(initialLocation: '/auth/login'),
           );
         },
       ),
