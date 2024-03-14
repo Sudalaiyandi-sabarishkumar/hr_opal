@@ -1,12 +1,12 @@
 class AppUser {
-
   AppUser({this.id, this.firstname, this.lastname});
 
   AppUser.fromJson(Map<String, dynamic> json) {
-    id = int.parse(json['id'].toString());
+    id = json['id'] != null ? int.parse(json['id'].toString()) : null;
     firstname = json['firstname'].toString();
     lastname = json['lastname'].toString();
   }
+
   int? id;
   String? firstname;
   String? lastname;
