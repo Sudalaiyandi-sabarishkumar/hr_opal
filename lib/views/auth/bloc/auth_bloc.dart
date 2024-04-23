@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../api_repository/auth_service.dart';
 import '../../../base_bloc/base_bloc.dart';
+import '../../../core/utils/helper_functions.dart';
 import '../../../core/utils/utils.dart';
 import '../../../models/app_user.dart';
 import '../../../models/token.dart';
 import '../../../preference_client/preference_client.dart';
+import '../../app/bloc/app_bloc.dart';
+import '../../global_widgets/toast_helper.dart';
+import '../../home/home_page.dart';
+import '../ui/login_page.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
@@ -75,5 +81,40 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   @override
   AuthState getErrorState() {
     return AuthError();
+  }
+}
+
+Future<void> onAuthBlocChange(
+    {required BuildContext context,
+    required AuthState state,
+    required AppBloc appBloc}) async {
+  switch (state.runtimeType) {
+    case const (LogOutSuccess):
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (_) => const LoginPage(),
+          ));
+
+    case const (LoginWithPasswordSuccess):
+      final LoginWithPasswordSuccess currentState =
+          state as LoginWithPasswordSuccess;
+      appBloc.add(SaveCurrentUser(user: currentState.user));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (_) => const HomePage(),
+          ));
+
+    case const (AuthError):
+      final AuthError currentState = state as AuthError;
+      if (currentState.forceLogOut) {
+        await forceLogOut(context);
+      }
+      if (context.mounted) {
+        ToastHelper.failureToast(
+            context: context,
+            message: '${currentState.errorCode} : ${currentState.errorMsg}');
+      }
   }
 }

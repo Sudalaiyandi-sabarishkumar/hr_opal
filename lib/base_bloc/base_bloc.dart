@@ -24,6 +24,11 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
             ..errorMsg = err['error'].toString());
+        } else if (dioError.response?.statusCode == 401) {
+          emit(getErrorState()
+            ..errorCode = dioError.response?.statusCode ?? 0
+            ..errorMsg = 'Unauthorized'
+            ..forceLogOut = true);
         } else {
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
@@ -39,7 +44,8 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
       debugPrint('============ eventHandler catch block: $err');
       emit(getErrorState()
         ..errorCode = 0
-        ..errorMsg = err.toString());
+        ..errorMsg = err.toString()
+        ..forceLogOut = true);
     }
   }
 
@@ -51,6 +57,7 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
 abstract class ErrorState {
   int errorCode = 0;
   String errorMsg = '';
+  bool forceLogOut = false;
 }
 
 class AppBlocObserver extends BlocObserver {
