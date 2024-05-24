@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_bp/api_repository/api_repository.dart';
-import 'package:flutter_bloc_bp/views/auth/ui/login_page.dart';
+import 'package:flutter_bloc_bp/core/api_repository/api_repository.dart';
+import 'package:flutter_bloc_bp/views/auth/login_page.dart';
 import 'package:flutter_bloc_bp/views/home/home_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';

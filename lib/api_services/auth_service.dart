@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import '../core/api_repository/api_repository.dart';
 import '../models/app_user.dart';
 import '../models/token.dart';
-import 'api_repository.dart';
-
 
 class AuthService extends ApiRepository {
 

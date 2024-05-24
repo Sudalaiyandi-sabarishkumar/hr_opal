@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/utils/utils.dart';
-import '../../app/bloc/app_bloc.dart';
-import '../../home/home_page.dart';
-import '../../loader/app_loader.dart';
-import '../bloc/auth_bloc.dart';
+import '../../bloc/app_bloc/app_bloc.dart';
+import '../../bloc/auth_bloc/auth_bloc.dart';
+import '../../core/utils/utils.dart';
+import '../home/home_page.dart';
+import '../loader/app_loader.dart';
 import 'login_page.dart';
 
 

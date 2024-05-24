@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../api_repository/auth_service.dart';
-import '../../../base_bloc/base_bloc.dart';
 import '../../../models/app_user.dart';
-import '../../../preference_client/preference_client.dart';
+import '../../api_services/auth_service.dart';
+import '../../core/base_bloc/base_bloc.dart';
+import '../../core/preference_client/preference_client.dart';
 
 part 'app_event.dart';
 part 'app_state.dart';
