@@ -49,5 +49,8 @@ app.*.map.json
 #remove custom files
 *.g.dart
 
+# Test coverage reports
+/coverage/
+
 #uncomment this
 #.env*

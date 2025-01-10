@@ -8,8 +8,9 @@ class AppLoading extends AppState {}
 
 class AppError extends AppState {}
 
-class CheckForPreferenceSuccess extends AppState {
-  AppUser? user;
 
-  CheckForPreferenceSuccess({this.user});
+class StateData extends AppState {
+  StateData({this.user});
+
+  AppUser? user;
 }
