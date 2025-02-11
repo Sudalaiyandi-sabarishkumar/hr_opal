@@ -22,7 +22,9 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+// flutter_env_native
+def flutter_env_native = project(':flutter_env_native')
+apply from: "${flutter_env_native.projectDir}/envConfig.gradle"
 
 android {
     namespace "com.example.flutter_bloc_bp"
@@ -66,12 +68,12 @@ android {
     productFlavors {
         production {
             dimension "default"
-            resValue "string", "app_name", project.env.get('APP_LABEL')
+            resValue "string", "app_name", APP_LABEL ?: "BP"
         }
         staging {
             dimension "default"
             applicationIdSuffix ".staging"
-            resValue "string", "app_name", project.env.get('APP_LABEL')
+            resValue "string", "app_name", APP_LABEL ?: "BP [STG]"
             versionNameSuffix ".staging"
         }
     }
