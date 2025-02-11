@@ -54,3 +54,6 @@ app.*.map.json
 
 #uncomment this
 #.env*
+
+# FVM Version Cache
+.fvm/
