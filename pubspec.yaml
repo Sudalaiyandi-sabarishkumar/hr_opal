@@ -45,6 +45,9 @@ dependencies:
   bloc: ^8.1.4
   pretty_dio_logger: ^1.4.0
   dio: ^5.8.0+1
+  firebase_crashlytics: ^4.3.7
+  firebase_core: ^3.14.0
+  firebase_analytics: ^11.5.0
 
 dev_dependencies:
   flutter_test:

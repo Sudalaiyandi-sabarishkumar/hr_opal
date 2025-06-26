@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../utils/firebase_utils.dart';
 
 abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
   BaseBloc(super.initialState) {
@@ -18,7 +22,13 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
           '============ eventHandler DioException: ${dioError.response?.data}');
       debugPrint('$dioError');
       try {
-        if (dioError.response?.statusCode == 422) {
+        if (dioError.response?.statusCode == 500) {
+          emit(getErrorState()
+            ..errorCode = dioError.response?.statusCode ?? 500
+            ..errorMsg = 'Internal Server Error');
+        } else if (dioError.response?.statusCode == 422 ||
+            dioError.response?.statusCode == 400 ||
+            dioError.response?.statusCode == 404) {
           final Map<String, dynamic> err =
               dioError.response?.data as Map<String, dynamic>;
           emit(getErrorState()
@@ -30,6 +40,21 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
             ..errorMsg = 'Unauthorized'
             ..forceLogOut = true);
         } else {
+          if (!FirebaseUtils.isFlutterTest) {
+            FirebaseAnalytics.instance.logEvent(
+              name: 'api_error',
+              parameters: <String, Object>{
+                'message': 'Check',
+                'value':
+                    '${dioError.response?.statusMessage} ${dioError.response?.statusCode}',
+              },
+            );
+            FirebaseCrashlytics.instance.recordError(
+              '${dioError.response?.statusMessage} ${dioError.response?.statusCode}',
+              null,
+              reason: 'api-error-with-catch',
+            );
+          }
           emit(getErrorState()
             ..errorCode = dioError.response?.statusCode ?? 0
             ..errorMsg = dioError.message ?? 'Something Went Wrong');
@@ -40,7 +65,22 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
           ..errorCode = 0
           ..errorMsg = err.toString());
       }
-    } catch (err) {
+    } catch (err, stackTrace) {
+      debugPrint('///////////////$stackTrace');
+      if (!FirebaseUtils.isFlutterTest) {
+        FirebaseAnalytics.instance.logEvent(
+          name: 'api_error',
+          parameters: <String, Object>{
+            'message': 'Check',
+            'value': '$err',
+          },
+        );
+        FirebaseCrashlytics.instance.recordError(
+          err,
+          stackTrace,
+          reason: 'api-error-with-catch',
+        );
+      }
       debugPrint('============ eventHandler catch block: $err');
       emit(getErrorState()
         ..errorCode = 0
