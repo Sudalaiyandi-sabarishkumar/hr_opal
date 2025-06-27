@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,13 @@ Future<void> main() async {
 
   AppConfig.initiate();
   await Firebase.initializeApp();
+
+  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+
+  if (kDebugMode) {
+    await FirebaseAnalytics.instance
+        .setSessionTimeoutDuration(const Duration(seconds: 1));
+  }
 
   FirebaseCrashlytics.instance
       .setCustomKey('environment', '${AppConfig.shared.flavor}');
