@@ -5,6 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nested/nested.dart';
 import 'app_config.dart';
+import 'app_router.dart';
+import 'base_bloc/base_bloc.dart';
+import 'theme.dart';
+import 'views/app/bloc/app_bloc.dart';
+import 'views/auth/bloc/auth_bloc.dart';
 import 'bloc/app_bloc/app_bloc.dart';
 import 'bloc/auth_bloc/auth_bloc.dart';
 import 'core/base_bloc/base_bloc.dart';
@@ -54,12 +59,9 @@ class AppState extends State<App> with WidgetsBindingObserver {
     return ScreenUtilInit(
         designSize: const Size(390, 835),
         builder: (_, Widget? child) {
-          return MaterialApp(
-            navigatorKey: navigatorKey,
+          return MaterialApp.router(
             theme: themeData,
-            home: const InitPage(),
-            debugShowCheckedModeBanner:
-                AppConfig.shared.flavor == Flavor.staging,
+            routerConfig: AppRouter.getRouter(),
           );
         });
   }

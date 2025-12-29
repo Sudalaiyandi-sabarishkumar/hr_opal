@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../app_router.dart';
+import '../app/bloc/app_bloc.dart';
+import '../auth/bloc/auth_bloc.dart';
 import '../../bloc/app_bloc/app_bloc.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../global_widgets/common_button.dart';
@@ -64,5 +68,13 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void onAuthBlocChange(
+      {required BuildContext context, required AuthState state}) {
+    switch (state.runtimeType) {
+      case const (LogOutSuccess):
+        context.goNamed(RouteConstants.loginPage);
+    }
   }
 }
