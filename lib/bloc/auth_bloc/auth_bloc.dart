@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/utils/helper_functions.dart';
-import '../../../core/utils/utils.dart';
 import '../../../models/app_user.dart';
 import '../../../models/token.dart';
 import '../../api_services/auth_service.dart';
@@ -60,8 +59,11 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final Token? token = await PreferencesClient(prefs: prefs).getUserAccessToken();
-    final Map<String, String> headersToApi = await Utils.getHeader(token?.accessToken);
-    await authService.logOut(headersToApi: headersToApi);
+    final Map<String, String> body = <String, String>{
+      'access_token': token?.accessToken ?? '',
+      'refresh_token': token?.refreshToken ?? '',
+    };
+    await authService.logOut(body: body);
     PreferencesClient(prefs: prefs).saveUser();
     emit(LogOutSuccess());
   }

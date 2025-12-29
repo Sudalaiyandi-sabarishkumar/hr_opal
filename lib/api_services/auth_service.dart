@@ -1,28 +1,31 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
+import 'package:rq_network_flutter/helpers/typedefs.dart';
+import 'package:rq_network_flutter/networking/response_model.dart';
 import '../core/api_repository/api_repository.dart';
-import '../models/app_user.dart';
-import '../models/token.dart';
 
 class AuthService extends ApiRepository {
 //************************************ log-in *********************************//
   Future<Map<String, dynamic>?> loginWithPassword(
       {Map<String, dynamic>? objToApi}) async {
-    final Response<dynamic> res = await ApiRepository.apiClient
-        .post('/user_management/employee/login', data: objToApi);
-    return <String, dynamic>{
-      'customer': AppUser.fromJson((res.data
-          as Map<String, dynamic>)['employee'] as Map<String, dynamic>),
-      'token': Token.fromJson(
-          (res.data as Map<String, dynamic>)['token'] as Map<String, dynamic>)
-    };
+    final ResponseModel<JSON?> res = await ApiRepository.apiService.post(
+      endpoint: '/user_management/employee/login',
+      data: objToApi,
+      converter: (ResponseModel<JSON?> response) {
+        return response;
+      },
+    );
+    return res.body;
   }
 
 //************************************ log-out *********************************//
-  Future<Response<dynamic>> logOut({Map<String, String>? headersToApi}) async {
-    final Response<dynamic> res = await ApiRepository.apiClient.delete(
-        '/user_management/employee/logout',
-        options: Options(headers: headersToApi));
-    return res;
+  Future<JSON> logOut({Map<String, dynamic>? body}) async {
+    final ResponseModel<JSON> res = await ApiRepository.apiService.post(
+      data: body,
+      endpoint: '/user_management/employee/logout',
+      converter: (ResponseModel<JSON?> response) {
+        return response;
+      },
+    );
+    return res.body;
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -9,19 +10,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nested/nested.dart';
+
 import 'app_config.dart';
 import 'app_router.dart';
-import 'base_bloc/base_bloc.dart';
-import 'theme.dart';
-import 'views/app/bloc/app_bloc.dart';
-import 'views/auth/bloc/auth_bloc.dart';
 import 'bloc/app_bloc/app_bloc.dart';
 import 'bloc/auth_bloc/auth_bloc.dart';
 import 'core/base_bloc/base_bloc.dart';
 import 'theme.dart';
-import 'views/auth/init_page.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

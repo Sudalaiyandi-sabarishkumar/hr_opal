@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'views/auth/ui/init_page.dart';
-import 'views/auth/ui/login_page.dart';
+import 'views/auth/init_page.dart';
+import 'views/auth/login_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
 

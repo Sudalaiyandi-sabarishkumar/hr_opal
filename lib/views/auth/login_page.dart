@@ -3,11 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app_router.dart';
-import '../../app/bloc/app_bloc.dart';
-import '../../global_widgets/common_button.dart';
-import '../../global_widgets/form_helper/text_field.dart';
-import '../../global_widgets/widget_helper.dart';
-import '../bloc/auth_bloc.dart';
 import '../../bloc/app_bloc/app_bloc.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../global_widgets/common_button.dart';
@@ -35,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     appBloc = BlocProvider.of<AppBloc>(context);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       authBloc.stream.listen((AuthState state) => (mounted
-          ? onAuthBlocChange(context: context, state: state, appBloc: appBloc)
+          ? onAuthBlocChange(context: context, state: state)
           : null));
     });
     super.initState();
