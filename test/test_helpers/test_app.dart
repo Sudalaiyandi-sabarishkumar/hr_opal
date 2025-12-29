@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_bp/app_router.dart';
+import 'package:flutter_bloc_bp/app_config.dart';
+import 'package:flutter_bloc_bp/bloc/app_bloc/app_bloc.dart';
+import 'package:flutter_bloc_bp/bloc/auth_bloc/auth_bloc.dart';
 import 'package:flutter_bloc_bp/theme.dart';
-import 'package:flutter_bloc_bp/views/app/bloc/app_bloc.dart';
-import 'package:flutter_bloc_bp/views/auth/bloc/auth_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nested/nested.dart';

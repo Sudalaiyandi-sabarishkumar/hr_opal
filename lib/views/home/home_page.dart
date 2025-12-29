@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../app_router.dart';
 import '../app/bloc/app_bloc.dart';
 import '../auth/bloc/auth_bloc.dart';
+import '../../bloc/app_bloc/app_bloc.dart';
+import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../global_widgets/common_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +24,9 @@ class _HomePageState extends State<HomePage> {
     appBloc = BlocProvider.of<AppBloc>(context);
     authBloc = BlocProvider.of<AuthBloc>(context);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      authBloc.stream.listen((AuthState state) =>
-          (mounted ? onAuthBlocChange(context: context, state: state) : null));
+      authBloc.stream.listen((AuthState state) => (mounted
+          ? onAuthBlocChange(context: context, state: state, appBloc: appBloc)
+          : null));
     });
     super.initState();
   }

@@ -8,6 +8,11 @@ import '../../global_widgets/common_button.dart';
 import '../../global_widgets/form_helper/text_field.dart';
 import '../../global_widgets/widget_helper.dart';
 import '../bloc/auth_bloc.dart';
+import '../../bloc/app_bloc/app_bloc.dart';
+import '../../bloc/auth_bloc/auth_bloc.dart';
+import '../global_widgets/common_button.dart';
+import '../global_widgets/form_helper/text_field.dart';
+import '../global_widgets/widget_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -29,8 +34,9 @@ class _LoginPageState extends State<LoginPage> {
     authBloc = BlocProvider.of<AuthBloc>(context);
     appBloc = BlocProvider.of<AppBloc>(context);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
-      authBloc.stream.listen((AuthState state) =>
-          (mounted ? onAuthBlocChange(context: context, state: state) : null));
+      authBloc.stream.listen((AuthState state) => (mounted
+          ? onAuthBlocChange(context: context, state: state, appBloc: appBloc)
+          : null));
     });
     super.initState();
   }

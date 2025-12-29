@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/app_user.dart';
-import '../models/token.dart';
+
+import '../../models/app_user.dart';
+import '../../models/token.dart';
 
 class PreferencesClient {
   PreferencesClient({required this.prefs});
