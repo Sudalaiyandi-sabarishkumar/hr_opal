@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app_router.dart';
-import '../../bloc/app_bloc/app_bloc.dart';
-import '../../bloc/auth_bloc/auth_bloc.dart';
-import '../global_widgets/common_button.dart';
-import '../global_widgets/form_helper/text_field.dart';
-import '../global_widgets/widget_helper.dart';
+import '../../core/bloc/app_bloc/app_bloc.dart';
+import '../../core/bloc/auth_bloc/auth_bloc.dart';
+import '../../global_widgets/common_button.dart';
+import '../../global_widgets/form_helper/text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -56,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: userNameController,
                 labelText: 'User Name',
                 validator: Validator.empty_validator),
-            getSpace(20.sp, 0),
+            SizedBox(height: 20.h,),
             CommonTextField(
                 customKey: const Key('password_textfield_key'),
                 controller: passwordController,
@@ -96,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
       case const (AuthError):
         final AuthError currentState = state as AuthError;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(currentState.errorMsg),
+          content: Text(currentState.errorMsg??''),
         ));
     }
   }

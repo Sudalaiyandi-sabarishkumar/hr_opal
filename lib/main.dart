@@ -1,89 +1,65 @@
 import 'dart:async';
-import 'dart:ui';
+import 'dart:io';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nested/nested.dart';
 
-import 'app_config.dart';
-import 'app_router.dart';
-import 'bloc/app_bloc/app_bloc.dart';
-import 'bloc/auth_bloc/auth_bloc.dart';
-import 'core/base_bloc/base_bloc.dart';
-import 'theme.dart';
-
+import 'app.dart';
+import 'core/api_repository/api_repository.dart';
+import 'core/bloc/auth_bloc/auth_bloc.dart';
+import 'core/config/app_config.dart';
+import 'flavors.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // ✅ Zone-based error handling
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  AppConfig.initiate();
-  await Firebase.initializeApp();
+      // Flavor setup (unchanged)
+      F.appFlavor = Platform.environment.containsKey('FLUTTER_TEST')
+          ? Flavor.dev
+          : Flavor.values.firstWhere(
+              (Flavor f) => f.name == appFlavor,
+              orElse: () => Flavor.dev,
+            );
 
-  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+      AppConfig.fromFlavor(F.appFlavor);
 
-  if (kDebugMode) {
-    await FirebaseAnalytics.instance
-        .setSessionTimeoutDuration(const Duration(seconds: 1));
-  }
+      await ApiRepository.init();
 
-  FirebaseCrashlytics.instance
-      .setCustomKey('environment', '${AppConfig.shared.flavor}');
-  FlutterError.onError = (FlutterErrorDetails errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-  PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+      await Firebase.initializeApp();
+      // ✅ Enable / Disable Crashlytics by build mode
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
+        !kDebugMode,
+      );
 
-  FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+      // ✅ Flutter framework errors
+      FlutterError.onError = (FlutterErrorDetails details) {
+        FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+      };
 
-  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-    DeviceOrientation.portraitUp,
-  ]);
-
-  await ScreenUtil.ensureScreenSize();
-
-  Bloc.observer = AppBlocObserver();
-
-  runApp(MultiBlocProvider(providers: <SingleChildWidget>[
-    BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
-    BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
-  ], child: const App()));
-}
-
-class App extends StatefulWidget {
-  const App({super.key});
-
-  @override
-  AppState createState() => AppState();
-}
-
-class AppState extends State<App> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _init();
-  }
-
-  Future<void> _init() async {}
-
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(390, 835),
-        builder: (_, Widget? child) {
-          return MaterialApp.router(
-            theme: themeData,
-            routerConfig: AppRouter.getRouter(),
-          );
-        });
-  }
+      // ✅ Async & platform errors
+      PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return true;
+      };
+      runApp(
+        MultiBlocProvider(
+          providers: <SingleChildWidget>[
+            BlocProvider<AuthBloc>(create: (_) => AuthBloc()),
+          ],
+          child: const App(),
+        ),
+      );
+    },
+    (Object error, StackTrace stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    },
+  );
 }

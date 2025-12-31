@@ -1,0 +1,37 @@
+#update according to project flavors
+flavors:
+  dev:
+    app:
+      name: "[Dev] Vuka"
+    android:
+      applicationId: "com.vuka.app.dev"
+      firebase:
+        config: "firebase/dev/google-services.json"
+    ios:
+      bundleId: "com.vuka.app.dev"
+      firebase:
+        config: "firebase/dev/GoogleService-Info.plist"
+
+  staging:
+    app:
+      name: "[Staging] Vuka"
+    android:
+      applicationId: "com.vuka.app.staging"
+      firebase:
+        config: "firebase/staging/google-services.json"
+    ios:
+      bundleId: "com.vuka.app.staging"
+      firebase:
+        config: "firebase/staging/GoogleService-Info.plist"
+
+  prod:
+    app:
+      name: "Vuka"
+    android:
+      applicationId: "com.vuka.app"
+      firebase:
+        config: "firebase/prod/google-services.json"
+    ios:
+      bundleId: "com.vuka.app"
+      firebase:
+        config: "firebase/prod/GoogleService-Info.plist"

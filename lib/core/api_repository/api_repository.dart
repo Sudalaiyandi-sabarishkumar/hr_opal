@@ -6,9 +6,8 @@ import 'package:rq_network_flutter/local/path_provider_service.dart';
 import 'package:rq_network_flutter/networking/api_endpoint.dart';
 import 'package:rq_network_flutter/networking/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../app_config.dart';
 import '../../models/api_model.dart';
+import '../config/app_config.dart';
 import '../preference_client/preference_client.dart';
 import '../utils/firebase_utils.dart';
 import 'interceptors/api_logging_interceptor.dart';

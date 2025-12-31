@@ -23,6 +23,9 @@ analyzer:
     # allow self-reference to deprecated members (we do this because otherwise we have
     # to annotate every member in every test, assert, etc, when we deprecate something)
     deprecated_member_use_from_same_package: ignore
+    deprecated_member_use: ignore
+    always_specify_types: ignore
+    todo: ignore
   exclude:
     - "bin/cache/**"
     # Ignore protoc generated files
@@ -104,7 +107,6 @@ linter:
     - eol_at_end_of_file
     - exhaustive_cases
     - file_names
-    - flutter_style_todos
     - hash_and_equals
     - implementation_imports
     - implicit_call_tearoffs

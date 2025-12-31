@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_bp/app_router.dart';
-import 'package:flutter_bloc_bp/bloc/app_bloc/app_bloc.dart';
-import 'package:flutter_bloc_bp/bloc/auth_bloc/auth_bloc.dart';
-import 'package:flutter_bloc_bp/theme.dart';
+import 'package:flutter_bloc_bp/core/theme/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:nested/nested.dart';
+
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -33,20 +29,17 @@ class TestAppState extends State<TestApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: <SingleChildWidget>[
-        BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
-        BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
-      ],
-      child: ScreenUtilInit(
-        designSize: const Size(390, 835),
+    return  ScreenUtilInit(
+        designSize: const Size(380, 844),
         builder: (_, Widget? child) {
-          return MaterialApp.router(
-            theme: themeData,
-            routerConfig: AppRouter.getRouter(initialLocation: '/auth/login'),
+          return MaterialApp(
+            navigatorKey: navigatorKey,
+            theme: AppTheme.lightTheme,
+            home: widget.testWidget,
+            debugShowCheckedModeBanner: false,
           );
         },
-      ),
+      
     );
   }
 }

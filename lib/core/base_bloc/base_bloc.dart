@@ -1,91 +1,127 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../utils/firebase_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rq_network_flutter/networking/custom_exception.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'constraints.dart';
 
 abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
   BaseBloc(super.initialState) {
-    on<E>(
-      _eventHandler,
-    );
+    on<E>(_eventHandler);
   }
+
+  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 
   FutureOr<void> _eventHandler(E event, Emitter<S> emit) async {
     try {
       await eventHandlerMethod(event, emit);
-    } on DioException catch (dioError) {
-      debugPrint(
-          '============ eventHandler DioException: ${dioError.response?.data}');
-      debugPrint('$dioError');
+    } on CustomException catch (apiError) {
       try {
-        if (dioError.response?.statusCode == 500) {
-          emit(getErrorState()
-            ..errorCode = dioError.response?.statusCode ?? 500
-            ..errorMsg = 'Internal Server Error');
-        } else if (dioError.response?.statusCode == 422 ||
-            dioError.response?.statusCode == 400 ||
-            dioError.response?.statusCode == 404) {
+        if (apiError.statusCode == 500) {
+          emit(
+            getErrorState()
+              ..errorCode = apiError.statusCode ?? 500
+              ..errorMsg = 'Internal Server Error',
+          );
+        } else if (apiError.statusCode == 401 || apiError.statusCode == 403) {
           final Map<String, dynamic> err =
-              dioError.response?.data as Map<String, dynamic>;
-          emit(getErrorState()
-            ..errorCode = dioError.response?.statusCode ?? 0
-            ..errorMsg = err['error'].toString());
-        } else if (dioError.response?.statusCode == 401) {
-          emit(getErrorState()
-            ..errorCode = dioError.response?.statusCode ?? 0
-            ..errorMsg = 'Unauthorized'
-            ..forceLogOut = true);
-        } else {
-          if (!FirebaseUtils.isFlutterTest) {
-            FirebaseAnalytics.instance.logEvent(
-              name: 'api_error',
-              parameters: <String, Object>{
-                'message': 'Check',
-                'value':
-                    '${dioError.response?.statusMessage} ${dioError.response?.statusCode}',
-              },
+              apiError.response?.data as Map<String, dynamic>;
+
+          emit(
+            getErrorState()
+              ..errorCode = apiError.statusCode ?? 401
+              ..errorMsg = (err['message'] as String?) ?? 'Session Expired',
+          );
+
+          //clear user data
+          // PreferencesClient(prefs: await prefs).saveUser();
+          // PreferencesClient(prefs: await prefs).setUserAccessToken();
+
+          // //redirect to login page
+          // SocketService.instance.dispose();
+          // GoRouterInit.navigatorKey.currentContext?.go(AppRouter.loginPage);
+        } else if (apiError.statusCode == 422 ||
+            apiError.statusCode == 400 ||
+            apiError.statusCode == 404) {
+          final Map<String, dynamic> err =
+              apiError.response?.data as Map<String, dynamic>;
+          if (err.containsKey('error')) {
+            emit(
+              getErrorState()
+                ..errorCode = apiError.statusCode ?? 0
+                ..errorMsg = err['error'].toString()
+                ..apiMessage = err['error']?.toString()
+                ..constraints = err['constraints'] != null
+                    ? Constraints.fromMap(err)
+                    : null,
             );
-            FirebaseCrashlytics.instance.recordError(
-              '${dioError.response?.statusMessage} ${dioError.response?.statusCode}',
-              null,
-              reason: 'api-error-with-catch',
+          } else {
+            emit(
+              getErrorState()
+                ..errorCode = apiError.statusCode ?? 0
+                ..errorMsg = err['message'].toString()
+                ..apiMessage = err['message']?.toString()
+                ..constraints = err['constraints'] != null
+                    ? Constraints.fromMap(err)
+                    : null,
             );
           }
-          emit(getErrorState()
-            ..errorCode = dioError.response?.statusCode ?? 0
-            ..errorMsg = dioError.message ?? 'Something Went Wrong');
+        } else {
+          // if (!FirebaseUtils.isFlutterTest) {
+          //   FirebaseAnalytics.instance.logEvent(
+          //     name: 'api_error',
+          //     parameters: <String, Object>{
+          //       'message': 'Check',
+          //       'value': '${apiError.message} ${apiError.code}',
+          //     },
+          //   );
+          //   FirebaseCrashlytics.instance.recordError(
+          //     '${apiError.message} ${apiError.code}',
+          //     null,
+          //     reason: 'api-error-with-catch',
+          //   );
+          // }
+          emit(
+            getErrorState()
+              ..errorCode = apiError.statusCode ?? 0
+              ..errorMsg =
+                  (apiError.message == 'Unknown' || apiError.message == '')
+                  ? 'Something went wrong'
+                  : apiError.message,
+          );
         }
       } catch (err) {
         debugPrint('============ eventHandler catch block: $err');
-        emit(getErrorState()
-          ..errorCode = 0
-          ..errorMsg = err.toString());
+        emit(
+          getErrorState()
+            ..errorCode = 0
+            ..errorMsg = err.toString(),
+        );
       }
     } catch (err, stackTrace) {
       debugPrint('///////////////$stackTrace');
-      if (!FirebaseUtils.isFlutterTest) {
-        FirebaseAnalytics.instance.logEvent(
-          name: 'api_error',
-          parameters: <String, Object>{
-            'message': 'Check',
-            'value': '$err',
-          },
-        );
-        FirebaseCrashlytics.instance.recordError(
-          err,
-          stackTrace,
-          reason: 'api-error-with-catch',
-        );
-      }
+      // if (!FirebaseUtils.isFlutterTest) {
+      //   FirebaseAnalytics.instance.logEvent(
+      //     name: 'api_error',
+      //     parameters: <String, Object>{
+      //       'message': 'Check',
+      //       'value': '$err',
+      //     },
+      //   );
+      //   FirebaseCrashlytics.instance.recordError(
+      //     err,
+      //     stackTrace,
+      //     reason: 'api-error-with-catch',
+      //   );
+      // }
       debugPrint('============ eventHandler catch block: $err');
-      emit(getErrorState()
-        ..errorCode = 0
-        ..errorMsg = err.toString()
-        ..forceLogOut = true);
+      emit(
+        getErrorState()
+          ..errorCode = 0
+          ..errorMsg = 'Something went wrong',
+      );
     }
   }
 
@@ -96,8 +132,11 @@ abstract class BaseBloc<E, S extends ErrorState> extends Bloc<E, S> {
 
 abstract class ErrorState {
   int errorCode = 0;
-  String errorMsg = '';
+  String? errorMsg;
+  String? apiMessage;
   bool forceLogOut = false;
+  Constraints? constraints;
+  bool noInternet = false;
 }
 
 class AppBlocObserver extends BlocObserver {
@@ -109,10 +148,13 @@ class AppBlocObserver extends BlocObserver {
 
   @override
   void onTransition(
-      Bloc<dynamic, dynamic> bloc, Transition<dynamic, dynamic> transition) {
+    Bloc<dynamic, dynamic> bloc,
+    Transition<dynamic, dynamic> transition,
+  ) {
     super.onTransition(bloc, transition);
     debugPrint(
-        'onTransition -- bloc: ${bloc.runtimeType}, transition: $transition');
+      'onTransition -- bloc: ${bloc.runtimeType}, transition: $transition',
+    );
   }
 
   @override
