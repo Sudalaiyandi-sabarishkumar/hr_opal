@@ -20,16 +20,8 @@ Future<void> main() async {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-
-      // Flavor setup (unchanged)
-      F.appFlavor = Platform.environment.containsKey('FLUTTER_TEST')
-          ? Flavor.dev
-          : Flavor.values.firstWhere(
-              (Flavor f) => f.name == appFlavor,
-              orElse: () => Flavor.dev,
-            );
-
-      AppConfig.fromFlavor(F.appFlavor);
+      final Flavor flavor = AppConfig.shared.flavor;
+      AppConfig.initiate();
 
       await ApiRepository.init();
 

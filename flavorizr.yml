@@ -2,36 +2,36 @@
 flavors:
   dev:
     app:
-      name: "[Dev] Vuka"
+      name: "[Dev] App"
     android:
-      applicationId: "com.vuka.app.dev"
+      applicationId: "com.app.dev"
       firebase:
         config: "firebase/dev/google-services.json"
     ios:
-      bundleId: "com.vuka.app.dev"
+      bundleId: "com.app.dev"
       firebase:
         config: "firebase/dev/GoogleService-Info.plist"
 
   staging:
     app:
-      name: "[Staging] Vuka"
+      name: "[Staging] App"
     android:
-      applicationId: "com.vuka.app.staging"
+      applicationId: "com.app.staging"
       firebase:
         config: "firebase/staging/google-services.json"
     ios:
-      bundleId: "com.vuka.app.staging"
+      bundleId: "com.app.staging"
       firebase:
         config: "firebase/staging/GoogleService-Info.plist"
 
   prod:
     app:
-      name: "Vuka"
+      name: "APP"
     android:
-      applicationId: "com.vuka.app"
+      applicationId: "com.app.prod"
       firebase:
         config: "firebase/prod/google-services.json"
     ios:
-      bundleId: "com.vuka.app"
+      bundleId: "com.app.prod"
       firebase:
         config: "firebase/prod/GoogleService-Info.plist"

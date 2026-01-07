@@ -58,7 +58,8 @@ dependencies:
   rq_network_flutter:
     git:
       url: https://gitlab.com/syedrahim/mobile_api_client.git
-      ref: 665e04f
+      ref: 665e04f\
+  
 
 dev_dependencies:
   flutter_test:
