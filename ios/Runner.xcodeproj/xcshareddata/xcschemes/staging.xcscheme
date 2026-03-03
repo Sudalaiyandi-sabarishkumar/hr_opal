@@ -1,32 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1520"
+   LastUpgradeVersion = "1540"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <PreActions>
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "echo &quot;.env&quot; &gt; ${SRCROOT}/.envfile&#10;">
-               <EnvironmentBuildable>
-                  <BuildableReference
-                     BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-                     BuildableName = "Flutter BP.app"
-                     BlueprintName = "Runner"
-                     ReferencedContainer = "container:Runner.xcodeproj">
-                  </BuildableReference>
-               </EnvironmentBuildable>
-            </ActionContent>
-         </ExecutionAction>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "${SRCROOT}/.symlinks/plugins/flutter_config/ios/Classes/BuildXCConfig.rb ${SRCROOT}/ ${SRCROOT}/Flutter/tmp.xcconfig&#10;">
+               scriptText = "#!/bin/sh&#10;&#10;function entry_decode() { echo &quot;${*}&quot; | base64 --decode; }&#10;&#10;IFS=&apos;,&apos; read -r -a define_items &lt;&lt;&lt; &quot;$DART_DEFINES&quot;&#10;&#10;for index in &quot;${!define_items[@]}&quot;&#10;do&#10;    define_items[$index]=$(entry_decode &quot;${define_items[$index]}&quot;);&#10;done&#10;&#10;printf &quot;%s\n&quot; &quot;${define_items[@]}&quot; &gt; ${SRCROOT}/Flutter/Environment.xcconfig&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
@@ -57,35 +42,14 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug-production"
+      buildConfiguration = "Debug-staging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "Flutter BP.app"
-            BlueprintName = "Runner"
-            ReferencedContainer = "container:Runner.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "331C8080294A63A400263BE5"
-               BuildableName = "RunnerTests.xctest"
-               BlueprintName = "RunnerTests"
-               ReferencedContainer = "container:Runner.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release-staging"
+      buildConfiguration = "Debug-staging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -106,7 +70,7 @@
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Debug-production"
+      buildConfiguration = "Release-staging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -123,10 +87,10 @@
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug-production">
+      buildConfiguration = "Debug-staging">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Debug-production"
+      buildConfiguration = "Release-staging"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

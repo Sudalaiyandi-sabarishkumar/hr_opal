@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-
+ios/build/
 # IntelliJ related
 *.iml
 *.ipr
@@ -54,3 +54,6 @@ app.*.map.json
 
 #uncomment this
 #.env*
+
+# FVM Version Cache
+.fvm/

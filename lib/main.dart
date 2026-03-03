@@ -1,69 +1,57 @@
 import 'dart:async';
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_config/flutter_config.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nested/nested.dart';
-import 'app_config.dart';
-import 'bloc/app_bloc/app_bloc.dart';
-import 'bloc/auth_bloc/auth_bloc.dart';
-import 'core/base_bloc/base_bloc.dart';
-import 'theme.dart';
-import 'views/auth/init_page.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+import 'app.dart';
+import 'core/api_repository/api_repository.dart';
+import 'core/bloc/auth_bloc/auth_bloc.dart';
+import 'core/config/app_config.dart';
+import 'flavors.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // ✅ Zone-based error handling
+  runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      final Flavor flavor = AppConfig.shared.flavor;
+      AppConfig.initiate();
 
-  /// flavor & env setup
-  await FlutterConfig.loadEnvVariables();
-  AppConfig.initiate();
+      await ApiRepository.init();
 
-  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
-    DeviceOrientation.portraitUp,
-  ]);
+      await Firebase.initializeApp();
+      // ✅ Enable / Disable Crashlytics by build mode
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
+        !kDebugMode,
+      );
 
-  await ScreenUtil.ensureScreenSize();
+      // ✅ Flutter framework errors
+      FlutterError.onError = (FlutterErrorDetails details) {
+        FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+      };
 
-  Bloc.observer = AppBlocObserver();
-
-  runApp(MultiBlocProvider(providers: <SingleChildWidget>[
-    BlocProvider<AppBloc>(create: (BuildContext context) => AppBloc()),
-    BlocProvider<AuthBloc>(create: (BuildContext context) => AuthBloc()),
-  ], child: const App()));
-}
-
-class App extends StatefulWidget {
-  const App({super.key});
-
-  @override
-  AppState createState() => AppState();
-}
-
-class AppState extends State<App> with WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _init();
-  }
-
-  Future<void> _init() async {}
-
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(390, 835),
-        builder: (_, Widget? child) {
-          return MaterialApp(
-            navigatorKey: navigatorKey,
-            theme: themeData,
-            home: const InitPage(),
-            debugShowCheckedModeBanner:
-                AppConfig.shared.flavor == Flavor.staging,
-          );
-        });
-  }
+      // ✅ Async & platform errors
+      PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        return true;
+      };
+      runApp(
+        MultiBlocProvider(
+          providers: <SingleChildWidget>[
+            BlocProvider<AuthBloc>(create: (_) => AuthBloc()),
+          ],
+          child: const App(),
+        ),
+      );
+    },
+    (Object error, StackTrace stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    },
+  );
 }

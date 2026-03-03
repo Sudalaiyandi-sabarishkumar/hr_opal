@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/app_bloc/app_bloc.dart';
-import '../../bloc/auth_bloc/auth_bloc.dart';
-import '../global_widgets/common_button.dart';
+import 'package:go_router/go_router.dart';
+import '../../app_router.dart';
+import '../../core/bloc/app_bloc/app_bloc.dart';
+import '../../core/bloc/auth_bloc/auth_bloc.dart';
+import '../../global_widgets/common_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     authBloc = BlocProvider.of<AuthBloc>(context);
     WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       authBloc.stream.listen((AuthState state) => (mounted
-          ? onAuthBlocChange(context: context, state: state, appBloc: appBloc)
+          ? onAuthBlocChange(context: context, state: state)
           : null));
     });
     super.initState();
@@ -64,5 +66,13 @@ class _HomePageState extends State<HomePage> {
         );
       },
     );
+  }
+
+  void onAuthBlocChange(
+      {required BuildContext context, required AuthState state}) {
+    switch (state.runtimeType) {
+      case const (LogOutSuccess):
+        context.goNamed(RouteConstants.loginPage);
+    }
   }
 }
