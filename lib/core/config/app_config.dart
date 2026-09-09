@@ -29,7 +29,28 @@ class AppConfig {
       scope: scope,
       host: host,
       baseUrl: '$scheme://$scope',
-      
+
+    );
+  }
+
+  /// Builds a config directly from a [Flavor] without reading
+  /// `String.fromEnvironment`. Used by tests, which have no `--dart-define`s.
+  factory AppConfig.fromFlavor(Flavor flavor) {
+    const String scheme = 'https';
+    final String scope = switch (flavor) {
+      Flavor.production => 'api.example.com/api/v1',
+      Flavor.staging => 'api.staging.example.com/api/v1',
+      Flavor.qa => 'api.qa.example.com/api/v1',
+      Flavor.dev => 'api.dev.example.com/api/v1',
+    };
+
+    return shared = AppConfig(
+      flavor: flavor,
+      appName: '[${flavor.name}] App',
+      scheme: scheme,
+      scope: scope,
+      host: scope.split('/').first,
+      baseUrl: '$scheme://$scope',
     );
   }
   Flavor flavor;

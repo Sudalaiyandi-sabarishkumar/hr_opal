@@ -4,7 +4,6 @@ import 'package:flutter_bloc_bp/app.dart';
 import 'package:flutter_bloc_bp/app_router.dart';
 import 'package:flutter_bloc_bp/core/api_repository/api_repository.dart';
 import 'package:flutter_bloc_bp/core/config/app_config.dart';
-import 'package:flutter_bloc_bp/flavors.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';

@@ -17,11 +17,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
-flutter-version: 3.27.1
+flutter-version: 3.47.2
 
 environment:
-  # sdk: '>=3.1.3 <4.0.0'
-  sdk: ^3.6.0
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -58,7 +58,7 @@ dependencies:
   rq_network_flutter:
     git:
       url: https://gitlab.com/syedrahim/mobile_api_client.git
-      ref: 665e04f\
+      ref: 665e04f
   
 
 dev_dependencies:

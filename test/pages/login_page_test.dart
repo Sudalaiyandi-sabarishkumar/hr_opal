@@ -1,83 +1,41 @@
-// import 'package:dio/dio.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_bloc_bp/core/bloc/auth_bloc/auth_bloc.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:http_mock_adapter/http_mock_adapter.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_bp/core/bloc/app_bloc/app_bloc.dart';
+import 'package:flutter_bloc_bp/core/bloc/auth_bloc/auth_bloc.dart';
+import 'package:flutter_bloc_bp/views/auth/login_page.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:nested/nested.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// import '../test_helpers/pump_route.dart';
-// import 'login_mock.dart';
+import '../test_helpers/test_app.dart';
 
-// void main() {
-//   late Dio dio;
-//   late DioAdapter dioAdapter;
+void main() {
+  setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences.setMockInitialValues(<String, Object>{});
+  });
 
-//   setUp(() {
-//     dio = Dio();
-//     dioAdapter = DioAdapter(dio: dio, printLogs: true);
-//   });
+  Future<void> pumpLoginPage(WidgetTester tester) async {
+    await tester.pumpWidget(
+      MultiBlocProvider(
+        providers: <SingleChildWidget>[
+          BlocProvider<AuthBloc>(create: (_) => AuthBloc()),
+          BlocProvider<AppBloc>(create: (_) => AppBloc()),
+        ],
+        child: const TestApp(testWidget: LoginPage()),
+      ),
+    );
+    await tester.pump();
+  }
 
-//   Future<AuthBloc> getAuthBloc(WidgetTester tester) async {
-//     final ctx = tester.element(find.byKey(const Key('login_screen')));
-//     return BlocProvider.of<AuthBloc>(ctx);
-//   }
-//   // TODO(add): Add all test cases for the login page to increase coverage.
-//   group('Login Page Test Cases', () {
-//     testWidgets('Displays all static elements correctly', (tester) async {
-//       await tester.pumpRoute('/login', dioAdapter: dioAdapter);
-//       await tester.pumpAndSettle();
+  group('Login Page', () {
+    testWidgets('renders the static elements', (WidgetTester tester) async {
+      await pumpLoginPage(tester);
 
-//       expect(find.text('Login to your\naccount'), findsOneWidget);
-//       expect(find.text('Email'), findsOneWidget);
-//       expect(find.text('Password'), findsOneWidget);
-//       expect(find.text('Login'), findsOneWidget);
-//       expect(find.text('Forgot Password?'), findsOneWidget);
-//       expect(find.text('Continue with Google'), findsOneWidget);
-//     });
-
-//     testWidgets('Login success API → AuthSuccess', (tester) async {
-//       dioAdapter = LoginPageMockApi.setupMockAdapter(dio);
-
-//       await tester.pumpRoute('/login', dioAdapter: dioAdapter);
-//       await tester.pumpAndSettle();
-
-//       await tester.enterText(find.byType(InputField).at(0), 'user@example.com');
-//       await tester.enterText(find.byType(InputField).at(1), '123456');
-//       await tester.tap(find.byType(ElevatedButton));
-//       await tester.pumpAndSettle();
-
-//       final bloc = await getAuthBloc(tester);
-//       expect(bloc.state is AuthSuccess, true);
-//     });
-
-//     testWidgets('Invalid credentials → AuthError', (tester) async {
-//       dioAdapter = LoginPageMockApi.setupMockAdapter(dio);
-
-//       await tester.pumpRoute('/login', dioAdapter: dioAdapter);
-//       await tester.pumpAndSettle();
-
-//       await tester.enterText(find.byType(InputField).at(0), 'wrong@example.com');
-//       await tester.enterText(find.byType(InputField).at(1), 'incorrect');
-//       await tester.tap(find.byType(ElevatedButton));
-//       await tester.pumpAndSettle();
-
-//       final bloc = await getAuthBloc(tester);
-//       expect(bloc.state is AuthError, true);
-//     });
-
-//     testWidgets('Server error → AuthError', (tester) async {
-//       dioAdapter = LoginPageMockApi.setupMockAdapter(dio);
-
-//       await tester.pumpRoute('/login', dioAdapter: dioAdapter);
-//       await tester.pumpAndSettle();
-
-//       await tester.enterText(find.byType(InputField).at(0), 'server@error.com');
-//       await tester.enterText(find.byType(InputField).at(1), '123456');
-//       await tester.tap(find.byType(ElevatedButton));
-//       await tester.pumpAndSettle();
-
-//       final bloc = await getAuthBloc(tester);
-//       expect(bloc.state is AuthError, true);
-//     });
-//   });
-// }
+      expect(find.text('Flutter BLoC Boiler Plate'), findsOneWidget);
+      expect(find.byKey(const Key('username_textfield_key')), findsOneWidget);
+      expect(find.byKey(const Key('password_textfield_key')), findsOneWidget);
+      expect(find.byKey(const Key('login_button_key')), findsOneWidget);
+    });
+  });
+}

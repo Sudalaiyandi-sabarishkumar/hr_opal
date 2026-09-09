@@ -1,26 +1,23 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';
 
 import 'app.dart';
 import 'core/api_repository/api_repository.dart';
+import 'core/bloc/app_bloc/app_bloc.dart';
 import 'core/bloc/auth_bloc/auth_bloc.dart';
 import 'core/config/app_config.dart';
-import 'flavors.dart';
 
 Future<void> main() async {
   // ✅ Zone-based error handling
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      final Flavor flavor = AppConfig.shared.flavor;
       AppConfig.initiate();
 
       await ApiRepository.init();
@@ -45,6 +42,7 @@ Future<void> main() async {
         MultiBlocProvider(
           providers: <SingleChildWidget>[
             BlocProvider<AuthBloc>(create: (_) => AuthBloc()),
+            BlocProvider<AppBloc>(create: (_) => AppBloc()),
           ],
           child: const App(),
         ),
