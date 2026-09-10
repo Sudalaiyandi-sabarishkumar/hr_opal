@@ -9,7 +9,7 @@ class AppTheme {
 
   // Light Theme
   static final ThemeData lightTheme = ThemeData(
-    fontFamily: 'Satoshi',
+    fontFamily: 'Geist',
     // ignore: always_specify_types
     extensions: <ThemeExtension>[
       AppTypography(
@@ -30,7 +30,7 @@ class AppTheme {
 
   // Dark Theme
   static final ThemeData darkTheme = ThemeData(
-    fontFamily: 'Satoshi',
+    fontFamily: 'Geist',
     // ignore: always_specify_types
     extensions: <ThemeExtension>[
       AppTypography(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SatoshiTextStyles {
-  static const String _font = 'Satoshi';
+  static const String _font = 'Geist';
 
   static TextStyle light(double size, {Color? color}) => TextStyle(
     fontFamily: _font,
@@ -24,11 +24,10 @@ class SatoshiTextStyles {
     color: color,
   );
 
-  // No semibold available — using Bold(700) instead
   static TextStyle semiBold(double size, {Color? color}) => TextStyle(
     fontFamily: _font,
     fontSize: size,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w600,
     color: color,
   );
 
