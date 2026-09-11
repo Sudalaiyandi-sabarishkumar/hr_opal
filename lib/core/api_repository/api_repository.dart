@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
-import 'package:rq_network_flutter/api_manager.dart';
-import 'package:rq_network_flutter/helpers/preferences.dart';
-import 'package:rq_network_flutter/local/path_provider_service.dart';
-import 'package:rq_network_flutter/networking/api_endpoint.dart';
-import 'package:rq_network_flutter/networking/api_service.dart';
+import 'package:network_flutter/api_manager.dart';
+import 'package:network_flutter/helpers/preferences.dart';
+import 'package:network_flutter/local/path_provider_service.dart';
+import 'package:network_flutter/networking/api_endpoint.dart';
+import 'package:network_flutter/networking/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/api_model.dart';
 import '../config/app_config.dart';

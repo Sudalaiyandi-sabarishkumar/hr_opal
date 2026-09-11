@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:rq_network_flutter/helpers/typedefs.dart';
-import 'package:rq_network_flutter/networking/response_model.dart';
+import 'package:network_flutter/helpers/typedefs.dart';
+import 'package:network_flutter/networking/response_model.dart';
 import '../api_repository/api_repository.dart';
 
 class AuthService extends ApiRepository {
