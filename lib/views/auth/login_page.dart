@@ -45,33 +45,9 @@ class _LoginPageState extends State<LoginPage> {
         title: Text('Flutter BLoC Boiler Plate', style: textTheme.titleLarge),
         actions: <Widget>[
           IconButton(
-            key: const Key('tabs_showcase_button_key'),
-            icon: const Icon(Icons.tab_outlined),
-            onPressed: () => context.goNamed(RouteConstants.tabsShowcasePage),
-          ),
-          IconButton(
-            key: const Key('badges_showcase_button_key'),
-            icon: const Icon(Icons.label_outline),
-            onPressed: () =>
-                context.goNamed(RouteConstants.badgesShowcasePage),
-          ),
-          IconButton(
-            key: const Key('chips_showcase_button_key'),
-            icon: const Icon(Icons.circle_outlined),
-            onPressed: () =>
-                context.goNamed(RouteConstants.chipsShowcasePage),
-          ),
-          IconButton(
-            key: const Key('toast_showcase_button_key'),
-            icon: const Icon(Icons.notifications_none),
-            onPressed: () =>
-                context.goNamed(RouteConstants.toastShowcasePage),
-          ),
-          IconButton(
-            key: const Key('tooltip_showcase_button_key'),
-            icon: const Icon(Icons.chat_bubble_outline),
-            onPressed: () =>
-                context.goNamed(RouteConstants.tooltipShowcasePage),
+            key: const Key('design_page_button_key'),
+            icon: const Icon(Icons.widgets_outlined),
+            onPressed: () => context.goNamed(RouteConstants.designPage),
           ),
         ],
       ),

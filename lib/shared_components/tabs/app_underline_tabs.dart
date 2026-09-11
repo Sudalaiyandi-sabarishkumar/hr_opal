@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-
-enum AppUnderlineTabsSize { regular, compact }
+import '../../core/utils/enums.dart';
 
 class AppUnderlineTabs extends StatelessWidget {
   const AppUnderlineTabs({

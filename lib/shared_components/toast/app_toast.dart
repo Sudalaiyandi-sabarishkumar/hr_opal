@@ -5,10 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-
-enum AppToastStatus { message, success, warning, danger }
-
-enum AppToastSurface { dark, light }
+import '../../core/utils/enums.dart';
 
 class AppToast extends StatelessWidget {
   const AppToast({
@@ -197,6 +194,126 @@ class AppToast extends StatelessWidget {
       return card;
     }
     return Directionality(textDirection: textDirection!, child: card);
+  }
+
+  static void show(
+    BuildContext context, {
+    required String title,
+    required String description,
+    AppToastStatus status = AppToastStatus.message,
+    AppToastSurface surface = AppToastSurface.light,
+    String? actionLabel,
+    VoidCallback? onActionTap,
+    TextDirection? textDirection,
+    Duration duration = const Duration(seconds: 3),
+  }) {
+    final OverlayState overlay = Overlay.of(context);
+    late final OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (BuildContext context) => _AppToastOverlay(
+        title: title,
+        description: description,
+        status: status,
+        surface: surface,
+        actionLabel: actionLabel,
+        onActionTap: onActionTap,
+        textDirection: textDirection ?? Directionality.of(context),
+        duration: duration,
+        onDismissed: () => entry.remove(),
+      ),
+    );
+    overlay.insert(entry);
+  }
+}
+
+class _AppToastOverlay extends StatefulWidget {
+  const _AppToastOverlay({
+    required this.title,
+    required this.description,
+    required this.status,
+    required this.surface,
+    required this.actionLabel,
+    required this.onActionTap,
+    required this.textDirection,
+    required this.duration,
+    required this.onDismissed,
+  });
+
+  final String title;
+  final String description;
+  final AppToastStatus status;
+  final AppToastSurface surface;
+  final String? actionLabel;
+  final VoidCallback? onActionTap;
+  final TextDirection textDirection;
+  final Duration duration;
+  final VoidCallback onDismissed;
+
+  @override
+  State<_AppToastOverlay> createState() => _AppToastOverlayState();
+}
+
+class _AppToastOverlayState extends State<_AppToastOverlay>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 220),
+  );
+  late final Animation<double> _fade = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeOut,
+  );
+  late final Animation<Offset> _slide = Tween<Offset>(
+    begin: const Offset(0, -0.3),
+    end: Offset.zero,
+  ).animate(_fade);
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.forward();
+    Future<void>.delayed(widget.duration, _dismiss);
+  }
+
+  Future<void> _dismiss() async {
+    if (!mounted) {
+      return;
+    }
+    await _controller.reverse();
+    widget.onDismissed();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: MediaQuery.of(context).padding.top + 12.h,
+      left: 16.w,
+      right: 16.w,
+      child: FadeTransition(
+        opacity: _fade,
+        child: SlideTransition(
+          position: _slide,
+          child: Center(
+            child: AppToast(
+              title: widget.title,
+              description: widget.description,
+              status: widget.status,
+              surface: widget.surface,
+              actionLabel: widget.actionLabel,
+              onActionTap: widget.onActionTap,
+              textDirection: widget.textDirection,
+              onClose: _dismiss,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

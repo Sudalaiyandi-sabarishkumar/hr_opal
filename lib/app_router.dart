@@ -6,13 +6,9 @@ import 'package:go_router/go_router.dart';
 
 import 'views/auth/init_page.dart';
 import 'views/auth/login_page.dart';
-import 'views/badges_showcase/badges_showcase_page.dart';
-import 'views/chips_showcase/chips_showcase_page.dart';
+import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
-import 'views/tabs_showcase/tabs_showcase_page.dart';
-import 'views/toast_showcase/toast_showcase_page.dart';
-import 'views/tooltip_showcase/tooltip_showcase_page.dart';
 
 class FirebaseUtils {
   static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
@@ -22,11 +18,7 @@ class RouteConstants {
   static String appLoaderPage = 'appLoader';
   static String loginPage = 'login';
   static String homePage = 'home';
-  static String tabsShowcasePage = 'tabsShowcase';
-  static String badgesShowcasePage = 'badgesShowcase';
-  static String chipsShowcasePage = 'chipsShowcase';
-  static String toastShowcasePage = 'toastShowcase';
-  static String tooltipShowcasePage = 'tooltipShowcase';
+  static String designPage = 'design';
 }
 
 class GoRouterInit {
@@ -81,43 +73,11 @@ class GoRouterInit {
             ),
           ),
           GoRoute(
-            path: '/tabs-showcase',
-            name: RouteConstants.tabsShowcasePage,
+            path: '/design',
+            name: RouteConstants.designPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<TabsShowcasePage>(
-              child: TabsShowcasePage(),
-            ),
-          ),
-          GoRoute(
-            path: '/badges-showcase',
-            name: RouteConstants.badgesShowcasePage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<BadgesShowcasePage>(
-              child: BadgesShowcasePage(),
-            ),
-          ),
-          GoRoute(
-            path: '/chips-showcase',
-            name: RouteConstants.chipsShowcasePage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<ChipsShowcasePage>(
-              child: ChipsShowcasePage(),
-            ),
-          ),
-          GoRoute(
-            path: '/toast-showcase',
-            name: RouteConstants.toastShowcasePage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<ToastShowcasePage>(
-              child: ToastShowcasePage(),
-            ),
-          ),
-          GoRoute(
-            path: '/tooltip-showcase',
-            name: RouteConstants.tooltipShowcasePage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<TooltipShowcasePage>(
-              child: TooltipShowcasePage(),
+                const MaterialPage<DesignPage>(
+              child: DesignPage(),
             ),
           ),
     ],

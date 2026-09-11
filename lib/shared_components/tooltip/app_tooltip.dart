@@ -3,12 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-
-enum AppTooltipPlacement { top, bottom, left, right }
-
-enum AppTooltipAlign { start, center, end }
-
-enum AppTooltipSurface { light, dark }
+import '../../core/utils/enums.dart';
 
 EdgeInsets _tooltipPadding(AppTooltipPlacement placement) {
   final double tail = 6.r;

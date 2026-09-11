@@ -12,7 +12,7 @@ class AppColors {
   static const Color neutral900 = Color(0xFF1A1A1A);
   static const Color neutral700 = Color(0xFF4A4A4A);
   static const Color neutral500 = Color(0xFF8E8E8E);
-  static const Color neutral300 = Color(0xFFDADADA);
+  static const Color neutral300 = Color(0xFFB0B8C8);
   static const Color neutral200 = Color(0xFFE8E8E8);
   static const Color neutral100 = Color(0xFFF2F2F2);
   static const Color neutral50 = Color(0xFFF5F6F8);
@@ -51,5 +51,16 @@ class AppColors {
   static const Color toastLightBg = Color(0xFFFCFCFC);
   static const Color toastLightShadow = Color(0x0D000000);
 
+  static const Color primary700 = Color(0xFF1D245A);
   static const Color primary800 = Color(0xFF161D4A);
+
+  static const Color focusRing = Color(0xFF9E77ED);
+
+  static const Color secondary500 = Color(0xFF5A3EA2);
+  static const Color buttonPressedOverlay = Color(0x33666666);
+
+  static const Color primary25 = Color(0xFFF0F2FF);
+
+  static const Color modalShadowSoft = Color(0x08000000);
+  static const Color modalShadowAmbient = Color(0x14000000);
 }
