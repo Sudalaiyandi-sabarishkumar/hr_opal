@@ -59,6 +59,7 @@ dependencies:
     git:
       url: https://gitlab.com/syedrahim/mobile_api_client.git
       ref: 665e04f
+  flutter_svg: ^2.3.0
   
 
 dev_dependencies:
@@ -88,6 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -40,11 +40,11 @@ class AppUnderlineTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final TextStyle selectedStyle = selectedLabelStyle ??
-        (_isCompact ? textTheme.geist12Medium : textTheme.geist14Medium)
-            .copyWith(color: AppColors.tabSelectedLabel);
+        (_isCompact ? textTheme.geist12Medium : textTheme.geist14Regular)
+            .copyWith(color: AppColors.textPrimary);
     final TextStyle unselectedStyle = unselectedLabelStyle ??
         (_isCompact ? textTheme.geist12Regular : textTheme.geist14Regular)
-            .copyWith(color: AppColors.tabUnselectedLabel);
+            .copyWith(color: AppColors.textSecondary);
 
     final List<Widget> children = <Widget>[];
     for (int i = 0; i < labels.length; i++) {
@@ -79,7 +79,7 @@ class AppUnderlineTabs extends StatelessWidget {
             bottom: BorderSide(
               width: 2.h,
               color: isSelected
-                  ? (indicatorColor ?? AppColors.tabIndicator)
+                  ? (indicatorColor ?? AppColors.textPrimary)
                   : AppColors.transparent,
             ),
           ),
