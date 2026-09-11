@@ -2,7 +2,7 @@
 import 'package:dio_cache_interceptor/src/model/cache_response.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:rq_network_flutter/local/path_provider_service.dart';
+import 'package:network_flutter/local/path_provider_service.dart';
 
 class MockPathProvider extends Mock implements PathProviderService {
   // Implement mock behavior here if needed for testing

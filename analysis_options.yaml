@@ -33,6 +33,7 @@ analyzer:
     - build/**
     - android/**
     - ios/**
+    - mobile_api_client/**
 
 linter:
   rules:
