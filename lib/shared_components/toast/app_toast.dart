@@ -300,15 +300,18 @@ class _AppToastOverlayState extends State<_AppToastOverlay>
         child: SlideTransition(
           position: _slide,
           child: Center(
-            child: AppToast(
-              title: widget.title,
-              description: widget.description,
-              status: widget.status,
-              surface: widget.surface,
-              actionLabel: widget.actionLabel,
-              onActionTap: widget.onActionTap,
-              textDirection: widget.textDirection,
-              onClose: _dismiss,
+            child: Material(
+              color: AppColors.transparent,
+              child: AppToast(
+                title: widget.title,
+                description: widget.description,
+                status: widget.status,
+                surface: widget.surface,
+                actionLabel: widget.actionLabel,
+                onActionTap: widget.onActionTap,
+                textDirection: widget.textDirection,
+                onClose: _dismiss,
+              ),
             ),
           ),
         ),

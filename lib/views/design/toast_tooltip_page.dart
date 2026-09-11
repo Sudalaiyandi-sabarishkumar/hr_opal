@@ -73,7 +73,7 @@ class _ToastTooltipPageState extends State<ToastTooltipPage> {
         ? _toastAr
         : _toastEn;
     final Color pageBackground = _isDark
-        ? AppColors.toastDarkSurface
+        ? AppColors.buttonPressedOverlay
         : AppColors.white;
     final Color headingColor = _isDark ? AppColors.white : AppColors.textPrimary;
     final TextStyle sectionStyle = textTheme.geist16SemiBold.copyWith(
@@ -142,6 +142,8 @@ class _ToastTooltipPageState extends State<ToastTooltipPage> {
                             status: status,
                             surface: toastSurface,
                             textDirection: direction,
+                            actionLabel: _isArabic ? 'تسمية' : 'Label',
+                            onActionTap: () {},
                           ),
                         ),
                     ],
@@ -153,11 +155,7 @@ class _ToastTooltipPageState extends State<ToastTooltipPage> {
                     spacing: 24.w,
                     runSpacing: 16.h,
                     children: <Widget>[
-                      for (final AppTooltipPlacement placement
-                          in const <AppTooltipPlacement>[
-                            AppTooltipPlacement.top,
-                            AppTooltipPlacement.bottom,
-                          ])
+                      for (final AppTooltipPlacement placement in _placements)
                         for (final AppTooltipAlign align in _aligns)
                           AppTooltipTrigger(
                             message: tooltipMessage,

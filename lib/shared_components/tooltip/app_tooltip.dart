@@ -91,17 +91,73 @@ class AppTooltip extends StatelessWidget {
   }
 }
 
+class _TooltipAnchor {
+  const _TooltipAnchor(this.targetAnchor, this.followerAnchor, this.offset);
+
+  final Alignment targetAnchor;
+  final Alignment followerAnchor;
+  final Offset offset;
+}
+
+double _crossAxisFor(AppTooltipAlign align) => switch (align) {
+  AppTooltipAlign.start => -1,
+  AppTooltipAlign.center => 0,
+  AppTooltipAlign.end => 1,
+};
+
+_TooltipAnchor _resolveAnchor(
+  AppTooltipPlacement placement,
+  AppTooltipAlign align,
+  TextDirection textDirection,
+) {
+  final double gap = 8.r;
+  final bool isVertical =
+      placement == AppTooltipPlacement.top ||
+      placement == AppTooltipPlacement.bottom;
+  final bool rtl = textDirection == TextDirection.rtl;
+  final AppTooltipAlign resolvedAlign = (isVertical && rtl)
+      ? switch (align) {
+          AppTooltipAlign.start => AppTooltipAlign.end,
+          AppTooltipAlign.end => AppTooltipAlign.start,
+          AppTooltipAlign.center => AppTooltipAlign.center,
+        }
+      : align;
+
+  return switch (placement) {
+    AppTooltipPlacement.top => _TooltipAnchor(
+      Alignment(_crossAxisFor(resolvedAlign), -1),
+      Alignment(_crossAxisFor(resolvedAlign), 1),
+      Offset(0, -gap),
+    ),
+    AppTooltipPlacement.bottom => _TooltipAnchor(
+      Alignment(_crossAxisFor(resolvedAlign), 1),
+      Alignment(_crossAxisFor(resolvedAlign), -1),
+      Offset(0, gap),
+    ),
+    AppTooltipPlacement.left => _TooltipAnchor(
+      Alignment(-1, _crossAxisFor(resolvedAlign)),
+      Alignment(1, _crossAxisFor(resolvedAlign)),
+      Offset(-gap, 0),
+    ),
+    AppTooltipPlacement.right => _TooltipAnchor(
+      Alignment(1, _crossAxisFor(resolvedAlign)),
+      Alignment(-1, _crossAxisFor(resolvedAlign)),
+      Offset(gap, 0),
+    ),
+  };
+}
+
 /// Wraps [child] so a long press reveals an [AppTooltip]-styled bubble next to
-/// it, using Flutter's own [Tooltip] overlay (positioning, screen-edge
-/// clamping, dismiss-on-tap-elsewhere, and accessibility all come for free).
+/// it, positioned with a [CompositedTransformFollower] so — unlike Flutter's
+/// built-in [Tooltip], which only ever shows above or below its target — all
+/// four [AppTooltipPlacement]s (including [AppTooltipPlacement.left] /
+/// [AppTooltipPlacement.right]) actually render on the requested side.
 ///
 /// [surface] and [textDirection] default to the ambient [Theme] brightness and
 /// [Directionality] — pass them explicitly only to override what the tooltip
 /// would otherwise pick up on its own, mirroring how [AppToast] resolves its
-/// surface/language. Flutter's [Tooltip] only positions itself above or below
-/// its target, so [AppTooltipPlacement.left]/[AppTooltipPlacement.right] fall
-/// back to [AppTooltipPlacement.top] here.
-class AppTooltipTrigger extends StatelessWidget {
+/// surface/language.
+class AppTooltipTrigger extends StatefulWidget {
   const AppTooltipTrigger({
     super.key,
     required this.message,
@@ -110,7 +166,6 @@ class AppTooltipTrigger extends StatelessWidget {
     this.align = AppTooltipAlign.center,
     this.surface,
     this.textDirection,
-    this.waitDuration = const Duration(milliseconds: 300),
     this.showDuration = const Duration(seconds: 2),
   });
 
@@ -120,37 +175,88 @@ class AppTooltipTrigger extends StatelessWidget {
   final AppTooltipAlign align;
   final AppTooltipSurface? surface;
   final TextDirection? textDirection;
-  final Duration waitDuration;
   final Duration showDuration;
 
   @override
-  Widget build(BuildContext context) {
+  State<AppTooltipTrigger> createState() => _AppTooltipTriggerState();
+}
+
+class _AppTooltipTriggerState extends State<AppTooltipTrigger> {
+  final LayerLink _link = LayerLink();
+  OverlayEntry? _entry;
+
+  void _show() {
+    if (_entry != null) {
+      return;
+    }
     final AppTooltipSurface resolvedSurface =
-        surface ??
+        widget.surface ??
         (Theme.of(context).brightness == Brightness.dark
             ? AppTooltipSurface.dark
             : AppTooltipSurface.light);
     final TextDirection resolvedDirection =
-        textDirection ?? Directionality.of(context);
-    final AppTooltipPlacement resolvedPlacement =
-        placement == AppTooltipPlacement.bottom
-        ? AppTooltipPlacement.bottom
-        : AppTooltipPlacement.top;
-    final TextTheme textTheme = Theme.of(context).textTheme;
+        widget.textDirection ?? Directionality.of(context);
+    final _TooltipAnchor anchor = _resolveAnchor(
+      widget.placement,
+      widget.align,
+      resolvedDirection,
+    );
 
-    return Directionality(
-      textDirection: resolvedDirection,
-      child: Tooltip(
-        message: message,
-        triggerMode: TooltipTriggerMode.longPress,
-        preferBelow: resolvedPlacement == AppTooltipPlacement.bottom,
-        padding: _tooltipPadding(resolvedPlacement),
-        margin: EdgeInsets.zero,
-        waitDuration: waitDuration,
-        showDuration: showDuration,
-        textStyle: _tooltipTextStyle(textTheme, resolvedSurface),
-        decoration: _tooltipDecoration(resolvedSurface, resolvedPlacement, align),
-        child: child,
+    final OverlayState overlay = Overlay.of(context);
+    final OverlayEntry entry = OverlayEntry(
+      builder: (BuildContext context) => Positioned(
+        left: 0,
+        top: 0,
+        child: CompositedTransformFollower(
+          link: _link,
+          showWhenUnlinked: false,
+          targetAnchor: anchor.targetAnchor,
+          followerAnchor: anchor.followerAnchor,
+          offset: anchor.offset,
+          child: Material(
+            color: AppColors.transparent,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 150),
+              builder: (BuildContext context, double value, Widget? child) =>
+                  Opacity(opacity: value, child: child),
+              child: Directionality(
+                textDirection: resolvedDirection,
+                child: AppTooltip(
+                  message: widget.message,
+                  placement: widget.placement,
+                  align: widget.align,
+                  surface: resolvedSurface,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    overlay.insert(entry);
+    _entry = entry;
+    Future<void>.delayed(widget.showDuration, _hide);
+  }
+
+  void _hide() {
+    _entry?.remove();
+    _entry = null;
+  }
+
+  @override
+  void dispose() {
+    _hide();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CompositedTransformTarget(
+      link: _link,
+      child: GestureDetector(
+        onLongPress: _show,
+        child: Semantics(tooltip: widget.message, child: widget.child),
       ),
     );
   }

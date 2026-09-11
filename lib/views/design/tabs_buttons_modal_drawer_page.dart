@@ -138,6 +138,7 @@ class _TabsButtonsModalDrawerPageState
                     description: modalDescription,
                     cancelLabel: cancelLabel,
                     confirmLabel: confirmLabel,
+                    textDirection: direction,
                     onConfirm: () => Navigator.of(context).pop(),
                     onCancel: () => Navigator.of(context).pop(),
                     onClose: () => Navigator.of(context).pop(),

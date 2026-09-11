@@ -35,7 +35,8 @@ class AppModal extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
-      width: 393.w,
+      width: double.infinity,
+      constraints: BoxConstraints(maxWidth: 400.w),
       padding: EdgeInsets.all(24.w),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -135,7 +136,10 @@ class AppModal extends StatelessWidget {
     VoidCallback? onLeadingTap,
     VoidCallback? onCancel,
     VoidCallback? onClose,
+    TextDirection? textDirection,
   }) {
+    final TextDirection dialogDirection =
+        textDirection ?? Directionality.of(context);
     return showGeneralDialog<T>(
       context: context,
       barrierDismissible: true,
@@ -143,19 +147,25 @@ class AppModal extends StatelessWidget {
       barrierColor: AppColors.black.withValues(alpha: 0.5),
       transitionDuration: const Duration(milliseconds: 220),
       pageBuilder: (BuildContext context, _, __) {
-        return Center(
-          child: Material(
-            color: AppColors.transparent,
-            child: AppModal(
-              title: title,
-              description: description,
-              cancelLabel: cancelLabel,
-              confirmLabel: confirmLabel,
-              onConfirm: onConfirm,
-              leadingIcon: leadingIcon,
-              onLeadingTap: onLeadingTap,
-              onCancel: onCancel,
-              onClose: onClose,
+        return Directionality(
+          textDirection: dialogDirection,
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Material(
+                color: AppColors.transparent,
+                child: AppModal(
+                  title: title,
+                  description: description,
+                  cancelLabel: cancelLabel,
+                  confirmLabel: confirmLabel,
+                  onConfirm: onConfirm,
+                  leadingIcon: leadingIcon,
+                  onLeadingTap: onLeadingTap,
+                  onCancel: onCancel,
+                  onClose: onClose,
+                ),
+              ),
             ),
           ),
         );
