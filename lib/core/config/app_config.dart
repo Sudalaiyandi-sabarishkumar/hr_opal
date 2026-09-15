@@ -28,7 +28,7 @@ class AppConfig {
       scheme: scheme,
       scope: scope,
       host: host,
-      baseUrl: '$scheme://$scope',
+      baseUrl: '$scheme://$host/$scope',
 
     );
   }
