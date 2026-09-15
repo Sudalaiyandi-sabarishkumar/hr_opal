@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import 'views/auth/init_page.dart';
 import 'views/auth/login_page.dart';
+import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
 
@@ -17,6 +18,7 @@ class RouteConstants {
   static String appLoaderPage = 'appLoader';
   static String loginPage = 'login';
   static String homePage = 'home';
+  static String designPage = 'design';
 }
 
 class GoRouterInit {
@@ -68,6 +70,14 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<HomePage>(
               child: HomePage(),
+            ),
+          ),
+          GoRoute(
+            path: '/design',
+            name: RouteConstants.designPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<DesignPage>(
+              child: DesignPage(),
             ),
           ),
     ],

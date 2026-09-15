@@ -42,8 +42,15 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-          title:
-              Text('Flutter BLoC Boiler Plate', style: textTheme.titleLarge)),
+        title: Text('Flutter BLoC Boiler Plate', style: textTheme.titleLarge),
+        actions: <Widget>[
+          IconButton(
+            key: const Key('design_page_button_key'),
+            icon: const Icon(Icons.widgets_outlined),
+            onPressed: () => context.goNamed(RouteConstants.designPage),
+          ),
+        ],
+      ),
       body: SafeArea(
           child: Form(
         key: logInFormKey,

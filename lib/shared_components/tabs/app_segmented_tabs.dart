@@ -34,9 +34,9 @@ class AppSegmentedTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final TextStyle selectedStyle = selectedLabelStyle ??
-        textTheme.geist14Medium.copyWith(color: AppColors.tabSelectedLabel);
+        textTheme.geist14Regular.copyWith(color: AppColors.textPrimary);
     final TextStyle unselectedStyle = unselectedLabelStyle ??
-        textTheme.geist14Regular.copyWith(color: AppColors.tabUnselectedLabel);
+        textTheme.geist14Regular.copyWith(color: AppColors.textSecondary);
 
     final List<Widget> tabs = <Widget>[
       for (int i = 0; i < labels.length; i++)
@@ -46,16 +46,23 @@ class AppSegmentedTabs extends StatelessWidget {
           _tab(i, selectedStyle, unselectedStyle),
     ];
 
+    final Row row = Row(
+      mainAxisSize: isExpanded ? MainAxisSize.max : MainAxisSize.min,
+      children: tabs,
+    );
+
     final Widget bar = Container(
       padding: EdgeInsets.all(4.r),
       decoration: ShapeDecoration(
-        color: trackColor ?? AppColors.tabTrack,
+        color: trackColor ?? AppColors.neutral50,
         shape: const StadiumBorder(),
       ),
-      child: Row(
-        mainAxisSize: isExpanded ? MainAxisSize.max : MainAxisSize.min,
-        children: tabs,
-      ),
+      child: isExpanded
+          ? row
+          : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: row,
+            ),
     );
 
     if (textDirection == null) {
@@ -77,14 +84,14 @@ class AppSegmentedTabs extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         decoration: ShapeDecoration(
           color: isSelected
-              ? (selectedColor ?? AppColors.tabSelectedSurface)
+              ? (selectedColor ?? AppColors.surface)
               : AppColors.transparent,
           shape: const StadiumBorder(),
           shadows: isSelected
               ? <BoxShadow>[
                   BoxShadow(
-                    color: AppColors.tabShadow,
-                    blurRadius: 6.r,
+                    color: AppColors.shadow,
+                    blurRadius: 8.r,
                     offset: Offset(0, 2.h),
                   ),
                 ]

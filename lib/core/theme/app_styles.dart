@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_colors.dart';
 
 const String geistFont = 'Geist';
+const String hostGroteskFont = 'HostGrotesk';
 
 extension CustomTextTheme on TextTheme {
   TextStyle get geist10Regular => TextStyle(
