@@ -5,8 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 A Flutter app boilerplate built around a custom `BaseBloc` abstraction, `go_router`,
-`rq_network_flutter` (a private Dio-based API client), Firebase (Crashlytics/Analytics),
-and a three-flavor build setup (`dev` / `staging` / `prod`). Package name: `flutter_bloc_bp`.
+`network_flutter` (a Dio-based API client vendored locally, see Networking below), Firebase
+(Crashlytics/Analytics), and a three-flavor build setup (`dev` / `staging` / `prod`).
+Package name: `flutter_bloc_bp`.
 
 ## Commands
 
@@ -76,17 +77,22 @@ size 380×844), a forced `AppTheme.lightTheme`, and disabled text scaling.
 
 `GoRouterInit` (in `lib/app_router.dart`) is a static holder: `router`, `navigatorKey`,
 `routeObserver`, plus `initialLocation` / `initialExtra` that tests overwrite before
-pumping. Four routes, with names as mutable string statics in `RouteConstants`:
+pumping. Five routes, with names as mutable string statics in `RouteConstants`:
 `/` (`init` → `InitPage`), `/loader` (`appLoader`), `/auth/login` (`login`),
-`/home` (`home`). A `FirebaseAnalyticsObserver` is attached unless running under
+`/home` (`home`), `/design` (`design` → `DesignPage`, a showcase screen for
+`lib/shared_components/`). A `FirebaseAnalyticsObserver` is attached unless running under
 `FLUTTER_TEST`.
+
+`lib/app_router.dart` also declares its own local `FirebaseUtils` class (identical body to
+`lib/core/utils/firebase_utils.dart`, used elsewhere). They're separate classes in separate
+libraries that happen to share a name — don't assume editing one affects the other.
 
 ### The BLoC layer — start here: `lib/core/base_bloc/base_bloc.dart`
 
 Every bloc extends `BaseBloc<E, S extends ErrorState>`:
 
 - Registers a **single** `on<E>` handler that wraps `eventHandlerMethod(event, emit)` in
-  try/catch. `CustomException` (from `rq_network_flutter`) is mapped by HTTP status
+  try/catch. `CustomException` (from `network_flutter`) is mapped by HTTP status
   (500 / 401·403 / 422·400·404 / other) into an error state carrying `errorCode`,
   `errorMsg`, `apiMessage`, and field-level `Constraints`. Unhandled errors are logged to
   Firebase Analytics + Crashlytics (skipped when `FirebaseUtils.isFlutterTest`).
@@ -113,12 +119,14 @@ screen that reads a bloc via `BlocProvider.of` needs that bloc registered at the
 ### Networking (`lib/core/api_repository/`, `lib/core/api_services/`)
 
 `ApiRepository` is a static singleton. `ApiRepository.init()` configures
-`rq_network_flutter`'s global `ApiEndpoint` (base URL from `AppConfig.shared.baseUrl`,
+`network_flutter`'s global `ApiEndpoint` (base URL from `AppConfig.shared.baseUrl`,
 `access_token` / `refresh_token` keys, refresh-token URL + header builder + response
 parser, `enableRefreshToken = true`), builds two `Dio` instances (with / without base
 URL), a Hive cache store, and attaches `ApiLoggingInterceptor` (skipped under test).
-`rq_network_flutter` is a **git dependency** pinned to a commit
-(`gitlab.com/syedrahim/mobile_api_client`, `ref: 665e04f`) — bump the ref to update it.
+The `network_flutter` package (source of `ApiManager`, `ApiEndpoint`, `CustomException`,
+etc.) is **vendored in-repo** at [mobile_api_client/](mobile_api_client/) and pulled in via
+a `path:` dependency in `pubspec.yaml` — it is not fetched from git, so edit it directly
+and run `flutter pub get` to pick up changes (it has its own `pubspec.yaml` and `test/`).
 
 Service classes in `lib/core/api_services/` `extends ApiRepository` and call
 `ApiRepository.apiService.post(endpoint:, data:, converter:)`. Blocs call services;
@@ -151,6 +159,31 @@ services never touch UI.
 Screens in `lib/views/<feature>/`; shared widgets in `lib/global_widgets/`
 (`CommonButton`, `CommonTextField`, form validators in `form_helper/`, `ToastHelper`).
 Theme tokens in `lib/core/theme/` (`AppTheme.lightTheme`, colors, Satoshi typography).
+
+### Design system (`lib/shared_components/`, `lib/core/theme/`)
+
+A second, newer component layer alongside `global_widgets/`: `lib/shared_components/`
+holds one subfolder per component (`avatar`, `badges`, `button`, `checkbox`, `chips`,
+`drawer`, `modal`, `tabs`, `toast`, `toggle`, `tooltip`), re-exported from the barrel
+`shared_components.dart`. `lib/views/design/` (`DesignPage` + three sub-pages, routed at
+`/design`) is a live showcase of every component — check it when adding or changing one.
+
+These components (and any new feature code) must follow the theme tokens rather than
+literals:
+
+- Colors: `lib/core/theme/app_colors.dart`'s `AppColors` — no inline `Color(0x...)`.
+  `lib/core/theme/app_color.dart`'s `AppColorScheme` (a `ThemeExtension`) is a separate,
+  older concept — don't confuse the two files.
+- Text styles: `lib/core/theme/app_styles.dart`'s `CustomTextTheme` extension on
+  `TextTheme`, used as `context.textTheme.geist14Medium` (getters are named
+  `geist<size><weight>`); recolor with `.copyWith(color: AppColors.x)`.
+- Sizing: `flutter_screenutil` for every dimension — `.sp` for font size, `.w`/`.h`/`.r`
+  for paddings, gaps, and radii. No raw logical-pixel doubles for layout.
+- No `//` or `///` comments in app code (coverage-ignore directives are fine) — the
+  codebase is kept comment-free by convention.
+
+Add a missing token to `AppColors` / a getter to `CustomTextTheme` rather than hardcoding
+a value.
 
 ## Testing infrastructure (`test/test_helpers/`)
 
