@@ -1,0 +1,26 @@
+<svg width="194" height="203" viewBox="0 0 194 203" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="192.075" cy="200.97" r="1.925" fill="white"/>
+<circle cx="192.075" cy="200.97" r="1.28333" stroke="white" stroke-opacity="0.46" stroke-width="1.28333"/>
+<circle cx="192.075" cy="133.98" r="1.925" fill="white"/>
+<circle cx="192.075" cy="133.98" r="1.28333" stroke="white" stroke-opacity="0.46" stroke-width="1.28333"/>
+<g opacity="0.5">
+<g opacity="0.3">
+<rect width="135.52" height="66.22" transform="matrix(-1 0 0 1 98.5205 67.76)" fill="#B5BFE0"/>
+</g>
+<circle cx="1.925" cy="1.925" r="1.925" transform="matrix(-1 0 0 1 100.061 66.22)" fill="white"/>
+<circle cx="1.925" cy="1.925" r="1.28333" transform="matrix(-1 0 0 1 100.061 66.22)" stroke="white" stroke-opacity="0.46" stroke-width="1.28333"/>
+<circle cx="1.925" cy="1.925" r="1.925" transform="matrix(-1 0 0 1 100.061 132.44)" fill="white"/>
+<circle cx="1.925" cy="1.925" r="1.28333" transform="matrix(-1 0 0 1 100.061 132.44)" stroke="white" stroke-opacity="0.46" stroke-width="1.28333"/>
+<line x1="98.5205" y1="68.915" x2="-14.6695" y2="68.915" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+<line y1="-0.385" x2="66.22" y2="-0.385" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 97.751 133.98)" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+<circle cx="1.925" cy="1.925" r="1.925" transform="matrix(-1 0 0 1 50.7812 0)" fill="white"/>
+<circle cx="1.925" cy="1.925" r="1.28333" transform="matrix(-1 0 0 1 50.7812 0)" stroke="white" stroke-opacity="0.46" stroke-width="1.28333"/>
+<circle cx="1.925" cy="1.925" r="1.925" transform="matrix(-1 0 0 1 50.7812 66.22)" fill="white"/>
+<circle cx="1.925" cy="1.925" r="1.28333" transform="matrix(-1 0 0 1 50.7812 66.22)" stroke="white" stroke-opacity="0.46" stroke-width="1.28333"/>
+<line y1="-0.385" x2="66.22" y2="-0.385" transform="matrix(-1 0 0 1 49.2412 2.31006)" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+<line y1="-0.385" x2="66.22" y2="-0.385" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 48.4707 67.76)" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+<line y1="-0.385" x2="66.22" y2="-0.385" transform="matrix(-4.37114e-08 -1 -1 4.37114e-08 192 201.22)" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+</g>
+<line x1="-7.73926" y1="134.365" x2="191.691" y2="134.365" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+<line x1="-7.73926" y1="200.585" x2="192.461" y2="200.585" stroke="white" stroke-opacity="0.46" stroke-width="0.77"/>
+</svg>

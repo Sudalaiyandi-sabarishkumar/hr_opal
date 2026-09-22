@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'views/auth/init_page.dart';
+import 'views/auth/landing_page.dart';
 import 'views/auth/login_page.dart';
+import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
@@ -16,6 +18,8 @@ class FirebaseUtils {
 class RouteConstants {
   static String initPage = 'init';
   static String appLoaderPage = 'appLoader';
+  static String landingPage = 'landing';
+  static String signInPage = 'signIn';
   static String loginPage = 'login';
   static String homePage = 'home';
   static String designPage = 'design';
@@ -54,6 +58,22 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<AppLoader>(
               child: AppLoader(),
+            ),
+          ),
+          GoRoute(
+            path: '/auth/landing',
+            name: RouteConstants.landingPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<LandingPage>(
+              child: LandingPage(),
+            ),
+          ),
+          GoRoute(
+            path: '/auth/sign-in',
+            name: RouteConstants.signInPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<SignInPage>(
+              child: SignInPage(),
             ),
           ),
           GoRoute(

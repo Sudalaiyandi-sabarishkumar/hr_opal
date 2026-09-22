@@ -5,6 +5,7 @@ import '../../core/bloc/auth_bloc/auth_bloc.dart';
 import '../../core/utils/utils.dart';
 import '../home/home_page.dart';
 import '../loader/app_loader.dart';
+import 'landing_page.dart';
 import 'login_page.dart';
 
 
@@ -41,7 +42,7 @@ class _InitPageState extends State<InitPage> {
                   final CheckForPreferenceSuccess currentState = state as CheckForPreferenceSuccess;
                   appBloc.add(SaveCurrentUser(user: currentState.user));
                   if(Utils.nullOrEmpty(currentState.user?.firstname)){
-                    return const LoginPage();
+                    return const LandingPage();
                   }else{
                     return const HomePage();
                   }

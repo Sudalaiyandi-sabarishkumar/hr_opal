@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       builder: (BuildContext context, Widget? widget) {
         ScreenUtil.init(
           context,
-          designSize: const Size(380, 844),
+          designSize: const Size(390, 844),
           minTextAdapt: true,
         );
 

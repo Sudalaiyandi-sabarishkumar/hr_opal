@@ -21,7 +21,7 @@ Future<void> main() async {
       AppConfig.initiate();
 
       await ApiRepository.init();
-
+      
       await Firebase.initializeApp();
       // ✅ Enable / Disable Crashlytics by build mode
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(

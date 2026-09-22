@@ -394,6 +394,13 @@ extension CustomTextTheme on TextTheme {
     color: AppColors.black,
   );
 
+   TextStyle get geist30Bold => TextStyle(
+    fontFamily: geistFont,
+    fontSize: 30.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+  );
+
   TextStyle get geist32Bold => TextStyle(
     fontFamily: geistFont,
     fontSize: 32.sp,

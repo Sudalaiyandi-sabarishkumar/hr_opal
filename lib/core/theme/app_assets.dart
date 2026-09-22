@@ -2,6 +2,14 @@ class AppAssets {
   const AppAssets._();
 
   static const String iconsPath = 'assets/icons';
+  static const String imagesPath = 'assets/images';
+
+  static const String hrOpalLogo = '$imagesPath/hr_opal_logo.png';
+  static const String femaleImage = '$imagesPath/female_image.png';
+  static const String bgImage = '$imagesPath/bg.png';
+  static const String card1 = '$imagesPath/card1.svg';
+  static const String card2 = '$imagesPath/card2.svg';
+  static const String dottedLine = '$imagesPath/dotted_line.svg';
 
   static const String infoCircle = '$iconsPath/information-circle.svg';
   static const String successCircle = '$iconsPath/checkmark-circle-02.svg';
@@ -9,4 +17,5 @@ class AppAssets {
   static const String dangerCircle = '$iconsPath/alert-circle.svg';
   static const String closeButton = '$iconsPath/CloseButton.svg';
   static const String closeButtonDark = '$iconsPath/CloseButtonDark.svg';
+  static const String rightArrowIcon = '$iconsPath/right_arrow.svg';
 }
