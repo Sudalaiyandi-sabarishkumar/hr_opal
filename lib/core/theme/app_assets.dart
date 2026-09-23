@@ -18,4 +18,6 @@ class AppAssets {
   static const String closeButton = '$iconsPath/CloseButton.svg';
   static const String closeButtonDark = '$iconsPath/CloseButtonDark.svg';
   static const String rightArrowIcon = '$iconsPath/right_arrow.svg';
+  static const String alertImage = '$iconsPath/alert_image.svg';
+  static const String lockImage = '$iconsPath/lock_image.svg';
 }

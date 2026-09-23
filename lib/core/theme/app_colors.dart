@@ -63,4 +63,7 @@ class AppColors {
 
   static const Color modalShadowSoft = Color(0x08000000);
   static const Color modalShadowAmbient = Color(0x14000000);
+  static const Color textFieldCardBackground = Color(0x80ECECEC);
+  static const Color textFieldBorderMid = Color(0xFFBCC7E4);
+  static const Color textFieldCardShadow = Color(0x14FFFFFF);
 }

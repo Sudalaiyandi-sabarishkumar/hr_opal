@@ -4,9 +4,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
 import 'views/auth/landing_page.dart';
 import 'views/auth/login_page.dart';
+
+
+import 'views/auth/otp_page.dart';
 import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
@@ -20,6 +24,8 @@ class RouteConstants {
   static String appLoaderPage = 'appLoader';
   static String landingPage = 'landing';
   static String signInPage = 'signIn';
+  static String forgotPasswordPage = 'forgotPassword';
+  static String otpPage = 'otp';
   static String loginPage = 'login';
   static String homePage = 'home';
   static String designPage = 'design';
@@ -74,6 +80,26 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<SignInPage>(
               child: SignInPage(),
+            ),
+          ),
+          GoRoute(
+            path: '/auth/forgot-password',
+            name: RouteConstants.forgotPasswordPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<ForgotPasswordPage>(
+              child: ForgotPasswordPage(),
+            ),
+          ),
+          GoRoute(
+            path: '/auth/otp',
+            name: RouteConstants.otpPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                MaterialPage<OtpPage>(
+              child: OtpPage(
+                maskedMobileNumber: state.extra is String
+                    ? state.extra! as String
+                    : '966*******56',
+              ),
             ),
           ),
           GoRoute(

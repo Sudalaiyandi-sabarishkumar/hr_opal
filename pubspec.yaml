@@ -57,6 +57,7 @@ dependencies:
   flutter_svg: ^2.2.1
   network_flutter:
     path: mobile_api_client
+  pinput: ^6.0.2
   
 
 dev_dependencies:

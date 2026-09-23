@@ -83,7 +83,7 @@ class _CustomButtonState extends State<CustomButton> {
   };
 
   Border? get _border => widget.variant == AppButtonVariant.outline
-      ? Border.all(color: AppColors.neutral300)
+      ? Border.all(color: AppColors.statusSoftBg)
       : null;
 
   double get _height => widget.height ?? switch (widget.size) {
