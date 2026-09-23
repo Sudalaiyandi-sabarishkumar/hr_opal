@@ -14,154 +14,113 @@ import '../../shared_components/button/custom_button.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
-  static const double _canvasWidth = 375;
-  static const double _canvasHeight = 480;
-
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF7BA7D0),
-      body: Background(
-        child: SafeArea(
+    return SafeArea(
+      top: false,
+      left: false,
+      right: false,
+      child: Scaffold(
+        body: Background(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(height: 59.h),
-              Center(
-                child: Image.asset(
-                  AppAssets.hrOpalLogo,
-                  height: 25.h,
-                  fit: BoxFit.contain,
-                ),
-              ),
-
+              logoImage(),
               SizedBox(height: 107.h),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32.w),
-                child: Text(
-                  'Your Workday\nSimplified',
-                  textAlign: TextAlign.center,
-                  style: textTheme.geist36Regular.copyWith(
-                    color: AppColors.white,
-                    height: 1.15,
-                    letterSpacing: -0.5,
-                    fontFamily: hostGroteskFont,
-                  ),
-                ),
-              ),
-
+              textComponent(textTheme),
               SizedBox(height: 61.h),
-
-              Expanded(
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: _canvasWidth / _canvasHeight,
-                    child: FittedBox(
-                      child: SizedBox(
-                        width: _canvasWidth,
-                        height: _canvasHeight,
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: <Widget>[
-                            Positioned(
-                              top: 33.h,
-                             left: 265.w,
-                              child: _FloatingCard(
-                                child: SvgPicture.asset(
-                                  AppAssets.card2,
-                                  width: 154.w,
-                                  height: 60.h,
-                                ),
-                              ),
-                            ),
-
-                            Positioned(
-                              top: 146.h,
-                              left: 10.w,
-                              child: _FloatingCard(
-                                child: SvgPicture.asset(
-                                  AppAssets.card1,
-                                  width: 150.w,
-                                  height: 71.h,
-                                ),
-                              ),
-                            ),
-
-                            Positioned(
-                              top: -75.h,
-                              left: -20.w,
-                              child: SvgPicture.asset(
-                                AppAssets.dottedLine,
-                                width: 190.w,
-                              ),
-                            ),
-
-                            Positioned(
-                              left: 0,
-                              right: 0,
-                              bottom: 0,
-                              child: Image.asset(
-                                AppAssets.femaleImage,
-                                width: _canvasWidth,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              imageComponent(),
+              SizedBox(height: 84.h),
             ],
           ),
         ),
+        floatingActionButton: buttonComponent(textTheme, context),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
-        child: CustomButton(
-          textStyle: textTheme.geist14Regular,
-          buttonName: 'Get Started',
-          icon: AppAssets.rightArrowIcon,
-          isReverse: true,
-          iconSize: 10.r,
-          size: AppButtonSize.large,
-          variant: AppButtonVariant.secondary,
-          borderRadius: 60.r,
-          height: 56.h,
-          onTap: () => context.goNamed(RouteConstants.signInPage),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
-}
 
-class _FloatingCard extends StatelessWidget {
-  const _FloatingCard({required this.child});
-  final Widget child;
+  Widget logoImage() {
+    return Center(
+      child: Image.asset(AppAssets.hrOpalLogo, height: 25.h, width: 87.w),
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white.withValues(alpha: 0.85),
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: AppColors.black.withValues(alpha: 0.10),
-            blurRadius: 16.r,
-            offset: Offset(0, 4.h),
+  Widget textComponent(TextTheme textTheme) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 32.w),
+      child: Text(
+        'Your Workday\nSimplified',
+        textAlign: TextAlign.center,
+        style: textTheme.geist36Regular.copyWith(
+          color: AppColors.white,
+          fontSize: 37.sp,
+          height: 1.15,
+          letterSpacing: -0.5,
+        ),
+      ),
+    );
+  }
+
+  Widget imageComponent() {
+    return Expanded(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: <Widget>[
+          Positioned(top: -60, child: SvgPicture.asset(AppAssets.dottedLine)),
+          Padding(
+            padding: EdgeInsets.only(top: 145.h, left: 10.w),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                AppAssets.card1,
+                height: 71.h,
+                width: 150.w,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 50.h),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: SvgPicture.asset(
+                AppAssets.card2,
+                height: 60.h,
+                width: 153.w,
+              ),
+            ),
+          ),
+          Center(
+            child: Image.asset(
+              AppAssets.femaleImage,
+              height: 520.h,
+              width: 420.w,
+              fit: BoxFit.cover,
+            ),
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12.r),
-        child: child,
+    );
+  }
+
+  Widget buttonComponent(TextTheme textTheme, BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 20.h),
+      child: CustomButton(
+        textStyle: textTheme.geist14Regular,
+        buttonName: 'Get Started',
+        icon: AppAssets.rightArrowIcon,
+        isReverse: true,
+        iconSize: 10.r,
+        size: AppButtonSize.large,
+        variant: AppButtonVariant.secondary,
+        borderRadius: 60.r,
+        height: 56.h,
+        onTap: () => context.goNamed(RouteConstants.signInPage),
       ),
     );
   }
 }
+ 

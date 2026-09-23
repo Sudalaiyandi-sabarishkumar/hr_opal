@@ -21,7 +21,7 @@ Future<void> main() async {
       AppConfig.initiate();
 
       await ApiRepository.init();
-      
+
       await Firebase.initializeApp();
       // ✅ Enable / Disable Crashlytics by build mode
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
@@ -49,6 +49,10 @@ Future<void> main() async {
       );
     },
     (Object error, StackTrace stack) {
+      if (Firebase.apps.isEmpty) {
+        debugPrint('Uncaught error before Firebase was ready: $error\n$stack');
+        return;
+      }
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     },
   );
