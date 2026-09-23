@@ -63,7 +63,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  dio_cache_interceptor: ^4.0.7
+  dio_cache_interceptor: ^3.4.4
   flutter_lints: ^4.0.0
   flutter_flavorizr: ^2.6.0
   # The "flutter_lints" package below contains a set of recommended lints to
