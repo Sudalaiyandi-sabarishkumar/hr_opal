@@ -81,12 +81,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
     return Stack(
       children: <Widget>[
-        // Base hero background (top half)
+        
         const Positioned.fill(
           child: Background(child: SizedBox.shrink()),
         ),
 
-        // Bottom half background using AppAssets.bg2Image
+        
         Align(
           alignment: Alignment.bottomCenter,
           child: FractionallySizedBox(
@@ -100,28 +100,18 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         ),
 
         Scaffold(
-        // Scaffold already shrinks the body (and lifts the FAB) by the
-        // keyboard height when this is true — the scroll view below must
-        // NOT add viewInsets.bottom again on top of that, or the keyboard
-        // inset gets applied twice and you get a huge extra scroll gap.
+
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          // Horizontal insets disabled on purpose — everything here already
-          // sits clear of the screen edges via its own 20.w padding, and
-          // leaving left/right enabled can shift this body a few px off the
-          // floatingActionButton's true-center axis on devices with
-          // asymmetric left/right viewPadding (see otp_page.dart for the
-          // measured example of this).
+
           left: false,
           right: false,
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              // Only reserve space for the floating button row here. Do NOT
-              // add MediaQuery.viewInsets.bottom — Scaffold's resize above
-              // already accounts for the keyboard.
+    
               padding: EdgeInsets.only(bottom: 100.h),
               child: Column(
                 children: <Widget>[
@@ -190,8 +180,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   ValueListenableBuilder<String>(
                     valueListenable: _passwordNotifier,
                     builder: (BuildContext context, String password, _) {
-                      // Before the user has typed anything, show every rule
-                      // in plain black text with no icon at all.
+      
                       final bool hasStartedTyping = password.isNotEmpty;
 
                       final bool hasLower = RegExp(r'[a-z]').hasMatch(password);
@@ -230,10 +219,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: conditions.map((_PasswordCondition condition) {
-                            // Three visual states per rule:
-                            //  - not typed yet -> black text, no icon
-                            //  - typed & satisfied -> success icon + green text
-                            //  - typed & not satisfied -> danger icon + red text
+                 
                             final Color textColor = !hasStartedTyping
                                 ? AppColors.black
                                 : condition.isValid

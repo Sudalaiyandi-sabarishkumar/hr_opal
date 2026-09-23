@@ -95,11 +95,7 @@ class _OtpPageState extends State<OtpPage> {
       decoration: BoxDecoration(
         color: AppColors.textFieldCardBackground,
         borderRadius: BorderRadius.circular(14.r),
-        // Reused as the exact same const instance in every PinTheme below
-        // so Pinput's implicit BoxDecoration animation sees `identical`
-        // borders and skips interpolation — BoxBorder.lerp only knows how
-        // to interpolate between Border/BorderDirectional and throws for
-        // any other (even matching) custom BoxBorder pair.
+     
         border: _fieldBorder,
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -241,10 +237,7 @@ class _OtpPageState extends State<OtpPage> {
   }
 }
 
-/// Same gradient used by [GradientBorderBox] (`#FFFFFF` -> `#BCC7E4` ->
-/// `#FFFFFF` at 89.85deg), reproduced here as a [BoxBorder] so it can be
-/// used inside Pinput's `PinTheme.decoration`, which only accepts a plain
-/// [BoxDecoration] rather than a custom widget.
+
 const LinearGradient _borderGradient = LinearGradient(
   transform: GradientRotation(89.85 * 3.1415926535897932 / 180),
   colors: <Color>[
@@ -255,9 +248,7 @@ const LinearGradient _borderGradient = LinearGradient(
   stops: <double>[0.0009, 0.5673, 1.0],
 );
 
-/// A single shared instance so every [PinTheme] below references the exact
-/// same border object — see the comment on [defaultPinTheme] for why that
-/// matters.
+
 const _GradientBoxBorder _fieldBorder = _GradientBoxBorder(gradient: _borderGradient, width: 0.4);
 
 class _GradientBoxBorder extends BoxBorder {

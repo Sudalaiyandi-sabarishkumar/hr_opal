@@ -100,12 +100,9 @@ class _SignInPageState extends State<SignInPage> {
             key: _formKey,
             
             child: SingleChildScrollView(
-              // Letting a drag dismiss the keyboard makes the scroll feel
-              // intentional rather than jumpy while it's open.
+              
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              // Only reserve space for the floating "Sign In" button here.
-              // Do NOT add MediaQuery.viewInsets.bottom — Scaffold's resize
-              // already accounts for the keyboard.
+  
               padding: EdgeInsets.only(bottom: 100.h),
               child: Column(
                 children: <Widget>[
@@ -185,7 +182,7 @@ class _SignInPageState extends State<SignInPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-  behavior: HitTestBehavior.opaque, // lets taps on the empty space next to text also register
+  behavior: HitTestBehavior.opaque,
   onTap: () => setState(() => _checkboxValue = !(_checkboxValue ?? false)),
   child: Row(
     children: <Widget>[
