@@ -55,7 +55,7 @@ class ApiRepository {
       dioArg: dioArg ??
           Dio(
             BaseOptions(
-              baseUrl: ApiEndpoint.baseUrl,
+              // baseUrl: ApiEndpoint.baseUrl,
               headers: <String, dynamic>{
                 'User-Agent': 'Mobile',
               },
