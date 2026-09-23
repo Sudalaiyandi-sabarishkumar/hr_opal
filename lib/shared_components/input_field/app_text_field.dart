@@ -65,7 +65,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       style: textTheme.geist13Regular,
                       children: widget.isRequired
                           ? <InlineSpan>[
-                              TextSpan(
+                              const TextSpan(
                                 text: ' *',
                                 style: TextStyle(color: AppColors.statusDanger),
                               ),
@@ -140,7 +140,7 @@ class InputFieldGroup extends StatelessWidget {
           for (int i = 0; i < children.length; i++) ...<Widget>[
             children[i],
             if (i != children.length - 1)
-              Divider(
+              const Divider(
                 height: 1,
                 thickness: 1,
                 color: AppColors.textFieldCardBackground,

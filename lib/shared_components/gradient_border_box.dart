@@ -20,8 +20,6 @@ class GradientBorderBox extends StatelessWidget {
   static const double _borderWidth = 0.4;
 
   static const LinearGradient _borderGradient = LinearGradient(
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
     transform: GradientRotation(89.85 * math.pi / 180),
     colors: <Color>[
       AppColors.white,
@@ -47,7 +45,7 @@ class GradientBorderBox extends StatelessWidget {
           ),
         ],
       ),
-      padding: EdgeInsets.all(_borderWidth),
+      padding: const EdgeInsets.all(_borderWidth),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius - _borderWidth),

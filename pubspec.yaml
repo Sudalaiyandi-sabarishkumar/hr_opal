@@ -64,6 +64,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  dio_cache_interceptor: any
 dependency_overrides:
   win32: ^5.5.4
   # The "flutter_lints" package below contains a set of recommended lints to

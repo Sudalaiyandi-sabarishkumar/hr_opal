@@ -119,7 +119,6 @@ class AppDrawers extends StatelessWidget {
             buttonName:'Close',
             variant: AppButtonVariant.outline,
             size: AppButtonSize.large,
-            isFullWidth: true,
             borderRadius: 60.r,
             height: 56.h,
             onTap: (){Navigator.pop(context);},

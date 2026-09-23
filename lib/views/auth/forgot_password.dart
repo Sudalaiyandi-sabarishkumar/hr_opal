@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-import '../../core/utils/enums.dart';
 import '../../global_widgets/background.dart';
 import '../../global_widgets/form_helper/form_validation_helper.dart';
-import '../../shared_components/button/custom_button.dart';
-import '../../shared_components/drawer/drawer.dart';
 import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/shared_components.dart';
 
@@ -75,7 +70,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               // already accounts for the keyboard.
               padding: EdgeInsets.only(bottom: 100.h),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: 59.h),
                   Image.asset(
@@ -98,7 +92,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     textAlign: TextAlign.center,
                     style: textTheme.geist12Regular.copyWith(color: AppColors.white),
                   ),
-                  SizedBox(height: 24.h),
+                  
                   SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),

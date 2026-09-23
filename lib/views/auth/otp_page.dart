@@ -136,7 +136,6 @@ class _OtpPageState extends State<OtpPage> {
             padding: EdgeInsets.only(bottom: 100.h),
             child: Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: 59.h),
                   Image.asset(
@@ -175,7 +174,6 @@ class _OtpPageState extends State<OtpPage> {
                       controller: _pinController,
                       focusNode: _pinFocusNode,
                       autofocus: true,
-                      keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly,
                       ],
@@ -183,8 +181,6 @@ class _OtpPageState extends State<OtpPage> {
                       focusedPinTheme: focusedPinTheme,
                       submittedPinTheme: defaultPinTheme,
                       separatorBuilder: (int index) => SizedBox(width: 8.w),
-                      showCursor: true,
-                      closeKeyboardWhenCompleted: true,
                       onChanged: (String value) => setState(() {}),
                       onCompleted: (String pin) => setState(() {}),
                     ),
@@ -245,8 +241,6 @@ class _OtpPageState extends State<OtpPage> {
 /// used inside Pinput's `PinTheme.decoration`, which only accepts a plain
 /// [BoxDecoration] rather than a custom widget.
 const LinearGradient _borderGradient = LinearGradient(
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
   transform: GradientRotation(89.85 * 3.1415926535897932 / 180),
   colors: <Color>[
     AppColors.white,

@@ -6,10 +6,8 @@ import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-import '../../core/utils/enums.dart';
 import '../../global_widgets/background.dart';
 import '../../global_widgets/form_helper/form_validation_helper.dart';
-import '../../shared_components/button/custom_button.dart';
 import '../../shared_components/drawer/drawer.dart';
 import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/shared_components.dart';
@@ -55,7 +53,6 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
     if (_segmentedIndex == 0) {
-      print("sds");
       if (_segmentedIndex == 0) {
  AppDrawers.show<void>(
       context: context,
@@ -108,7 +105,6 @@ class _SignInPageState extends State<SignInPage> {
               // already accounts for the keyboard.
               padding: EdgeInsets.only(bottom: 100.h),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: 59.h),
                   Image.asset(
