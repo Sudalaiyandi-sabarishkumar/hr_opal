@@ -1,14 +1,33 @@
 #update according to project flavors
+instructions:
+  - assets:download
+  - assets:extract
+  - android:androidManifest
+  - android:flavorizrGradle
+  - android:buildGradle
+  - android:dummyAssets
+  - android:icons
+  - ios:podfile
+  - ios:xcconfig
+  - ios:buildTargets
+  - ios:schema
+  - ios:dummyAssets
+  - ios:icons
+  - ios:plist
+  - ios:launchScreen
+  - google:firebase
+  - assets:clean
+
 flavors:
   dev:
     app:
       name: "[Dev] App"
     android:
-      applicationId: "com.app.dev"
+      applicationId: "com.hropal.app.dev"
       firebase:
         config: "firebase/dev/google-services.json"
     ios:
-      bundleId: "com.app.dev"
+      bundleId: "com.hropal.app.dev"
       firebase:
         config: "firebase/dev/GoogleService-Info.plist"
 
@@ -16,11 +35,11 @@ flavors:
     app:
       name: "[Staging] App"
     android:
-      applicationId: "com.app.staging"
+      applicationId: "com.hropal.app.staging"
       firebase:
         config: "firebase/staging/google-services.json"
     ios:
-      bundleId: "com.app.staging"
+      bundleId: "com.hropal.app.staging"
       firebase:
         config: "firebase/staging/GoogleService-Info.plist"
 
@@ -28,10 +47,6 @@ flavors:
     app:
       name: "APP"
     android:
-      applicationId: "com.app.prod"
-      firebase:
-        config: "firebase/prod/google-services.json"
+      applicationId: "com.hropal.app"
     ios:
-      bundleId: "com.app.prod"
-      firebase:
-        config: "firebase/prod/GoogleService-Info.plist"
+      bundleId: "com.hropal.app"

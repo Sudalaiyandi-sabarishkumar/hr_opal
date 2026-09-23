@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCR3OhxD7khmf19TGdIjPHi0wh1lMoELqQ</string>
+	<string>AIzaSyCS0fuR46YpYGq7ye_egU7RiIi8QqcXZls</string>
 	<key>GCM_SENDER_ID</key>
-	<string>94448931960</string>
+	<string>404765026055</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.flutterBlocBp.staging</string>
+	<string>com.hropal.app.dev</string>
 	<key>PROJECT_ID</key>
-	<string>boilerplatesample</string>
+	<string>elixir-hropal</string>
 	<key>STORAGE_BUCKET</key>
-	<string>boilerplatesample.firebasestorage.app</string>
+	<string>elixir-hropal.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:94448931960:ios:f4973a8a7dc4b0696e898d</string>
+	<string>1:404765026055:ios:9144f854939e9e44c107a2</string>
 </dict>
 </plist>
