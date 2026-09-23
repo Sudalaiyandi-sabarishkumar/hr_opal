@@ -127,7 +127,7 @@ class _OtpPageState extends State<OtpPage> {
       child: Scaffold(
 
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

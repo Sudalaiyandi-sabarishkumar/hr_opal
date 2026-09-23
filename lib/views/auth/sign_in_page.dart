@@ -94,7 +94,7 @@ class _SignInPageState extends State<SignInPage> {
       child: Scaffold(
     
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
           child: Form(
             key: _formKey,

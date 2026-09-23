@@ -80,7 +80,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         Scaffold(
      
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
    
           left: false,
