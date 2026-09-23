@@ -2,7 +2,7 @@ name: flutter_bloc_bp
 description: Flutter Boiler plate using Bloc
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -58,28 +58,25 @@ dependencies:
   network_flutter:
     path: mobile_api_client
   pinput: ^6.0.2
-  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  dio_cache_interceptor: any
-dependency_overrides:
-  win32: ^5.5.4
+  dio_cache_interceptor: ^4.0.7
+  flutter_lints: ^4.0.0
+  flutter_flavorizr: ^2.6.0
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
