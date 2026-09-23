@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
@@ -31,11 +33,25 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     if (!isValid) {
       return;
     }
-
-    // context.goNamed(
-    //   RouteConstants.otpPage,
-    //   extra: _maskMobileNumber(_mobileController.text),
-    // );
+  
+    context.goNamed(
+      RouteConstants.otpPage,
+      extra: <String, dynamic>{
+        'email': _emailController.text,
+        'on_verify': (String pin) {
+          if (pin == '123456') {
+            GoRouterInit.router.goNamed(RouteConstants.changePasswordPage);
+          } else {
+            final BuildContext? activeContext = GoRouterInit.navigatorKey.currentContext;
+            if (activeContext != null) {
+              ScaffoldMessenger.of(activeContext).showSnackBar(
+                const SnackBar(content: Text('Invalid OTP. Please try again.')),
+              );
+            }
+          }
+        },
+      },
+    );
   }
 
   @override
@@ -137,12 +153,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     Expanded(
                       child: CustomButton(
                         textStyle: textTheme.geist14Regular,
-                        buttonName: 'Sign In',
+                        buttonName: 'Back',
                         size: AppButtonSize.large,
                         variant: AppButtonVariant.subtle,
                         borderRadius: 60.r,
                         height: 56.h,
-                        onTap: _onSignInTap,
+                        onTap: () {
+                          if (context.canPop()) {
+                            context.pop();
+                          } else {
+                            context.goNamed(RouteConstants.signInPage);
+                          }
+                        },
                       ),
                     ),
                     SizedBox(width: 12.w),

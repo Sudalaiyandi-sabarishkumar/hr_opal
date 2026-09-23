@@ -66,4 +66,5 @@ class AppColors {
   static const Color textFieldCardBackground = Color(0x80ECECEC);
   static const Color textFieldBorderMid = Color(0xFFBCC7E4);
   static const Color textFieldCardShadow = Color(0x14FFFFFF);
+  static const Color lightblue = Color(0xFFBCC5E3);
 }

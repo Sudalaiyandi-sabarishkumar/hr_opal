@@ -8,7 +8,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../global_widgets/background.dart';
 import '../../global_widgets/form_helper/form_validation_helper.dart';
-import '../../shared_components/drawer/drawer.dart';
+
 import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/shared_components.dart';
 
@@ -54,32 +54,35 @@ class _SignInPageState extends State<SignInPage> {
     }
     if (_segmentedIndex == 0) {
       if (_segmentedIndex == 0) {
- AppDrawers.show<void>(
-      context: context,
-      placement: AppDrawerPlacement.bottom,
-      builder: (BuildContext context) => Directionality(
-        textDirection: TextDirection.ltr,
-        child: AppDrawers(
-          placement: AppDrawerPlacement.bottom,
-         title: '3 attempts remaining',
-  body: 'You have 3 password attempts remaining before your account '
-      'is temporarily locked. Please ensure you enter the correct password.',
+//  AppDrawers.show<void>(
+//       context: context,
+//       placement: AppDrawerPlacement.bottom,
+//       builder: (BuildContext context) => Directionality(
+//         textDirection: TextDirection.ltr,
+//         child: AppDrawers(
+//           placement: AppDrawerPlacement.bottom,
+//          title: '3 attempts remaining',
+//   body: 'You have 3 password attempts remaining before your account '
+//       'is temporarily locked. Please ensure you enter the correct password.',
           
           
-          icon: AppAssets.alertImage,
-          onCancel: () => Navigator.of(context).pop(),
-          onClose: () => Navigator.of(context).pop(),
-        ),
-      ),
-    );
+//           icon: AppAssets.alertImage,
+//           onCancel: () => Navigator.of(context).pop(),
+//           onClose: () => Navigator.of(context).pop(),
+//         ),
+//       ),
+//     );
 }
     }
     else if (_segmentedIndex == 1) {
-      context.goNamed(
-        RouteConstants.otpPage,
-        extra: _maskMobileNumber(_mobileController.text),
-      );
-    }
+     
+        context.goNamed(
+      RouteConstants.otpPage,
+       extra: {
+    'maskedMobileNumber': _maskMobileNumber(_mobileController.text),
+       }
+    );
+  }
   }
 
   @override
@@ -95,7 +98,7 @@ class _SignInPageState extends State<SignInPage> {
         body: SafeArea(
           child: Form(
             key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            
             child: SingleChildScrollView(
               // Letting a drag dismiss the keyboard makes the scroll feel
               // intentional rather than jumpy while it's open.
@@ -140,6 +143,7 @@ class _SignInPageState extends State<SignInPage> {
                         ? InputFieldGroup(
                             children: <Widget>[
                               AppTextField(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 label: 'Email ID',
                                 hint: 'Enter your mail ID',
                                 controller: _emailController,
@@ -148,6 +152,7 @@ class _SignInPageState extends State<SignInPage> {
                                     FormValidationHelper.emailValidator(value),
                               ),
                               AppTextField(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 label: 'Password',
                                 hint: 'Enter Password',
                                 controller: _passwordController,
@@ -163,7 +168,10 @@ class _SignInPageState extends State<SignInPage> {
                                 label: 'Mobile Number',
                                 hint: 'Enter your mobile number',
                                 controller: _mobileController,
+                                numericOnly: true,
+                                maxLength: 10,
                                 keyboardType: TextInputType.phone,
+                                
                                 validator: (String? value) =>
                                     FormValidationHelper.phoneValidator(value),
                               ),
@@ -176,21 +184,25 @@ class _SignInPageState extends State<SignInPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            AppCheckbox(
-                              value: _checkboxValue,
-                              onChanged: (bool? v) => setState(() => _checkboxValue = v),
-                            ),
-                            SizedBox(width: 3.w),
-                            Text(
-                              'Remember me for 30 days',
-                              style: textTheme.geist12Regular.copyWith(color: AppColors.statusNeutralText),
-                            ),
-                          ],
-                        ),
                         GestureDetector(
-                          onTap: () => context.goNamed(RouteConstants.forgotPasswordPage),
+  behavior: HitTestBehavior.opaque, // lets taps on the empty space next to text also register
+  onTap: () => setState(() => _checkboxValue = !(_checkboxValue ?? false)),
+  child: Row(
+    children: <Widget>[
+      AppCheckbox(
+        value: _checkboxValue,
+        onChanged: (bool? v) => setState(() => _checkboxValue = v),
+      ),
+      SizedBox(width: 3.w),
+      Text(
+        'Remember me for 30 days',
+        style: textTheme.geist12Regular.copyWith(color: AppColors.statusNeutralText),
+      ),
+    ],
+  ),
+),
+                        GestureDetector(
+                          onTap: () => context.pushNamed(RouteConstants.forgotPasswordPage),
                           child: Text(
                             'Forgot password?',
                             style: textTheme.geist12Regular.copyWith(color: AppColors.toastMessage),

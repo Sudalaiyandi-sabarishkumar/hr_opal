@@ -4,13 +4,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
 import 'views/auth/landing_page.dart';
 import 'views/auth/login_page.dart';
-
-
 import 'views/auth/otp_page.dart';
+import 'views/auth/reset_password.dart';
 import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
@@ -26,6 +26,8 @@ class RouteConstants {
   static String signInPage = 'signIn';
   static String forgotPasswordPage = 'forgotPassword';
   static String otpPage = 'otp';
+  static String resetPasswordPage = 'resetPassword';
+  static String changePasswordPage = 'changePassword';
   static String loginPage = 'login';
   static String homePage = 'home';
   static String designPage = 'design';
@@ -83,7 +85,7 @@ class GoRouterInit {
             ),
           ),
           GoRoute(
-            path: '/auth/forgot-password',
+            path: '/auth/sign-in/forgot-password',
             name: RouteConstants.forgotPasswordPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<ForgotPasswordPage>(
@@ -93,14 +95,18 @@ class GoRouterInit {
           GoRoute(
             path: '/auth/otp',
             name: RouteConstants.otpPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                MaterialPage<OtpPage>(
-              child: OtpPage(
-                maskedMobileNumber: state.extra is String
-                    ? state.extra! as String
-                    : '966*******56',
-              ),
-            ),
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              final Map<String, dynamic> data =
+                  (state.extra as Map<String, dynamic>?) ?? <String, dynamic>{};
+
+              return MaterialPage<OtpPage>(
+                child: OtpPage(
+                  email: (data['email'] as String?) ?? '',
+                  maskedMobileNumber: (data['maskedMobileNumber'] as String?) ?? '966*******56',
+                  onVerify: data['on_verify'] as ValueChanged<String>?,
+                ),
+              );
+            },
           ),
           GoRoute(
             path: '/auth/login',
@@ -108,6 +114,22 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<LoginPage>(
               child: LoginPage(),
+            ),
+          ),
+          GoRoute(
+            path: '/auth/reset-password',
+            name: RouteConstants.resetPasswordPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<ResetPasswordPage>(
+              child: ResetPasswordPage(),
+            ),
+          ),
+           GoRoute(
+            path: '/auth/change-password',
+            name: RouteConstants.changePasswordPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<ChangePasswordPage>(
+              child: ChangePasswordPage(),
             ),
           ),
           GoRoute(

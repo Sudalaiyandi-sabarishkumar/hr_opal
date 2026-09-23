@@ -16,6 +16,7 @@ class OtpPage extends StatefulWidget {
   const OtpPage({
     super.key,
     this.maskedMobileNumber = '966*******56',
+    this.email='',
     this.otpLength = 6,
     this.resendSeconds = 277,
     this.onVerify,
@@ -23,6 +24,7 @@ class OtpPage extends StatefulWidget {
   });
 
   final String maskedMobileNumber;
+  final String email;
   final int otpLength;
   final int resendSeconds;
   final ValueChanged<String>? onVerify;
@@ -160,7 +162,7 @@ class _OtpPageState extends State<OtpPage> {
                       style: textTheme.geist12Regular.copyWith(color: AppColors.white),
                       children: <InlineSpan>[
                         TextSpan(
-                          text: widget.maskedMobileNumber,
+                          text: widget.email=='' ?  widget.maskedMobileNumber : widget.email,
                           style: textTheme.geist12SemiBold.copyWith(color: AppColors.white),
                         ),
                       ],
@@ -182,7 +184,10 @@ class _OtpPageState extends State<OtpPage> {
                       submittedPinTheme: defaultPinTheme,
                       separatorBuilder: (int index) => SizedBox(width: 8.w),
                       onChanged: (String value) => setState(() {}),
-                      onCompleted: (String pin) => setState(() {}),
+                      onCompleted: (String pin) {
+                        setState(() {});
+                        widget.onVerify?.call(pin);
+                      },
                     ),
                   ),
                   SizedBox(height: 16.h),

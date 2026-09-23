@@ -35,6 +35,15 @@ class FormValidationHelper {
 
     return null;
   }
+  static String? confirmPasswordValidator(String? value, String password) {
+  if (value == null || value.isEmpty) {
+    return 'This field is mandatory';
+  }
+  if (value != password) {
+    return 'Passwords do not match';
+  }
+  return null;
+}
 
   static String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
