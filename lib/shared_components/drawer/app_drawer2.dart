@@ -7,8 +7,8 @@ import '../../core/theme/app_styles.dart';
 import '../../core/utils/enums.dart';
 import '../button/custom_button.dart';
 
-class AppDrawers extends StatelessWidget {
-  const AppDrawers({
+class AppDrawer2 extends StatelessWidget {
+  const AppDrawer2({
     super.key,
     required this.placement,
     required this.title,
