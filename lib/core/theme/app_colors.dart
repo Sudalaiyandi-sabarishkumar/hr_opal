@@ -67,6 +67,17 @@ class AppColors {
   static const Color textFieldBorderMid = Color(0xFFBCC7E4);
   static const Color textFieldCardShadow = Color(0x14FFFFFF);
   static const Color lightblue = Color(0xFFBCC5E3);
+
+
+  // Profile screen header gradient (blue -> lavender -> soft pink).
+  static const Color profileHeaderGradientTop = Color(0xFF6C8ACC);
+  static const Color profileHeaderGradientMid = Color(0xFF98A9D6);
+  static const Color profileHeaderGradientLow = Color(0xFFCACDE2);
+  static const Color profileHeaderGradientBottom = Color(0xFFE9E2E8);
+
+  // Profile screen option card.
+  static const Color optionCardShadow = Color(0x14000000);
+  static const Color watermarkOnGradient = Color(0x33FFFFFF);
   
 
 }

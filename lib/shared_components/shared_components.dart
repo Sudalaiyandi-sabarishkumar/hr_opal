@@ -12,3 +12,4 @@ export 'tabs/app_underline_tabs.dart';
 export 'toast/app_toast.dart';
 export 'toggle/app_toggle.dart';
 export 'tooltip/app_tooltip.dart';
+export 'option_tile/app_option_tile.dart';

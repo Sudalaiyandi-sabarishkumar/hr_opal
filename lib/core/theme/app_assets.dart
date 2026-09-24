@@ -9,6 +9,7 @@ class AppAssets {
   static const String bgImage = '$imagesPath/bg.png';
   static const String bg2Image = '$imagesPath/bg2.svg';
   static const String bg3Image = '$imagesPath/bg3.svg';
+  static const String bg4Image = '$imagesPath/bg4.png';
   static const String card1 = '$imagesPath/card1.svg';
   static const String card2 = '$imagesPath/card2.svg';
   static const String dottedLine = '$imagesPath/dotted_line.svg';

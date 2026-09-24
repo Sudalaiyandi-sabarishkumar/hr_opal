@@ -4,6 +4,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'profile/family_address.dart';
+import 'profile/my_team.dart' hide ProfilePage;
+import 'profile/profile_screen.dart' hide ProfilePage;
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
@@ -15,6 +18,7 @@ import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
+
 
 class FirebaseUtils {
   static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
@@ -31,6 +35,10 @@ class RouteConstants {
   static String loginPage = 'login';
   static String homePage = 'home';
   static String designPage = 'design';
+    static String profilePage = 'profile';
+    static String myteamPage = 'myteam';
+    static String familyAddressPage = 'familyaddress';
+  
 }
 
 class GoRouterInit {
@@ -66,6 +74,14 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<AppLoader>(
               child: AppLoader(),
+            ),
+          ),
+            GoRoute(
+            path: '/profile',
+            name: RouteConstants.profilePage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<ProfilePage>(
+              child: ProfilePage(),
             ),
           ),
           GoRoute(
@@ -138,6 +154,22 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<HomePage>(
               child: HomePage(),
+            ),
+          ),
+           GoRoute(
+            path: '/familyaddress',
+            name: RouteConstants.familyAddressPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<FamilyAddress>(
+              child: FamilyAddress(),
+            ),
+          ),
+           GoRoute(
+            path: '/myteam',
+            name: RouteConstants.myteamPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<MyTeam>(
+              child:MyTeam(),
             ),
           ),
           GoRoute(
