@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app_router.dart';
@@ -93,6 +92,7 @@ class _SignInPageState extends State<SignInPage> {
 
     return Background(
       child: Scaffold(
+    
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.transparent,
         body: SafeArea(
@@ -208,36 +208,36 @@ class _SignInPageState extends State<SignInPage> {
                       ],
                     ),
                   ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        floatingActionButton: AnimatedSlide(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOut,
-          offset: isKeyboardOpen ? const Offset(0, 1.2) : Offset.zero,
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 150),
-            opacity: isKeyboardOpen ? 0 : 1,
-            child: IgnorePointer(
-              ignoring: isKeyboardOpen,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
-                child: CustomButton(
-                  textStyle: textTheme.geist14Regular,
-                  buttonName: 'Sign In',
-                  size: AppButtonSize.large,
-                  variant: AppButtonVariant.secondary,
-                  borderRadius: 60.r,
-                  height: 56.h,
-                  onTap: _onSignInTap,
-                ),
+                ],
               ),
             ),
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: AnimatedSlide(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        offset: isKeyboardOpen ? const Offset(0, 1.2) : Offset.zero,
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 150),
+          opacity: isKeyboardOpen ? 0 : 1,
+          child: IgnorePointer(
+            ignoring: isKeyboardOpen,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+              child: CustomButton(
+                textStyle: textTheme.geist14Regular,
+                buttonName: 'Sign In',
+                size: AppButtonSize.large,
+                variant: AppButtonVariant.secondary,
+                borderRadius: 60.r,
+                height: 56.h,
+                onTap: _onSignInTap,
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
