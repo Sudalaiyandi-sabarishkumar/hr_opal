@@ -9,17 +9,17 @@ android.apply {
         create("dev") {
             dimension = "flavor-type"
             applicationId = "com.hropal.app.dev"
-            resValue(type = "string", name = "app_name", value = "[Dev] App")
+            resValue(type = "string", name = "app_name", value = "[Dev] HR Opal")
         }
         create("staging") {
             dimension = "flavor-type"
             applicationId = "com.hropal.app.staging"
-            resValue(type = "string", name = "app_name", value = "[Staging] App")
+            resValue(type = "string", name = "app_name", value = "[Staging] HR Opal")
         }
         create("prod") {
             dimension = "flavor-type"
             applicationId = "com.hropal.app"
-            resValue(type = "string", name = "app_name", value = "APP")
+            resValue(type = "string", name = "app_name", value = "HR Opal")
         }
     }
 

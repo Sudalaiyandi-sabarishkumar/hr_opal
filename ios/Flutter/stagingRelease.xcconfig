@@ -2,5 +2,5 @@
 #include "Generated.xcconfig"
 
 ASSET_PREFIX=staging
-BUNDLE_NAME=[Staging] App
-BUNDLE_DISPLAY_NAME=[Staging] App
+BUNDLE_NAME=[Staging] HR Opal
+BUNDLE_DISPLAY_NAME=[Staging] HR Opal

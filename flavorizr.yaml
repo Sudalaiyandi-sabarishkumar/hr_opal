@@ -21,7 +21,7 @@ instructions:
 flavors:
   dev:
     app:
-      name: "[Dev] App"
+      name: "[Dev] HR Opal"
     android:
       applicationId: "com.hropal.app.dev"
       firebase:
@@ -33,7 +33,7 @@ flavors:
 
   staging:
     app:
-      name: "[Staging] App"
+      name: "[Staging] HR Opal"
     android:
       applicationId: "com.hropal.app.staging"
       firebase:
@@ -45,7 +45,7 @@ flavors:
 
   prod:
     app:
-      name: "APP"
+      name: "HR Opal"
     android:
       applicationId: "com.hropal.app"
     ios:
