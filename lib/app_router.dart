@@ -4,9 +4,11 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'profile/family_address.dart';
+import 'profile/family_address_details.dart';
+import 'profile/job_details.dart';
 import 'profile/my_team.dart' hide ProfilePage;
 import 'profile/profile_information.dart';
+import 'profile/profile_screen.dart';
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
@@ -39,6 +41,7 @@ class RouteConstants {
     static String myteamPage = 'myteam';
     static String familyAddressPage = 'familyaddress';
     static String personalInformationPage = 'personalInformation';
+    static String jobDetailsPage = 'jobdetails';
   
 }
 
@@ -161,8 +164,8 @@ class GoRouterInit {
             path: '/familyaddress',
             name: RouteConstants.familyAddressPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<FamilyAddress>(
-              child: FamilyAddress(),
+                const MaterialPage<FamilyAddressDetailsScreen>(
+              child: FamilyAddressDetailsScreen(),
             ),
           ),
            GoRoute(
@@ -171,6 +174,14 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<MyTeam>(
               child:MyTeam(),
+            ),
+          ),
+           GoRoute(
+            path: '/jobdetails',
+            name: RouteConstants.jobDetailsPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<JobDetailsScreen>(
+              child:JobDetailsScreen(),
             ),
           ),
           GoRoute(

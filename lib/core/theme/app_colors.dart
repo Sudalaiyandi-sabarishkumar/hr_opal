@@ -93,6 +93,7 @@ class AppColors {
     static const Color headerGradientPurple = Color(0xFFDCD9F5);
   static const Color headerGradientOrange = Color(0xFFF7D9C4);
   static const Color avatarRing = Color(0xFFA8B8E8);
+  static const Color headerGradientPeach = Color(0xFFFDDBBF);
    static const Color headerGradientBlue = Color(0xFFD6E4F7);
   
 

@@ -8,7 +8,7 @@ import '../core/theme/app_styles.dart';
 import '../shared_components/accordion/app_accordion.dart';
 
 /// Personal Information screen: back button + title, centered avatar with
-/// edit badge over a white-to-blue gradient header, name/designation, then
+/// edit badge over a layered gradient header, name/designation, then
 /// three accordion sections.
 class PersonalInformationScreen extends StatelessWidget {
   const PersonalInformationScreen({
@@ -26,23 +26,46 @@ class PersonalInformationScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-          // Header gradient
+          // Header gradient — linear base + radial overlay
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             height: 260.h,
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    AppColors.white,
-                    AppColors.headerGradientBlue,
-                  ],
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(-0.06, -1.0),
+                        end: Alignment(0.06, 1.0),
+                        colors: <Color>[
+                          AppColors.white,
+                          AppColors.headerGradientPeach,
+                          AppColors.headerGradientPeach,
+                        ],
+                        stops: <double>[0.1186, 0.2587, 1.0],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                 Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        center: Alignment(-0.32, -1.5),
+                        radius: 0.9,
+                        colors: <Color>[
+                          Color(0xFF918CF6),
+                          Color(0x00918CF6),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+               
+              ],
             ),
           ),
 
@@ -60,10 +83,9 @@ class PersonalInformationScreen extends StatelessWidget {
                     child: Center(
                       child: Text(
                         'Personal Information',
-                        style: textThemeOf(context)
-                            .geist18SemiBold
-                            .copyWith(
+                        style: textThemeOf(context).geist18SemiBold.copyWith(
                               color: AppColors.textPrimary,
+                              fontFamily: hostGroteskFont,
                             ),
                       ),
                     ),
@@ -83,12 +105,7 @@ class PersonalInformationScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 64.h),
-                        padding: EdgeInsets.fromLTRB(
-                          16.w,
-                          46.h,
-                          16.w,
-                          24.h,
-                        ),
+                        padding: EdgeInsets.fromLTRB(16.w, 46.h, 16.w, 24.h),
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.only(
@@ -105,9 +122,7 @@ class PersonalInformationScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: textThemeOf(context)
                                   .geist18SemiBold
-                                  .copyWith(
-                                    color: AppColors.textPrimary,
-                                  ),
+                                  .copyWith(color: AppColors.textPrimary),
                             ),
 
                             SizedBox(height: 4.h),
@@ -118,9 +133,7 @@ class PersonalInformationScreen extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: textThemeOf(context)
                                   .geist13Regular
-                                  .copyWith(
-                                    color: AppColors.textSecondary,
-                                  ),
+                                  .copyWith(color: AppColors.textSecondary),
                             ),
 
                             SizedBox(height: 24.h),
@@ -136,10 +149,7 @@ class PersonalInformationScreen extends StatelessWidget {
                               initiallyExpanded: true,
                               child: Column(
                                 children: <Widget>[
-                                  AppInfoRow(
-                                    label: 'Title',
-                                    value: 'Mr.',
-                                  ),
+                                  AppInfoRow(label: 'Title', value: 'Mr.'),
                                   AppInfoRow(
                                     label: 'First name',
                                     value: 'Michael',
@@ -160,10 +170,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                     label: 'Passport name',
                                     value: 'Anderson Michael James',
                                   ),
-                                  AppInfoRow(
-                                    label: 'Gender',
-                                    value: 'Male',
-                                  ),
+                                  AppInfoRow(label: 'Gender', value: 'Male'),
                                   AppInfoRow(
                                     label: 'Date of birth',
                                     value: '03/15/1990',
@@ -262,7 +269,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                   color: AppColors.dark4blue,
                                   border: Border.all(
                                     color: AppColors.white,
-                                    width: 0
+                                    width: 0,
                                   ),
                                   boxShadow: const <BoxShadow>[
                                     BoxShadow(
@@ -320,10 +327,7 @@ class PersonalInformationScreen extends StatelessWidget {
           SafeArea(
             bottom: false,
             child: Padding(
-              padding: EdgeInsets.only(
-                left: 12.w,
-                top: 39.h,
-              ),
+              padding: EdgeInsets.only(left: 12.w, top: 39.h),
               child: InkWell(
                 onTap: () {
                   if (context.canPop()) {
@@ -353,6 +357,4 @@ class PersonalInformationScreen extends StatelessWidget {
   }
 }
 
-TextTheme textThemeOf(BuildContext context) =>
-    Theme.of(context).textTheme;
-    
+TextTheme textThemeOf(BuildContext context) => Theme.of(context).textTheme;

@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
         AppOptionTile(
           svgAsset: AppAssets.profileBriefcase,
           label: 'Job Details',
-          onTap: () {},
+          onTap: () {context.push(RouteConstants.jobDetailsPage);},
         ),
         AppOptionTile(
          svgAsset: AppAssets.profileFlow,
