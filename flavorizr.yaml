@@ -2,36 +2,36 @@
 flavors:
   dev:
     app:
-      name: "[Dev] App"
+      name: "[Dev] HR Opal"
     android:
-      applicationId: "com.app.dev"
+      applicationId: "com.hropal.app.dev"
       firebase:
         config: "firebase/dev/google-services.json"
     ios:
-      bundleId: "com.app.dev"
+      bundleId: "com.hropal.app.dev"
       firebase:
         config: "firebase/dev/GoogleService-Info.plist"
 
   staging:
     app:
-      name: "[Staging] App"
+      name: "[Staging] HR Opal"
     android:
-      applicationId: "com.app.staging"
+      applicationId: "com.hropal.app.staging"
       firebase:
         config: "firebase/staging/google-services.json"
     ios:
-      bundleId: "com.app.staging"
+      bundleId: "com.hropal.app.staging"
       firebase:
         config: "firebase/staging/GoogleService-Info.plist"
 
   prod:
     app:
-      name: "APP"
+      name: "HR Opal"
     android:
-      applicationId: "com.app.prod"
+      applicationId: "com.hropal.app"
       firebase:
         config: "firebase/prod/google-services.json"
     ios:
-      bundleId: "com.app.prod"
+      bundleId: "com.hropal.app"
       firebase:
         config: "firebase/prod/GoogleService-Info.plist"
