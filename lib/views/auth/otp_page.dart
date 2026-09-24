@@ -50,7 +50,9 @@ class _OtpPageState extends State<OtpPage> {
 Future<void> _verifyPin(String pin) async {
   final bool isValid = await widget.onVerify?.call(pin) ?? true;
 
-  if (!mounted) return;
+  if (!mounted) {
+    return;
+  }
 
   setState(() => _hasVerificationError = !isValid);
 
