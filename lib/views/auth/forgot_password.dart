@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
@@ -26,17 +28,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
-  void _onSignInTap() {
-    final bool isValid = _formKey.currentState?.validate() ?? false;
-    if (!isValid) {
-      return;
-    }
-
-    // context.goNamed(
-    //   RouteConstants.otpPage,
-    //   extra: _maskMobileNumber(_mobileController.text),
-    // );
+ void _onSignInTap() {
+  final bool isValid = _formKey.currentState?.validate() ?? false;
+  if (!isValid) {
+    return;
   }
+
+  context.goNamed(
+    RouteConstants.otpPage,
+    extra: <String, dynamic>{
+      'email': _emailController.text,
+      'on_verify': (String pin) => pin == '123456',
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +50,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return Background(
       child: Scaffold(
-        // Scaffold already shrinks the body (and lifts the FAB) by the
-        // keyboard height when this is true — the scroll view below must
-        // NOT add viewInsets.bottom again on top of that, or the keyboard
-        // inset gets applied twice and you get a huge extra scroll gap.
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
-          // Horizontal insets disabled on purpose — everything here already
-          // sits clear of the screen edges via its own 20.w padding, and
-          // leaving left/right enabled can shift this body a few px off the
-          // floatingActionButton's true-center axis on devices with
-          // asymmetric left/right viewPadding (see otp_page.dart for the
-          // measured example of this).
           left: false,
           right: false,
           child: Form(
@@ -65,9 +60,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              // Only reserve space for the floating button row here. Do NOT
-              // add MediaQuery.viewInsets.bottom — Scaffold's resize above
-              // already accounts for the keyboard.
+
               padding: EdgeInsets.only(bottom: 100.h),
               child: Column(
                 children: <Widget>[
@@ -90,9 +83,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Text(
                     'Enter your credentials to access your account',
                     textAlign: TextAlign.center,
-                    style: textTheme.geist12Regular.copyWith(color: AppColors.white),
+                    style: textTheme.geist12Regular.copyWith(
+                      color: AppColors.white,
+                    ),
                   ),
-                  
+
                   SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -126,23 +121,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
                 child: Row(
-                  // Each CustomButton defaults to isFullWidth: true, which
-                  // makes its inner Container ask for width: double.infinity.
-                  // A plain Row hands non-flex children unbounded width along
-                  // the main axis, so two full-width buttons side by side
-                  // here would throw "RenderBox was given an infinite size
-                  // during layout" and neither would render. Expanded gives
-                  // each one a bounded share of the Row instead.
                   children: <Widget>[
                     Expanded(
                       child: CustomButton(
                         textStyle: textTheme.geist14Regular,
-                        buttonName: 'Sign In',
+                        buttonName: 'Back',
                         size: AppButtonSize.large,
                         variant: AppButtonVariant.subtle,
                         borderRadius: 60.r,
                         height: 56.h,
-                        onTap: _onSignInTap,
+                        onTap: () {
+                          if (context.canPop()) {
+                            context.pop();
+                          } else {
+                            context.goNamed(RouteConstants.signInPage);
+                          }
+                        },
                       ),
                     ),
                     SizedBox(width: 12.w),

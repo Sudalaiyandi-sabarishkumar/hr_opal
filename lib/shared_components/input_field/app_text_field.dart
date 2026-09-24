@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -17,6 +18,8 @@ class AppTextField extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.autovalidateMode,
+    this.numericOnly = false,
+    this.maxLength,
   });
 
   final String label;
@@ -27,6 +30,15 @@ class AppTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
+
+  /// When true, restricts input to digits 0-9 only (e.g. OTP, phone number,
+  /// PIN fields). Also switches the on-screen keyboard to numeric unless
+  /// [keyboardType] is explicitly overridden.
+  final bool numericOnly;
+
+  /// Caps the number of characters that can be entered. The default
+  /// character counter is hidden since the design doesn't show one.
+  final int? maxLength;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -45,6 +57,12 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+
+    final List<TextInputFormatter> inputFormatters = <TextInputFormatter>[
+      if (widget.numericOnly) FilteringTextInputFormatter.digitsOnly,
+      if (widget.maxLength != null)
+        LengthLimitingTextInputFormatter(widget.maxLength),
+    ];
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -79,7 +97,12 @@ class _AppTextFieldState extends State<AppTextField> {
                     focusNode: _focusNode,
                     onTap: () => _focusNode.requestFocus(),
                     obscureText: _obscure,
-                    keyboardType: widget.keyboardType,
+                    keyboardType: widget.numericOnly
+                        ? (widget.keyboardType ?? TextInputType.number)
+                        : widget.keyboardType,
+                    inputFormatters:
+                        inputFormatters.isEmpty ? null : inputFormatters,
+                    maxLength: widget.maxLength,
                     validator: widget.validator,
                     autovalidateMode: widget.autovalidateMode,
                     decoration: InputDecoration(
@@ -90,6 +113,9 @@ class _AppTextFieldState extends State<AppTextField> {
                       errorBorder: InputBorder.none,
                       focusedErrorBorder: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
+                      // Hide the default "n/max" counter row under the
+                      // field; the design has no room/spec for it.
+                      counterText: '',
                       hintText: widget.hint,
                       hintStyle: textTheme.geist16Regular,
                       errorStyle: textTheme.geist12Regular.copyWith(

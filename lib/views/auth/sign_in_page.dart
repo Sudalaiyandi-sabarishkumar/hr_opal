@@ -9,7 +9,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../global_widgets/background.dart';
 import '../../global_widgets/form_helper/form_validation_helper.dart';
-import '../../shared_components/drawer/drawer.dart';
+
 import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/shared_components.dart';
 
@@ -55,31 +55,35 @@ class _SignInPageState extends State<SignInPage> {
     }
     if (_segmentedIndex == 0) {
       if (_segmentedIndex == 0) {
-        AppDrawers.show<void>(
-          context: context,
-          placement: AppDrawerPlacement.bottom,
-          builder: (BuildContext context) => Directionality(
-            textDirection: TextDirection.ltr,
-            child: AppDrawers(
-              placement: AppDrawerPlacement.bottom,
-              title: '3 attempts remaining',
-              body:
-                  'You have 3 password attempts remaining before your account '
-                  'is temporarily locked. Please ensure you enter the correct password.',
-
-              icon: AppAssets.alertImage,
-              onCancel: () => Navigator.of(context).pop(),
-              onClose: () => Navigator.of(context).pop(),
-            ),
-          ),
-        );
-      }
-    } else if (_segmentedIndex == 1) {
-      context.goNamed(
-        RouteConstants.otpPage,
-        extra: _maskMobileNumber(_mobileController.text),
-      );
+//  AppDrawers.show<void>(
+//       context: context,
+//       placement: AppDrawerPlacement.bottom,
+//       builder: (BuildContext context) => Directionality(
+//         textDirection: TextDirection.ltr,
+//         child: AppDrawers(
+//           placement: AppDrawerPlacement.bottom,
+//          title: '3 attempts remaining',
+//   body: 'You have 3 password attempts remaining before your account '
+//       'is temporarily locked. Please ensure you enter the correct password.',
+          
+          
+//           icon: AppAssets.alertImage,
+//           onCancel: () => Navigator.of(context).pop(),
+//           onClose: () => Navigator.of(context).pop(),
+//         ),
+//       ),
+//     );
+}
     }
+    else if (_segmentedIndex == 1) {
+     
+        context.goNamed(
+      RouteConstants.otpPage,
+       extra: {
+    'maskedMobileNumber': _maskMobileNumber(_mobileController.text),
+       }
+    );
+  }
   }
 
   @override
@@ -90,140 +94,119 @@ class _SignInPageState extends State<SignInPage> {
     return Background(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         body: SafeArea(
-          top: false,
-          child: Stack(
-            children: [
-              SvgPicture.asset(
-                AppAssets.dottedLine,
-                height: 133.h,
-                width: 151.w,
-              ),
-              Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: SingleChildScrollView(
-                  // Letting a drag dismiss the keyboard makes the scroll feel
-                  // intentional rather than jumpy while it's open.
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
-                  // Only reserve space for the floating "Sign In" button here.
-                  // Do NOT add MediaQuery.viewInsets.bottom — Scaffold's resize
-                  // already accounts for the keyboard.
-                  padding: EdgeInsets.only(bottom: 100.h),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 59.h),
-                      Image.asset(
-                        AppAssets.hrOpalLogo,
-                        height: 25.h,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(height: 50.h),
-                      Text(
-                        'Sign in to HR Opal',
-                        textAlign: TextAlign.center,
-                        style: textTheme.geist30Bold.copyWith(
-                          fontFamily: hostGroteskFont,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      SizedBox(height: 6.h),
-                      Text(
-                        'Enter your credentials to access your account',
-                        textAlign: TextAlign.center,
-                        style: textTheme.geist12Regular.copyWith(
-                          color: AppColors.white,
-                        ),
-                      ),
-                      SizedBox(height: 24.h),
-                      AppSegmentedTabs(
-                        labels: tabLabels,
-                        selectedIndex: _segmentedIndex,
-                        onChanged: (int i) =>
-                            setState(() => _segmentedIndex = i),
-                      ),
-                      SizedBox(height: 20.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: _segmentedIndex == 0
-                            ? InputFieldGroup(
-                                children: <Widget>[
-                                  AppTextField(
-                                    label: 'Email ID',
-                                    hint: 'Enter your mail ID',
-                                    controller: _emailController,
-                                    keyboardType: TextInputType.emailAddress,
-                                    validator: (String? value) =>
-                                        FormValidationHelper.emailValidator(
-                                          value,
-                                        ),
-                                  ),
-                                  AppTextField(
-                                    label: 'Password',
-                                    hint: 'Enter Password',
-                                    controller: _passwordController,
-                                    isPassword: true,
-                                    validator: (String? value) =>
-                                        FormValidationHelper.passwordValidator(
-                                          value,
-                                        ),
-                                  ),
-                                ],
-                              )
-                            : InputFieldGroup(
-                                children: <Widget>[
-                                  AppTextField(
-                                    label: 'Mobile Number',
-                                    hint: 'Enter your mobile number',
-                                    controller: _mobileController,
-                                    keyboardType: TextInputType.phone,
-                                    validator: (String? value) =>
-                                        FormValidationHelper.phoneValidator(
-                                          value,
-                                        ),
-                                  ),
-                                ],
+          child: Form(
+            key: _formKey,
+            
+            child: SingleChildScrollView(
+              
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+  
+              padding: EdgeInsets.only(bottom: 100.h),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 59.h),
+                  Image.asset(
+                    AppAssets.hrOpalLogo,
+                    height: 25.h,
+                    fit: BoxFit.contain,
+                  ),
+                  SizedBox(height: 50.h),
+                  Text(
+                    'Sign in to HR Opal',
+                    textAlign: TextAlign.center,
+                    style: textTheme.geist30Bold.copyWith(
+                      fontFamily: hostGroteskFont,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  SizedBox(height: 6.h),
+                  Text(
+                    'Enter your credentials to access your account',
+                    textAlign: TextAlign.center,
+                    style: textTheme.geist12Regular.copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: 24.h),
+                  AppSegmentedTabs(
+                    labels: tabLabels,
+                    selectedIndex: _segmentedIndex,
+                    onChanged: (int i) => setState(() => _segmentedIndex = i),
+                  ),
+                  SizedBox(height: 20.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: _segmentedIndex == 0
+                        ? InputFieldGroup(
+                            children: <Widget>[
+                              AppTextField(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                label: 'Email ID',
+                                hint: 'Enter your mail ID',
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (String? value) =>
+                                    FormValidationHelper.emailValidator(value),
                               ),
-                      ),
-                      SizedBox(height: 20.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                AppCheckbox(
-                                  value: _checkboxValue,
-                                  onChanged: (bool? v) =>
-                                      setState(() => _checkboxValue = v),
-                                ),
-                                SizedBox(width: 3.w),
-                                Text(
-                                  'Remember me for 30 days',
-                                  style: textTheme.geist12Regular.copyWith(
-                                    color: AppColors.statusNeutralText,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: () => context.goNamed(
-                                RouteConstants.forgotPasswordPage,
+                              AppTextField(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                label: 'Password',
+                                hint: 'Enter Password',
+                                controller: _passwordController,
+                                isPassword: true,
+                                validator: (String? value) =>
+                                    FormValidationHelper.passwordValidator(value),
                               ),
-                              child: Text(
-                                'Forgot password?',
-                                style: textTheme.geist12Regular.copyWith(
-                                  color: AppColors.toastMessage,
-                                ),
+                            ],
+                          )
+                        : InputFieldGroup(
+                            children: <Widget>[
+                              AppTextField(
+                                label: 'Mobile Number',
+                                hint: 'Enter your mobile number',
+                                controller: _mobileController,
+                                numericOnly: true,
+                                maxLength: 10,
+                                keyboardType: TextInputType.phone,
+                                
+                                validator: (String? value) =>
+                                    FormValidationHelper.phoneValidator(value),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                  ),
+                  SizedBox(height: 20.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+  behavior: HitTestBehavior.opaque,
+  onTap: () => setState(() => _checkboxValue = !(_checkboxValue ?? false)),
+  child: Row(
+    children: <Widget>[
+      AppCheckbox(
+        value: _checkboxValue,
+        onChanged: (bool? v) => setState(() => _checkboxValue = v),
+      ),
+      SizedBox(width: 3.w),
+      Text(
+        'Remember me for 30 days',
+        style: textTheme.geist12Regular.copyWith(color: AppColors.statusNeutralText),
+      ),
+    ],
+  ),
+),
+                        GestureDetector(
+                          onTap: () => context.pushNamed(RouteConstants.forgotPasswordPage),
+                          child: Text(
+                            'Forgot password?',
+                            style: textTheme.geist12Regular.copyWith(color: AppColors.toastMessage),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
