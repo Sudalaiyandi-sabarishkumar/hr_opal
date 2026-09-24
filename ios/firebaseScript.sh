@@ -1,4 +1,6 @@
-case "$CONFIGURATION" in
-  *-dev) cp Runner/dev/GoogleService-Info.plist Runner/GoogleService-Info.plist ;;
-  *-staging) cp Runner/staging/GoogleService-Info.plist Runner/GoogleService-Info.plist ;;
-esac
+if [ "$CONFIGURATION" == "Debug-dev" ] || [ "$CONFIGURATION" == "Release-dev" ]; then
+  cp Runner/dev/GoogleService-Info.plist Runner/GoogleService-Info.plist
+elif [ "$CONFIGURATION" == "Debug-staging" ] || [ "$CONFIGURATION" == "Release-staging" ]; then
+  cp Runner/staging/GoogleService-Info.plist Runner/GoogleService-Info.plist
+fi
+
