@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:404765026055:android:3f5a92783b8cbb78c107a2",
+        "android_client_info": {
+          "package_name": "com.hropal.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxu4TWnqrIPB_YRSEOMKB9IrRzS84m9z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:404765026055:android:3f97b5fe195e834cc107a2",
         "android_client_info": {
           "package_name": "com.hropal.app.dev"

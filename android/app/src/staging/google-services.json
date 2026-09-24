@@ -1,21 +1,40 @@
 {
   "project_info": {
-    "project_number": "94448931960",
-    "project_id": "boilerplatesample",
-    "storage_bucket": "boilerplatesample.firebasestorage.app"
+    "project_number": "404765026055",
+    "project_id": "elixir-hropal",
+    "storage_bucket": "elixir-hropal.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:94448931960:android:84f7e12d281c749c6e898d",
+        "mobilesdk_app_id": "1:404765026055:android:3f97b5fe195e834cc107a2",
         "android_client_info": {
-          "package_name": "com.example.flutter_bloc_bp"
+          "package_name": "com.hropal.app.dev"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCO5xLurNXpxVnBNBk_WepiWVlkGK3TSFQ"
+          "current_key": "AIzaSyDxu4TWnqrIPB_YRSEOMKB9IrRzS84m9z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404765026055:android:32c8480e7de81ebac107a2",
+        "android_client_info": {
+          "package_name": "com.hropal.app.staging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxu4TWnqrIPB_YRSEOMKB9IrRzS84m9z0"
         }
       ],
       "services": {
