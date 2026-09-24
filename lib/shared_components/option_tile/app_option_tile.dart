@@ -19,6 +19,7 @@ class AppOptionTile extends StatelessWidget {
     this.labelStyle,
     this.showTrailingIcon = true,
     this.trailingIcon,
+    this.trailingImageAsset,
     this.backgroundColor = AppColors.transparent,
   }) : assert(icon != null || svgAsset != null, 'Either icon or svgAsset must be provided');
 
@@ -43,11 +44,17 @@ class AppOptionTile extends StatelessWidget {
   /// Overrides the default label text style.
   final TextStyle? labelStyle;
 
-  /// Whether to show the trailing chevron / icon. Defaults to true.
+  /// Whether to show the trailing chevron / icon / image. Defaults to true.
   final bool showTrailingIcon;
 
-  /// Overrides the default trailing chevron icon.
+  /// Overrides the default trailing chevron icon. Ignored if
+  /// [trailingImageAsset] is provided.
   final IconData? trailingIcon;
+
+  /// Trailing image asset path (e.g. PNG/JPG), rendered at 12.w x 10.h
+  /// instead of the trailing chevron icon. Takes priority over
+  /// [trailingIcon] when both are set.
+  final String? trailingImageAsset;
 
   /// Optional background color of the tile. Defaults to [AppColors.transparent].
   final Color backgroundColor;
@@ -66,7 +73,7 @@ class AppOptionTile extends StatelessWidget {
             children: <Widget>[
               if (svgAsset != null)
                 SvgPicture.asset(
-                  svgAsset!,
+                  svgAsset ??'',
                   width: 20.r,
                   height: 20.r,
                   colorFilter: iconColor != null
@@ -92,11 +99,19 @@ class AppOptionTile extends StatelessWidget {
               ),
               if (showTrailingIcon) ...<Widget>[
                 SizedBox(width: 8.w),
-                Icon(
-                  trailingIcon ?? Icons.chevron_right_rounded,
-                  size: 20.r,
-                  color: AppColors.neutral300,
-                ),
+                if (trailingImageAsset != null)
+                  Image.asset(
+                    trailingImageAsset!,
+                    width: 12.w,
+                    height: 10.h,
+                    fit: BoxFit.contain,
+                  )
+                else
+                  Icon(
+                    trailingIcon ?? Icons.chevron_right_rounded,
+                    size: 20.r,
+                    color: AppColors.neutral300,
+                  ),
               ],
             ],
           ),
@@ -132,9 +147,9 @@ class AppOptionCard extends StatelessWidget {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: <Color>[
-      Color(0xFFFFFFFF),
-      Color(0xFFBCC7E4),
-      Color(0xFFFFFFFF),
+      AppColors.white,
+      AppColors.dark3blue,
+      AppColors.white
     ],
     stops: <double>[0.0013, 0.8055, 1.0],
   );

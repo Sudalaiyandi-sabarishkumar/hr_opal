@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import 'profile/family_address.dart';
 import 'profile/my_team.dart' hide ProfilePage;
+import 'profile/profile_information.dart';
 import 'profile/profile_screen.dart' hide ProfilePage;
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
@@ -38,6 +39,7 @@ class RouteConstants {
     static String profilePage = 'profile';
     static String myteamPage = 'myteam';
     static String familyAddressPage = 'familyaddress';
+    static String personalInformationPage = 'personalInformation';
   
 }
 
@@ -170,6 +172,14 @@ class GoRouterInit {
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<MyTeam>(
               child:MyTeam(),
+            ),
+          ),
+          GoRoute(
+            path: '/personalInformation',
+            name: RouteConstants.personalInformationPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<PersonalInformationScreen>(
+              child: PersonalInformationScreen(),
             ),
           ),
           GoRoute(

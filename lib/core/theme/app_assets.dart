@@ -25,4 +25,18 @@ class AppAssets {
   static const String alertImage = '$iconsPath/alert_image.svg';
   static const String lockImage = '$iconsPath/lock_image.svg';
   static const String tickImage = '$iconsPath/tick_image.svg';
+  static const String profileIconsPath = '$iconsPath/profile';
+  static const String profileBookOpen = '$profileIconsPath/book-open.svg';
+  static const String profileBriefcase = '$profileIconsPath/briefcase.svg';
+  static const String profileComputerPhone = '$profileIconsPath/computer-phone.svg';
+  static const String profileFile = '$profileIconsPath/file.svg';
+  static const String profileFlow = '$profileIconsPath/flow.svg';
+  static const String profileLock = '$profileIconsPath/lock.svg';
+  static const String profileLogout = '$profileIconsPath/logout.svg';
+  static const String profileNotification = '$profileIconsPath/notification.svg';
+  static const String profileUserGroup = '$profileIconsPath/user-group.svg';
+  static const String profileUserSharing = '$profileIconsPath/user-sharing.svg';
+  static const String profileUser = '$profileIconsPath/user.svg';
+  static const String profileWorkHistory = '$profileIconsPath/work-history.svg';
+  static const String profileWorkflowCircle = '$profileIconsPath/workflow-circle.svg';
 }

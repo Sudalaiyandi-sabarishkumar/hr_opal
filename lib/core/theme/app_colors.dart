@@ -78,6 +78,26 @@ class AppColors {
   // Profile screen option card.
   static const Color optionCardShadow = Color(0x14000000);
   static const Color watermarkOnGradient = Color(0x33FFFFFF);
+  static const Color darkblue = Color(0xFF42639F);
+  static const Color dark2blue = Color(0xFF6E91D3);
+  static const Color dark3blue = Color(0xFFBCC7E4);
+  static const Color dark4blue = Color(0xFF97ACDA);
+   static const Color accordionPurpleBg = Color(0xFFF0EBFA);
+  static const Color accordionPurpleFg = Color(0xFF5B4FE0);
+
+  static const Color accordionGreenBg = Color(0xFFF0FBF0);
+  static const Color accordionGreenFg = Color(0xFF2E9E5B);
+
+  static const Color accordionYellowBg = Color(0xFFFFFBEB);
+  static const Color accordionYellowFg = Color(0xFFC08A1E);
+    static const Color headerGradientPurple = Color(0xFFDCD9F5);
+  static const Color headerGradientOrange = Color(0xFFF7D9C4);
+  static const Color avatarRing = Color(0xFFA8B8E8);
+   static const Color headerGradientBlue = Color(0xFFD6E4F7);
+  
+
+  
+  
   
 
 }

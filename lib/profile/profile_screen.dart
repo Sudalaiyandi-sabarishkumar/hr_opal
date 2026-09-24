@@ -27,22 +27,90 @@ class ProfileScreen extends StatelessWidget {
   final String designation;
   final bool isClockedIn;
 
+  // Profile Details tiles — method (not getter) since it needs `context`
+  // for navigation. Called from build() where context is available.
+  List<AppOptionTile> _profileDetailTiles(BuildContext context) => <AppOptionTile>[
+        AppOptionTile(
+          svgAsset: AppAssets.profileUserSharing,
+          label: 'Personal Information',
+          onTap: () {context.push(RouteConstants.personalInformationPage);},
+        ),
+        AppOptionTile(
+          svgAsset: AppAssets.profileUserGroup,
+          label: 'Family and Address',
+          onTap: () => context.push(RouteConstants.familyAddressPage),
+        ),
+        AppOptionTile(
+          svgAsset: AppAssets.profileBriefcase,
+          label: 'Job Details',
+          onTap: () {},
+        ),
+        AppOptionTile(
+         svgAsset: AppAssets.profileFlow,
+          label: 'My Team',
+          onTap: () => context.push(RouteConstants.myteamPage),
+        ),
+        AppOptionTile(
+          svgAsset: AppAssets.profileBookOpen,
+          label: 'Qualification and Skills',
+          onTap: () {},
+        ),
+        AppOptionTile(
+          svgAsset: AppAssets.profileFile,
+          label: 'My Documents',
+          onTap: () {},
+        ),
+        AppOptionTile(
+          svgAsset: AppAssets.profileComputerPhone,
+          label: 'Assets',
+          onTap: () {},
+        ),
+        AppOptionTile(
+   svgAsset: AppAssets.profileWorkflowCircle,
+          label: 'Employee Timeline',
+          onTap: () {},
+        ),
+        AppOptionTile(
+        svgAsset: AppAssets.profileWorkHistory,
+          label: 'Transaction History',
+          onTap: () {},
+        ),
+        AppOptionTile(
+         svgAsset: AppAssets.profileUser,
+          label: 'Amendments',
+          onTap: () {},
+        ),
+      ];
+
+  // Settings tiles — plain getter is fine since none of these navigate.
+  List<AppOptionTile> get _settingsTiles => <AppOptionTile>[
+        AppOptionTile(
+         svgAsset: AppAssets.profileNotification,
+          label: 'Notification Preferences',
+          onTap: () {},
+        ),
+        AppOptionTile(
+          svgAsset: AppAssets.profileLock,
+          label: 'Change Password',
+          onTap: () {},
+        ),
+      ];
+
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.sizeOf(context).height;
-
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-          // Background bg4 svg spanning 80% (0.8) of the screen height
+          // Background bg4 image spanning the top of the screen
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: screenHeight * 0.8,
-            child:Image.asset(AppAssets.bg4Image, fit: BoxFit.cover,)
+            child: Image.asset(AppAssets.bg4Image, fit: BoxFit.cover),
           ),
+
+          // Scrollable content
           SafeArea(
             bottom: false,
             child: SingleChildScrollView(
@@ -57,64 +125,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: AppOptionCard(
-                      tiles: <AppOptionTile>[
-                        AppOptionTile(
-                          icon: Icons.person_outline_rounded,
-                          label: 'Personal Information',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.people_alt_outlined,
-                          label: 'Family and Address',
-                          onTap: () {
-                            context.push(RouteConstants.familyAddressPage);
-                          },
-                        ),
-                        AppOptionTile(
-                          icon: Icons.work_outline_rounded,
-                          label: 'Job Details',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.account_tree_outlined,
-                          label: 'My Team',
-                          onTap: () {
-                            context.push(RouteConstants.myteamPage);
-                          },
-                        ),
-                        AppOptionTile(
-                          icon: Icons.menu_book_outlined,
-                          label: 'Qualification and Skills',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.badge_outlined,
-                          label: 'My Documents',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.laptop_mac_outlined,
-                          label: 'Assets',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.timeline_outlined,
-                          label: 'Employee Timeline',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.receipt_long_outlined,
-                          label: 'Transaction History',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.person_2_outlined,
-                          label: 'Amendments',
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
+                    child: AppOptionCard(tiles: _profileDetailTiles(context)),
                   ),
                   SizedBox(height: 16.h),
                   Padding(
@@ -127,20 +138,7 @@ class ProfileScreen extends StatelessWidget {
                           child: const _SectionLabel(label: 'SETTINGS'),
                         ),
                         SizedBox(height: 8.h),
-                        AppOptionCard(
-                          tiles: <AppOptionTile>[
-                            AppOptionTile(
-                              icon: Icons.notifications_none_rounded,
-                              label: 'Notification Preferences',
-                              onTap: () {},
-                            ),
-                            AppOptionTile(
-                              icon: Icons.lock_outline_rounded,
-                              label: 'Change Password',
-                              onTap: () {},
-                            ),
-                          ],
-                        ),
+                        AppOptionCard(tiles: _settingsTiles),
                         SizedBox(height: 16.h),
                         Padding(
                           padding: EdgeInsets.only(left: 12.w),
@@ -151,6 +149,25 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+
+          // Fixed back button — sits above the scroll view as a Stack
+          // sibling, so it never moves when the content scrolls.
+          SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: EdgeInsets.only(left: 4.w, top: 4.h),
+              child: IconButton(
+                onPressed: () {
+                  if (context.canPop()) context.pop();
+                },
+                icon: Icon(
+                  Icons.chevron_left_rounded,
+                  color: AppColors.white,
+                  size: 26.r,
+                ),
               ),
             ),
           ),
@@ -180,23 +197,12 @@ class _Header extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 16.h),
+      // Top padding bumped up since the back button used to live here
+      // and reserved this space itself — adjust if it now sits too close
+      // to the fixed back button floating above.
+      padding: EdgeInsets.fromLTRB(8.w, 48.h, 8.w, 16.h),
       child: Column(
         children: <Widget>[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              onPressed: () {
-                if (context.canPop()) context.pop();
-              },
-              icon: Icon(
-                Icons.chevron_left_rounded,
-                color: AppColors.white,
-                size: 26.r,
-              ),
-            ),
-          ),
-          SizedBox(height: 12.h),
           // Avatar Stack with employeeId (HRC0001) behind the profile image
           Stack(
             alignment: Alignment.center,
@@ -222,8 +228,12 @@ class _Header extends StatelessWidget {
                 height: 98.r,
                 padding: EdgeInsets.all(3.r),
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColors.white,
+                    width: 2,
+                  ),
                   shape: BoxShape.circle,
-                  color: AppColors.white.withValues(alpha: 0.5),
+                  color: AppColors.dark4blue,
                 ),
                 child: ClipOval(
                   child: Image.asset(
@@ -342,10 +352,14 @@ class _LogoutRow extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(
-              Icons.logout_rounded,
-              size: 18.r,
-              color: AppColors.statusDanger,
+            SvgPicture.asset(
+              AppAssets.profileLogout,
+              width: 18.r,
+              height: 18.r,
+              colorFilter: const ColorFilter.mode(
+                AppColors.statusDanger,
+                BlendMode.srcIn,
+              ),
             ),
             SizedBox(width: 8.w),
             Text(
