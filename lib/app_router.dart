@@ -103,7 +103,7 @@ class GoRouterInit {
                 child: OtpPage(
                   email: (data['email'] as String?) ?? '',
                   maskedMobileNumber: (data['maskedMobileNumber'] as String?) ?? '966*******56',
-                  onVerify: data['on_verify'] as ValueChanged<String>?,
+                  onVerify: data['on_verify'] as OtpVerificationCallback?,
                 ),
               );
             },

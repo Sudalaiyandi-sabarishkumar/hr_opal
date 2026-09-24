@@ -28,31 +28,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
-  void _onSignInTap() {
-    final bool isValid = _formKey.currentState?.validate() ?? false;
-    if (!isValid) {
-      return;
-    }
-  
-    context.goNamed(
-      RouteConstants.otpPage,
-      extra: <String, dynamic>{
-        'email': _emailController.text,
-        'on_verify': (String pin) {
-          if (pin == '123456') {
-            GoRouterInit.router.goNamed(RouteConstants.changePasswordPage);
-          } else {
-            final BuildContext? activeContext = GoRouterInit.navigatorKey.currentContext;
-            if (activeContext != null) {
-              ScaffoldMessenger.of(activeContext).showSnackBar(
-                const SnackBar(content: Text('Invalid OTP. Please try again.')),
-              );
-            }
-          }
-        },
-      },
-    );
+ void _onSignInTap() {
+  final bool isValid = _formKey.currentState?.validate() ?? false;
+  if (!isValid) {
+    return;
   }
+
+  context.goNamed(
+    RouteConstants.otpPage,
+    extra: <String, dynamic>{
+      'email': _emailController.text,
+      'on_verify': (String pin) => pin == '123456',
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +50,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     return Background(
       child: Scaffold(
-
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.transparent,
         body: SafeArea(
-      
           left: false,
           right: false,
           child: Form(
@@ -73,7 +60,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-     
+
               padding: EdgeInsets.only(bottom: 100.h),
               child: Column(
                 children: <Widget>[
@@ -96,9 +83,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Text(
                     'Enter your credentials to access your account',
                     textAlign: TextAlign.center,
-                    style: textTheme.geist12Regular.copyWith(color: AppColors.white),
+                    style: textTheme.geist12Regular.copyWith(
+                      color: AppColors.white,
+                    ),
                   ),
-                  
+
                   SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -132,7 +121,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
                 child: Row(
-            
                   children: <Widget>[
                     Expanded(
                       child: CustomButton(

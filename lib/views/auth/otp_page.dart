@@ -5,18 +5,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../core/utils/enums.dart';
 import '../../global_widgets/background.dart';
 import '../../shared_components/button/custom_button.dart';
+import '../../shared_components/toast/app_toast.dart';
+
+typedef OtpVerificationCallback = FutureOr<bool> Function(String pin);
 
 class OtpPage extends StatefulWidget {
   const OtpPage({
     super.key,
     this.maskedMobileNumber = '966*******56',
-    this.email='',
+    this.email = '',
     this.otpLength = 6,
     this.resendSeconds = 277,
     this.onVerify,
@@ -27,7 +31,7 @@ class OtpPage extends StatefulWidget {
   final String email;
   final int otpLength;
   final int resendSeconds;
-  final ValueChanged<String>? onVerify;
+  final OtpVerificationCallback? onVerify;
   final VoidCallback? onResend;
 
   @override
@@ -40,6 +44,28 @@ class _OtpPageState extends State<OtpPage> {
 
   late int _secondsRemaining = widget.resendSeconds;
   Timer? _timer;
+  bool _hasVerificationError = false;
+
+  // otp_page.dart
+Future<void> _verifyPin(String pin) async {
+  final bool isValid = await widget.onVerify?.call(pin) ?? true;
+
+  if (!mounted) return;
+
+  setState(() => _hasVerificationError = !isValid);
+
+  if (!isValid) {
+    AppToast.show(
+      context, // OtpPage's own context — a real descendant of the Overlay
+      title: 'Error',
+      description: 'Invalid OTP. Please try again.',
+      status: AppToastStatus.danger,
+    );
+  }
+  else{
+     GoRouterInit.router.goNamed(RouteConstants.changePasswordPage);
+  }
+}
 
   @override
   void initState() {
@@ -89,14 +115,16 @@ class _OtpPageState extends State<OtpPage> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     final PinTheme defaultPinTheme = PinTheme(
-      width: 48.w,
-      height: 52.h,
-      textStyle: textTheme.geist18Regular.copyWith(color: AppColors.textPrimary),
+      width: 51.w,
+      height: 50.h,
+      textStyle: textTheme.geist18Regular.copyWith(
+        color: AppColors.textPrimary,
+      ),
       decoration: BoxDecoration(
         color: AppColors.textFieldCardBackground,
         borderRadius: BorderRadius.circular(14.r),
-     
-        border: _fieldBorder,
+
+        border: Border.all(color: AppColors.textFieldBorderMid, width: 0.4.w),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: AppColors.textFieldCardShadow,
@@ -108,10 +136,11 @@ class _OtpPageState extends State<OtpPage> {
     );
 
     final PinTheme focusedPinTheme = defaultPinTheme.copyWith(
+      
       decoration: BoxDecoration(
         color: AppColors.textFieldCardBackground,
         borderRadius: BorderRadius.circular(14.r),
-        border: _fieldBorder,
+        border: Border.all(color: AppColors.textFieldBorderMid, width: 0.4.w),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: AppColors.focusRing.withValues(alpha: 0.35),
@@ -123,9 +152,17 @@ class _OtpPageState extends State<OtpPage> {
       ),
     );
 
+    final PinTheme errorPinTheme = defaultPinTheme.copyWith(
+      decoration: BoxDecoration(
+        color: AppColors.textFieldCardBackground,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: AppColors.statusDanger, width: 0.7.w),
+        
+      ),
+    );
+
     return Background(
       child: Scaffold(
-
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.transparent,
         body: SafeArea(
@@ -155,11 +192,17 @@ class _OtpPageState extends State<OtpPage> {
                     textAlign: TextAlign.center,
                     text: TextSpan(
                       text: 'Enter the 6-digit code sent to ',
-                      style: textTheme.geist12Regular.copyWith(color: AppColors.white),
+                      style: textTheme.geist12Regular.copyWith(
+                        color: AppColors.white,
+                      ),
                       children: <InlineSpan>[
                         TextSpan(
-                          text: widget.email=='' ?  widget.maskedMobileNumber : widget.email,
-                          style: textTheme.geist12SemiBold.copyWith(color: AppColors.white),
+                          text: widget.email == ''
+                              ? widget.maskedMobileNumber
+                              : widget.email,
+                          style: textTheme.geist12SemiBold.copyWith(
+                            color: AppColors.white,
+                          ),
                         ),
                       ],
                     ),
@@ -178,12 +221,16 @@ class _OtpPageState extends State<OtpPage> {
                       defaultPinTheme: defaultPinTheme,
                       focusedPinTheme: focusedPinTheme,
                       submittedPinTheme: defaultPinTheme,
+                      errorPinTheme: errorPinTheme,
+                      forceErrorState: _hasVerificationError,
                       separatorBuilder: (int index) => SizedBox(width: 8.w),
-                      onChanged: (String value) => setState(() {}),
-                      onCompleted: (String pin) {
+                      onChanged: (String value) {
+                        if (_hasVerificationError) {
+                          setState(() => _hasVerificationError = false);
+                        }
                         setState(() {});
-                        widget.onVerify?.call(pin);
                       },
+                      onCompleted: _verifyPin,
                     ),
                   ),
                   SizedBox(height: 16.h),
@@ -218,75 +265,21 @@ class _OtpPageState extends State<OtpPage> {
             ),
           ),
         ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
-        child: CustomButton(
-          textStyle: textTheme.geist14Regular,
-          buttonName: 'Verify Code',
-          size: AppButtonSize.large,
-          variant: AppButtonVariant.secondary,
-          borderRadius: 60.r,
-          height: 56.h,
-          isDisabled: _pinController.text.length != widget.otpLength,
-          onTap: () => widget.onVerify?.call(_pinController.text),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+          child: CustomButton(
+            textStyle: textTheme.geist14Regular,
+            buttonName: 'Verify Code',
+            size: AppButtonSize.large,
+            variant: AppButtonVariant.secondary,
+            borderRadius: 60.r,
+            height: 56.h,
+            isDisabled: _pinController.text.length != widget.otpLength,
+            onTap: () => _verifyPin(_pinController.text),
+          ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
-  }
-}
-
-
-const LinearGradient _borderGradient = LinearGradient(
-  transform: GradientRotation(89.85 * 3.1415926535897932 / 180),
-  colors: <Color>[
-    AppColors.white,
-    AppColors.textFieldBorderMid,
-    AppColors.white,
-  ],
-  stops: <double>[0.0009, 0.5673, 1.0],
-);
-
-
-const _GradientBoxBorder _fieldBorder = _GradientBoxBorder(gradient: _borderGradient, width: 0.4);
-
-class _GradientBoxBorder extends BoxBorder {
-  const _GradientBoxBorder({required this.gradient, this.width = 1});
-
-  final Gradient gradient;
-  final double width;
-
-  @override
-  BorderSide get bottom => BorderSide.none;
-
-  @override
-  BorderSide get top => BorderSide.none;
-
-  @override
-  EdgeInsetsGeometry get dimensions => EdgeInsets.all(width);
-
-  @override
-  bool get isUniform => true;
-
-  @override
-  BoxBorder scale(double t) => _GradientBoxBorder(gradient: gradient, width: width * t);
-
-  @override
-  void paint(
-    Canvas canvas,
-    Rect rect, {
-    TextDirection? textDirection,
-    BoxShape shape = BoxShape.rectangle,
-    BorderRadius? borderRadius,
-  }) {
-    final RRect outer = (borderRadius ?? BorderRadius.zero).toRRect(rect);
-    final RRect inner = outer.deflate(width);
-    final Path path = Path()
-      ..fillType = PathFillType.evenOdd
-      ..addRRect(outer)
-      ..addRRect(inner);
-    final Paint paint = Paint()..shader = gradient.createShader(rect);
-    canvas.drawPath(path, paint);
   }
 }
