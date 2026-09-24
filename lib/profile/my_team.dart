@@ -1,163 +1,323 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/theme/app_assets.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_styles.dart';
-import '../shared_components/shared_components.dart';
 
-/// Employee profile screen: header with photo, name, designation,
-/// HRC0001 watermark behind profile image, and clock-in status,
-/// followed by grouped "Profile Details" and "Settings" transparent option lists,
-/// and a logout action.
-class MyTeam extends StatelessWidget {
-  const MyTeam({
-    super.key,
-    this.employeeId = 'HRC0001',
-    this.name = 'Sarah Johnson',
-    this.designation = 'Senior Software Engineer',
-    this.isClockedIn = true,
+
+
+class TeamPerson {
+  const TeamPerson({
+    required this.name,
+    required this.role,
+    required this.imageUrl,
   });
 
-  final String employeeId;
+  final String name;
+  final String role;
+  final String imageUrl;
+}
+
+class MyTeamScreen extends StatelessWidget {
+  const MyTeamScreen({
+    super.key,
+    this.name = 'Casey Wellington',
+    this.designation = 'Director',
+    this.avatarUrl ='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'
+        ,
+    this.birthday = '01 Sept 1990',
+    this.phone = '(301) 580-7410',
+    this.reportingChain = const <TeamPerson>[
+      TeamPerson(
+        name: 'Jehovah',
+        role: 'Director',
+        imageUrl:
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
+      ),
+      TeamPerson(
+        name: 'HARSHA',
+        role: 'Delivery Head',
+        imageUrl:
+            'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200',
+      ),
+      TeamPerson(
+        name: 'Sarah',
+        role: 'Design',
+        imageUrl:
+            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200',
+      ),
+    ],
+    this.reportingLabels = const <String>[
+      'NEXT LEVEL MANAGER',
+      'REPORTING MANAGER',
+      'REPORTING MANAGER',
+    ],
+    this.myTeam = const <TeamPerson>[
+      TeamPerson(
+        name: 'Gugan',
+        role: 'SDE 1',
+        imageUrl:
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
+      ),
+      TeamPerson(
+        name: 'Sam',
+        role: 'SDE 1',
+        imageUrl:
+            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200',
+      ),
+      TeamPerson(
+        name: 'Sarah',
+        role: 'SDE 1',
+        imageUrl:
+            'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200',
+      ),
+      TeamPerson(
+        name: 'Antony',
+        role: 'SDE 1',
+        imageUrl:
+            'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200',
+      ),
+    ],
+  });
+
   final String name;
   final String designation;
-  final bool isClockedIn;
+  final String avatarUrl;
+  final String birthday;
+  final String phone;
+  final List<TeamPerson> reportingChain;
+  final List<String> reportingLabels;
+  final List<TeamPerson> myTeam;
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.sizeOf(context).height;
-    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-          // Background bg4 image spanning 80% of screen height
+
+
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: screenHeight * 0.8,
-            child: Image.asset(
-              AppAssets.bg4Image,
-              width: screenWidth,
-              height: screenHeight * 0.8,
-              fit: BoxFit.fill,
-              alignment: Alignment.topCenter,
+            height: 180.h,
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(-0.06, -1.0),
+                        end: Alignment(0.06, 1.0),
+                        colors: <Color>[
+                          AppColors.white,
+                          AppColors.headerGradientPeach,
+                          AppColors.headerGradientPeach,
+                        ],
+                        stops: <double>[0.1186, 0.2587, 1.0],
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: RadialGradient(
+                        center: Alignment(-0.32, -1.5),
+                        radius: 0.9,
+                        colors: <Color>[
+                          AppColors.headerRadialPurple,
+                          AppColors.headerRadialPurpleTransparent,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          // Remaining 20% of screen height as solid white
-          Positioned(
-            top: screenHeight * 0.8,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: const ColoredBox(
-              color: AppColors.white,
-            ),
-          ),
+
           SafeArea(
             bottom: false,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _Header(
-                    employeeId: employeeId,
-                    name: name,
-                    designation: designation,
-                    isClockedIn: isClockedIn,
-                  ),
+                  SizedBox(height: 39.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: AppOptionCard(
-                      tiles: <AppOptionTile>[
-                        AppOptionTile(
-                          icon: Icons.person_outline_rounded,
-                          label: 'Personal Information',
-                          onTap: () {},
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Center(
+                      child: Text(
+                        'My Team',
+                        style: textTheme.geist18SemiBold.copyWith(
+                          color: AppColors.textPrimary,
+                          fontFamily: hostGroteskFont,
                         ),
-                        AppOptionTile(
-                          icon: Icons.people_alt_outlined,
-                          label: 'Family and Address',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.work_outline_rounded,
-                          label: 'Job Details',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.account_tree_outlined,
-                          label: 'My Team',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.menu_book_outlined,
-                          label: 'Qualification and Skills',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.badge_outlined,
-                          label: 'My Documents',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.laptop_mac_outlined,
-                          label: 'Assets',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.timeline_outlined,
-                          label: 'Employee Timeline',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.receipt_long_outlined,
-                          label: 'Transaction History',
-                          onTap: () {},
-                        ),
-                        AppOptionTile(
-                          icon: Icons.person_2_outlined,
-                          label: 'Amendments',
-                          onTap: () {},
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 16.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  SizedBox(height: 20.h),
+                  Container(
+                    width: double.infinity,
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.sizeOf(context).height - 130.h,
+                    ),
+                    padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 24.h),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24.r),
+                        topRight: Radius.circular(24.r),
+                      ),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(left: 12.w),
-                          child: const _SectionLabel(label: 'SETTINGS'),
-                        ),
-                        SizedBox(height: 8.h),
-                        AppOptionCard(
-                          tiles: <AppOptionTile>[
-                            AppOptionTile(
-                              icon: Icons.notifications_none_rounded,
-                              label: 'Notification Preferences',
-                              onTap: () {},
+
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Container(
+                              width: 72.r,
+                              height: 72.r,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.dark4blue,
+                                boxShadow: const <BoxShadow>[
+                                  BoxShadow(
+                                    blurRadius: 16,
+                                    offset: Offset(0, 8),
+                                    spreadRadius: 2,
+                                    color: AppColors.avatarShadow,
+                                  ),
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: Image.network(
+                                  avatarUrl,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                            AppOptionTile(
-                              icon: Icons.lock_outline_rounded,
-                              label: 'Change Password',
-                              onTap: () {},
+                            Positioned(
+                              right: 2.w,
+                              bottom: 2.h,
+                              child: Container(
+                                width: 14.r,
+                                height: 14.r,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.accordionGreenFg,
+                                  border:
+                                      Border.all(color: AppColors.white, width: 2),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12.h),
+
+
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(
+                              name,
+                              style: textTheme.geist18Medium.copyWith(
+                                color: AppColors.textPrimary,
+                                fontFamily: hostGroteskFont
+                              ),
+                            ),
+                            SizedBox(width: 6.w),
+                            Text(
+                              designation,
+                              style: textTheme.geist13Regular.copyWith(
+                                color: AppColors.textSecondary,
+                              ),
                             ),
                           ],
                         ),
                         SizedBox(height: 16.h),
-                        Padding(
-                          padding: EdgeInsets.only(left: 12.w),
-                          child: _LogoutRow(onTap: () {}),
+
+
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: _InfoBlock(
+                                icon: Icons.cake_outlined,
+                                label: 'Birthday',
+                                value: birthday,
+                              ),
+                            ),
+                            Container(
+                              width: 1,
+                              height: 40.h,
+                              color: AppColors.neutral200,
+                              margin: EdgeInsets.symmetric(horizontal: 12.w),
+                            ),
+                            Expanded(
+                              child: _InfoBlock(
+                                icon: Icons.phone_outlined,
+                                label: 'Phone',
+                                value: phone,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 32.h),
+                        SizedBox(height: 16.h),
+                        Divider(color: AppColors.neutral200, height: 1),
+                        SizedBox(height: 24.h),
+
+
+                        Text(
+                          'Reporting to',
+                          style: textTheme.geist14SemiBold.copyWith(
+                            color: AppColors.textPrimary,
+                            fontFamily: hostGroteskFont
+                          ),
+                        ),
+                        SizedBox(height: 16.h),
+                        for (int i = 0; i < reportingChain.length; i++) ...<Widget>[
+                          _ManagerNode(
+                            label: reportingLabels.length > i
+                                ? reportingLabels[i]
+                                : 'REPORTING MANAGER',
+                            person: reportingChain[i],
+                          ),
+                          if (i != reportingChain.length - 1)
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: 16.r,
+                                top: 4.h,
+                                bottom: 4.h,
+                              ),
+                              child: SvgPicture.asset(AppAssets.profileUpArrow,height:35.h ,),
+                            ),
+                        ],
+                        SizedBox(height: 15.h),
+
+
+                        Text(
+                          'My Team',
+                          style: textTheme.geist14Medium.copyWith(
+                            color: AppColors.textPrimary,
+                            fontFamily: hostGroteskFont
+                          ),
+                        ),
+                        SizedBox(height: 16.h),
+                        for (final TeamPerson person in myTeam)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 16.h),
+                            child: _TeamMemberTile(person: person),
+                          ),
                       ],
                     ),
                   ),
@@ -165,211 +325,179 @@ class MyTeam extends StatelessWidget {
               ),
             ),
           ),
+
+
+          SafeArea(
+            bottom: false,
+            child: Padding(
+              padding: EdgeInsets.only(left: 12.w, top: 39.h),
+              child: InkWell(
+                onTap: () {
+                  if (context.canPop()) {
+                    context.pop();
+                  }
+                },
+                borderRadius: BorderRadius.circular(20.r),
+                child: Container(
+                  width: 36.r,
+                  height: 36.r,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.white,
+                  ),
+                  child: Icon(
+                    Icons.chevron_left_rounded,
+                    size: 22.r,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-typedef ProfilePage = MyTeam;
 
-class _Header extends StatelessWidget {
-  const _Header({
-    required this.employeeId,
-    required this.name,
-    required this.designation,
-    required this.isClockedIn,
+class _InfoBlock extends StatelessWidget {
+  const _InfoBlock({
+    required this.icon,
+    required this.label,
+    required this.value,
   });
 
-  final String employeeId;
-  final String name;
-  final String designation;
-  final bool isClockedIn;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Padding(
-      padding: EdgeInsets.fromLTRB(8.w, 4.h, 8.w, 16.h),
-      child: Column(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              onPressed: () {
-                if (context.canPop()) {
-                  context.pop();
-                }
-              },
-              icon: Icon(
-                Icons.chevron_left_rounded,
-                color: AppColors.white,
-                size: 26.r,
-              ),
-            ),
-          ),
-          SizedBox(height: 12.h),
-          // Avatar Stack with employeeId (HRC0001) behind the profile image
-          Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              // Watermark employee ID behind profile image
-              IgnorePointer(
-                child: Text(
-                  employeeId,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  softWrap: false,
-                  style: textTheme.geist40Bold.copyWith(
-                    color: AppColors.watermarkOnGradient,
-                    letterSpacing: 4,
-                    fontSize: 56.sp,
-                  ),
-                ),
-              ),
-              // Profile circular image
-              Container(
-                width: 98.r,
-                height: 98.r,
-                padding: EdgeInsets.all(3.r),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.white.withValues(alpha: 0.5),
-                ),
-                child: ClipOval(
-                  child: Image.asset(
-                    AppAssets.femaleImage,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  ),
-                ),
-              ),
-              // Clocked In status badge
-              if (isClockedIn)
-                Positioned(
-                  bottom: -12.h,
-                  child: const _ClockedInBadge(),
-                ),
-            ],
-          ),
-          SizedBox(height: 22.h),
-          Text(
-            name,
-            style: textTheme.geist20SemiBold.copyWith(
-              color: AppColors.textPrimary,
-            ),
-          ),
-          SizedBox(height: 4.h),
-          Text(
-            designation,
-            style: textTheme.geist13Regular.copyWith(
-              color: AppColors.textSecondary,
-            ),
-          ),
-          SizedBox(height: 24.h),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 12.w),
-              child: const _SectionLabel(
-                label: 'PROFILE DETAILS',
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ClockedInBadge extends StatelessWidget {
-  const _ClockedInBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(20.r),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 6.r,
-            offset: Offset(0, 2.h),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
-        child: Text(
-          'Clocked In',
-          style: textTheme.geist12SemiBold.copyWith(
-            color: AppColors.statusSuccess,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.label, this.color});
-
+  final IconData icon;
   final String label;
-  final Color? color;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Text(
-      label,
-      style: textTheme.geist14Medium.copyWith(
-        color: color ?? AppColors.neutral500,
-        fontSize: 11.sp,
-        letterSpacing: 0.6,
-      ),
-    );
-  }
-}
-
-class _LogoutRow extends StatelessWidget {
-  const _LogoutRow({this.onTap});
-
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8.r),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 4.w),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
           children: <Widget>[
-            Icon(
-              Icons.logout_rounded,
-              size: 18.r,
-              color: AppColors.statusDanger,
-            ),
-            SizedBox(width: 8.w),
+            Icon(icon, size: 16.r, color: AppColors.textSecondary),
+            SizedBox(width: 6.w),
             Text(
-              'Logout',
-              style: textTheme.geist14Regular.copyWith(
-                color: AppColors.statusDanger,
+              label,
+              style: textTheme.geist13Regular.copyWith(
+                color: AppColors.textSecondary,
               ),
             ),
           ],
         ),
-      ),
+        SizedBox(height: 4.h),
+        Text(
+          value,
+          style: textTheme.geist14Medium.copyWith(
+            color: AppColors.textPrimary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+class _ManagerNode extends StatelessWidget {
+  const _ManagerNode({required this.label, required this.person});
+
+  final String label;
+  final TeamPerson person;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        ClipOval(
+          child: Image.network(
+            person.imageUrl,
+            width: 40.r,
+            height: 40.r,
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              label,
+              style: textTheme.geist12Regular.copyWith(
+                color: AppColors.textSecondary,
+                letterSpacing: 0.2,
+              ),
+            ),
+            SizedBox(height: 2.h),
+            Row(
+              children: <Widget>[
+                Text(
+                  person.name,
+                  style: textTheme.geist14Regular.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  ' \u00b7 ${person.role}',
+                  style: textTheme.geist13Regular.copyWith(
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+
+class _TeamMemberTile extends StatelessWidget {
+  const _TeamMemberTile({required this.person});
+
+  final TeamPerson person;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    return Row(
+      children: <Widget>[
+        ClipOval(
+          child: Image.network(
+            person.imageUrl,
+            width: 40.r,
+            height: 40.r,
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              person.name,
+              style: textTheme.geist14Regular.copyWith(
+                color: AppColors.textPrimary,
+              ),
+            ),
+            SizedBox(height: 2.h),
+            Text(
+              person.role,
+              style: textTheme.geist13Regular.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -9,10 +9,10 @@ import '../core/theme/app_colors.dart';
 import '../core/theme/app_styles.dart';
 import '../shared_components/shared_components.dart';
 
-/// Employee profile screen: header with photo, name, designation,
-/// HRC0001 watermark behind profile image, and clock-in status,
-/// followed by grouped "Profile Details" and "Settings" transparent option lists,
-/// and a logout action.
+
+
+
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     super.key,
@@ -27,8 +27,8 @@ class ProfileScreen extends StatelessWidget {
   final String designation;
   final bool isClockedIn;
 
-  // Profile Details tiles — method (not getter) since it needs `context`
-  // for navigation. Called from build() where context is available.
+
+
   List<AppOptionTile> _profileDetailTiles(BuildContext context) => <AppOptionTile>[
         AppOptionTile(
           svgAsset: AppAssets.profileUserSharing,
@@ -58,12 +58,16 @@ class ProfileScreen extends StatelessWidget {
         AppOptionTile(
           svgAsset: AppAssets.profileFile,
           label: 'My Documents',
-          onTap: () {},
+          onTap: () {
+             context.push(RouteConstants.documentsPage);
+          },
         ),
         AppOptionTile(
           svgAsset: AppAssets.profileComputerPhone,
           label: 'Assets',
-          onTap: () {},
+          onTap: () {
+            context.push(RouteConstants.assetsPage);
+          },
         ),
         AppOptionTile(
    svgAsset: AppAssets.profileWorkflowCircle,
@@ -73,16 +77,20 @@ class ProfileScreen extends StatelessWidget {
         AppOptionTile(
         svgAsset: AppAssets.profileWorkHistory,
           label: 'Transaction History',
-          onTap: () {},
+          onTap: () {
+            context.push(RouteConstants.requestHistoryPage);
+          },
         ),
         AppOptionTile(
          svgAsset: AppAssets.profileUser,
           label: 'Amendments',
-          onTap: () {},
+          onTap: () {
+            context.push(RouteConstants.amendmentsPage);
+          },
         ),
       ];
 
-  // Settings tiles — plain getter is fine since none of these navigate.
+
   List<AppOptionTile> get _settingsTiles => <AppOptionTile>[
         AppOptionTile(
          svgAsset: AppAssets.profileNotification,
@@ -102,7 +110,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-          // Background bg4 image spanning the top of the screen
+
           Positioned(
             top: 0,
             left: 0,
@@ -110,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
             child: Image.asset(AppAssets.bg4Image, fit: BoxFit.cover),
           ),
 
-          // Scrollable content
+
           SafeArea(
             bottom: false,
             child: SingleChildScrollView(
@@ -153,8 +161,8 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
 
-          // Fixed back button — sits above the scroll view as a Stack
-          // sibling, so it never moves when the content scrolls.
+
+
           SafeArea(
             bottom: false,
             child: Padding(
@@ -199,18 +207,18 @@ class _Header extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      // Top padding bumped up since the back button used to live here
-      // and reserved this space itself — adjust if it now sits too close
-      // to the fixed back button floating above.
+
+
+
       padding: EdgeInsets.fromLTRB(8.w, 48.h, 8.w, 16.h),
       child: Column(
         children: <Widget>[
-          // Avatar Stack with employeeId (HRC0001) behind the profile image
+
           Stack(
             alignment: Alignment.center,
             clipBehavior: Clip.none,
             children: <Widget>[
-              // Watermark employee ID behind profile image
+
               IgnorePointer(
                 child: Text(
                   employeeId,
@@ -224,7 +232,7 @@ class _Header extends StatelessWidget {
                   ),
                 ),
               ),
-              // Profile circular image
+
               Container(
                 width: 98.r,
                 height: 98.r,
@@ -245,7 +253,7 @@ class _Header extends StatelessWidget {
                   ),
                 ),
               ),
-              // Clocked In status badge
+
               if (isClockedIn)
                 Positioned(
                   bottom: -12.h,

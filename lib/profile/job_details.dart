@@ -49,8 +49,8 @@ class JobDetailsScreen extends StatelessWidget {
                         center: Alignment(-0.32, -1.5),
                         radius: 0.9,
                         colors: <Color>[
-                          Color(0xFF918CF6),
-                          Color(0x00918CF6),
+                          AppColors.headerRadialPurple,
+                          AppColors.headerRadialPurpleTransparent,
                         ],
                       ),
                     ),

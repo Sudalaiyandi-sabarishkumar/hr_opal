@@ -61,8 +61,8 @@ class _FamilyAddressDetailsScreenState
                         center: Alignment(-0.32, -1.5),
                         radius: 0.9,
                         colors: <Color>[
-                          Color(0xFF918CF6),
-                          Color(0x00918CF6),
+                          AppColors.headerRadialPurple,
+                          AppColors.headerRadialPurpleTransparent,
                         ],
                       ),
                     ),
@@ -108,10 +108,8 @@ class _FamilyAddressDetailsScreenState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        // Wrapped so the tabs size to their content instead
-                        // of stretching to the full row width.
                         Align(
-                          
+
                           child: IntrinsicWidth(
                             child: AppSegmentedTabs(
                               labels: tabLabels,
@@ -166,11 +164,6 @@ class _FamilyAddressDetailsScreenState
     );
   }
 
-  /// Placeholder family-member info — swap in real fields/data source.
-  
-
-  /// Placeholder address info reusing the AppInfoCard/AppStackedInfoRow
-  /// pair built for the "Current Address" card.
   Widget _buildAddressContent() {
     return Column(
       children: [

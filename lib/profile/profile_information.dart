@@ -7,9 +7,6 @@ import '../core/theme/app_colors.dart';
 import '../core/theme/app_styles.dart';
 import '../shared_components/accordion/app_accordion.dart';
 
-/// Personal Information screen: back button + title, centered avatar with
-/// edit badge over a layered gradient header, name/designation, then
-/// three accordion sections.
 class PersonalInformationScreen extends StatelessWidget {
   const PersonalInformationScreen({
     super.key,
@@ -26,7 +23,6 @@ class PersonalInformationScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-          // Header gradient — linear base + radial overlay
           Positioned(
             top: 0,
             left: 0,
@@ -50,25 +46,23 @@ class PersonalInformationScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                 Positioned.fill(
+                Positioned.fill(
                   child: Container(
                     decoration: const BoxDecoration(
                       gradient: RadialGradient(
                         center: Alignment(-0.32, -1.5),
                         radius: 0.9,
                         colors: <Color>[
-                          Color(0xFF918CF6),
-                          Color(0x00918CF6),
+                          AppColors.headerRadialPurple,
+                          AppColors.headerRadialPurpleTransparent,
                         ],
                       ),
                     ),
                   ),
                 ),
-               
               ],
             ),
           ),
-
           SafeArea(
             bottom: false,
             child: SingleChildScrollView(
@@ -76,8 +70,6 @@ class PersonalInformationScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   SizedBox(height: 39.h),
-
-                  // Title
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Center(
@@ -90,18 +82,10 @@ class PersonalInformationScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   SizedBox(height: 16.h),
-
-                  // =========================================================
-                  // PROFILE SECTION
-                  // =========================================================
                   Stack(
                     clipBehavior: Clip.none,
                     children: <Widget>[
-                      // -----------------------------------------------------
-                      // White card
-                      // -----------------------------------------------------
                       Container(
                         width: double.infinity,
                         margin: EdgeInsets.only(top: 64.h),
@@ -116,7 +100,6 @@ class PersonalInformationScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            // Name
                             Text(
                               name,
                               textAlign: TextAlign.center,
@@ -124,10 +107,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                   .geist18SemiBold
                                   .copyWith(color: AppColors.textPrimary),
                             ),
-
                             SizedBox(height: 4.h),
-
-                            // Designation
                             Text(
                               designation,
                               textAlign: TextAlign.center,
@@ -135,12 +115,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                   .geist13Regular
                                   .copyWith(color: AppColors.textSecondary),
                             ),
-
                             SizedBox(height: 24.h),
-
-                            // =================================================
-                            // BASIC INFORMATION
-                            // =================================================
                             const AppAccordion(
                               title: 'Basic Information',
                               icon: Icons.badge_outlined,
@@ -155,7 +130,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                     value: 'Michael',
                                   ),
                                   AppInfoRow(
-                                    label: 'Middle name',
+                                  label: 'Middle name',
                                     value: 'James',
                                   ),
                                   AppInfoRow(
@@ -198,12 +173,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             SizedBox(height: 12.h),
-
-                            // =================================================
-                            // CONTACT INFORMATION
-                            // =================================================
                             const AppAccordion(
                               title: 'Contact Information',
                               icon: Icons.mail_outline_rounded,
@@ -222,12 +192,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             SizedBox(height: 12.h),
-
-                            // =================================================
-                            // EMPLOYEE DETAILS
-                            // =================================================
                             const AppAccordion(
                               title: 'Employee details',
                               icon: Icons.badge_outlined,
@@ -249,10 +214,6 @@ class PersonalInformationScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
-                      // -----------------------------------------------------
-                      // Avatar
-                      // -----------------------------------------------------
                       Positioned(
                         top: 12.h,
                         left: 0,
@@ -276,7 +237,7 @@ class PersonalInformationScreen extends StatelessWidget {
                                       blurRadius: 16,
                                       offset: Offset(0, 8),
                                       spreadRadius: 2,
-                                      color: Colors.black12,
+                                      color: AppColors.avatarShadow,
                                     ),
                                   ],
                                 ),
@@ -288,8 +249,6 @@ class PersonalInformationScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
-                              // Edit button
                               Positioned(
                                 right: -2.w,
                                 bottom: 2.h,
@@ -320,10 +279,6 @@ class PersonalInformationScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // ===============================================================
-          // FIXED BACK BUTTON
-          // ===============================================================
           SafeArea(
             bottom: false,
             child: Padding(

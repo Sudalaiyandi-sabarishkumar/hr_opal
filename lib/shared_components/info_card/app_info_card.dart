@@ -4,13 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 
-/// A static (non-collapsible) card with a colored header and a body of
-/// free-form content — used for things like "Current Address" where the
-/// section is always visible and doesn't need to expand/collapse the way
-/// [AppAccordion] does.
-///
-/// Visually it reuses the same rounded outer card + colored header treatment
-/// as [AppAccordion], just without the icon/chevron/toggle behavior.
+
 class AppInfoCard extends StatelessWidget {
   const AppInfoCard({
     super.key,
@@ -19,14 +13,13 @@ class AppInfoCard extends StatelessWidget {
     required this.child,
   });
 
-  /// Header label, e.g. "Current Address".
+  
   final String title;
 
-  /// Background color of the header row.
+  
   final Color headerColor;
 
-  /// Body content — typically a Column of [AppStackedInfoRow]s and/or
-  /// free-form Text.
+
   final Widget child;
 
   static const double _radius = 16;
@@ -76,9 +69,7 @@ class AppInfoCard extends StatelessWidget {
   }
 }
 
-/// A label-above-value row used inside [AppInfoCard]'s body, e.g.
-/// "Email" -> "katie63@aol.com". Pass [icon] for rows like "Phone" that
-/// show a small leading icon next to the value.
+
 class AppStackedInfoRow extends StatelessWidget {
   const AppStackedInfoRow({
     super.key,

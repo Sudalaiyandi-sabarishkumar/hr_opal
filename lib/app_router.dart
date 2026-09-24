@@ -4,11 +4,15 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'profile/amendments.dart';
+import 'profile/assets.dart';
+import 'profile/document.dart';
 import 'profile/family_address_details.dart';
 import 'profile/job_details.dart';
 import 'profile/my_team.dart' hide ProfilePage;
 import 'profile/profile_information.dart';
 import 'profile/profile_screen.dart';
+import 'profile/request_history.dart';
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
@@ -42,6 +46,10 @@ class RouteConstants {
     static String familyAddressPage = 'familyaddress';
     static String personalInformationPage = 'personalInformation';
     static String jobDetailsPage = 'jobdetails';
+    static String amendmentsPage = 'amendments';
+    static String requestHistoryPage = 'requestHistory';
+    static String documentsPage = 'documents';
+    static String assetsPage = 'assets';
   
 }
 
@@ -172,8 +180,16 @@ class GoRouterInit {
             path: '/myteam',
             name: RouteConstants.myteamPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<MyTeam>(
-              child:MyTeam(),
+                const MaterialPage<MyTeamScreen>(
+              child:MyTeamScreen(),
+            ),
+          ),
+          GoRoute(
+            path: '/requestHistory',
+            name: RouteConstants.requestHistoryPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<RequestsHistoryScreen>(
+              child:RequestsHistoryScreen(),
             ),
           ),
            GoRoute(
@@ -184,12 +200,36 @@ class GoRouterInit {
               child:JobDetailsScreen(),
             ),
           ),
+           GoRoute(
+            path: '/assets',
+            name: RouteConstants.assetsPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<AssetsScreen>(
+              child:AssetsScreen(),
+            ),
+          ),
+           GoRoute(
+            path: '/documents',
+            name: RouteConstants.documentsPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<DocumentsScreen>(
+              child:DocumentsScreen(),
+            ),
+          ),
           GoRoute(
             path: '/personalInformation',
             name: RouteConstants.personalInformationPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
                 const MaterialPage<PersonalInformationScreen>(
               child: PersonalInformationScreen(),
+            ),
+          ),
+          GoRoute(
+            path: '/amendments',
+            name: RouteConstants.amendmentsPage,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const MaterialPage<AmendmentsScreen>(
+              child: AmendmentsScreen(),
             ),
           ),
           GoRoute(

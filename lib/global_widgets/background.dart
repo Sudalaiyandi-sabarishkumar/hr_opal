@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_assets.dart';
+import '../../core/theme/app_colors.dart';
 
 /// Reusable gradient + subtle grid overlay background.
 /// Wrap any screen's content with this to get the same hero background
@@ -24,9 +25,9 @@ class Background extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: <Color>[
-                  Color(0xFF7AAECE), // sky blue top
-                  Color(0xFF9DA8D8), // mid periwinkle
-                  Color(0xFFB8B0D8), // muted lavender bottom
+                  AppColors.backgroundGradientSkyBlue,
+                  AppColors.backgroundGradientPeriwinkle,
+                  AppColors.backgroundGradientLavender,
                 ],
                 stops: <double>[0.0, 0.55, 1.0],
               ),

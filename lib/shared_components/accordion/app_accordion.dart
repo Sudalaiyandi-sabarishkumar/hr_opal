@@ -4,13 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 
-/// A single collapsible section with a colored header (icon + label +
-/// chevron) and an expandable body. Manages its own expand/collapse state
-/// so multiple sections on a page can be expanded independently.
-///
-/// When expanded, the header keeps only its top corners rounded, a thin
-/// divider separates it from the body, and the whole section sits inside
-/// one bordered, rounded outer card.
+
 class AppAccordion extends StatefulWidget {
   const AppAccordion({
     super.key,
@@ -22,22 +16,22 @@ class AppAccordion extends StatefulWidget {
     this.initiallyExpanded = false,
   });
 
-  /// Section label shown in the header, e.g. "Basic Information".
+  
   final String title;
 
-  /// Leading icon shown before the title.
+  
   final IconData icon;
 
-  /// Background color of the header row (e.g. light purple/green/yellow).
+  
   final Color headerColor;
 
-  /// Color used for the icon and title text in the header.
+  
   final Color iconColor;
 
-  /// Content shown when expanded — typically a column of label/value rows.
+  
   final Widget child;
 
-  /// Whether this section starts expanded.
+  
   final bool initiallyExpanded;
 
   @override
@@ -67,7 +61,7 @@ class _AppAccordionState extends State<AppAccordion> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          // Header — full rounding when collapsed, top-only when expanded
+          
           InkWell(
             onTap: _toggle,
             borderRadius: _expanded
@@ -114,10 +108,10 @@ class _AppAccordionState extends State<AppAccordion> {
               ),
             ),
           ),
-          // Divider shown only while expanded, separating header from body
+          
           if (_expanded)
             Divider(height: 1.h, thickness: 1, color: AppColors.neutral200),
-          // Body
+          
           AnimatedSize(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
@@ -134,8 +128,7 @@ class _AppAccordionState extends State<AppAccordion> {
   }
 }
 
-/// A single label/value row used inside an [AppAccordion]'s body,
-/// e.g. "First name" -> "Michael".
+
 class AppInfoRow extends StatelessWidget {
   const AppInfoRow({
     super.key,

@@ -95,6 +95,62 @@ class AppColors {
   static const Color avatarRing = Color(0xFFA8B8E8);
   static const Color headerGradientPeach = Color(0xFFFDDBBF);
    static const Color headerGradientBlue = Color(0xFFD6E4F7);
+   static const Color purple1 = Color(0xFFA8B0E2);
+   static const Color purple2 = Color(0xFFF8F5FF);
+
+  static const Color headerRadialPurple = Color(0xFF918CF6);
+  static const Color headerRadialPurpleTransparent = Color(0x00918CF6);
+
+  static const Color headerGradientLavenderTop = Color(0xFFF1F0FD);
+  static const Color headerGradientLavenderMid = Color(0xFFEAE8FC);
+  static const Color headerGradientLavenderBottom = Color(0xFFF6F1F1);
+  static const Color headerGlowPeach = Color(0x33FFC9A0);
+  static const Color headerGlowPeachTransparent = Color(0x00FFC9A0);
+  static const Color headerTitleNavy = Color(0xFF1F1A4A);
+
+  static const Color chipBorder = Color(0xFFEDEEF1);
+  static const Color assetActiveGreen = Color(0xFF5CC26A);
+  static const Color assetHeaderPurple = Color(0xFFEDEAF8);
+  static const Color assetHeaderGreen = Color(0xFFDFF6DD);
+  static const Color assetHeaderYellow = Color(0xFFFBF3CF);
+
+  static const Color folderLight = Color(0xFFCBBBF8);
+  static const Color folderDark = Color(0xFFB39FEA);
+  static const Color folderGradientTop = Color(0xFFEEEBF9);
+  static const Color folderGradientBottom = Color(0xFFDAD6EC);
+  static const Color folderShadow = Color(0x1F8B85F1);
+  static const Color folderPaperBack = Color(0xFFF2F2F5);
+  static const Color folderPaperShadowBack = Color(0x14000000);
+  static const Color folderPaperShadowFront = Color(0x1A000000);
+  static const Color folderTitleText = Color(0xFF1A1633);
+  static const Color folderSubtitleText = Color(0xFF5B4B9A);
+
+  static const Color viewerBackground = Color(0xFF030304);
+  static const Color viewerIconColor = Color(0xFF1A1D21);
+  static const Color viewerPlaceholderBg = Color(0xFF1C1C21);
+  static const Color viewerPlaceholderIcon = Color(0xFF6B7280);
+
+  static const Color amendmentPurple = Color(0xFF6C63FF);
+  static const Color amendmentPurpleBg = Color(0xFFEDEBFC);
+  static const Color amendmentPurpleFg = Color(0xFF8B85F1);
+  static const Color amendmentYellow = Color(0xFFE08A1D);
+  static const Color amendmentYellowBg = Color(0xFFFBF0D6);
+  static const Color amendmentYellowFg = Color(0xFFF0B429);
+
+  static const Color searchHint = Color(0xFF8A94A6);
+  static const Color searchTextColor = Color(0xFF1A1D21);
+  static const Color searchBorder = Color(0xFFEDEEF1);
+
+  static const Color optionTileBackground = Color(0x33ECECEC);
+  static const Color optionTileShadow = Color(0x14FFFFFF);
+
+  static const Color backgroundGradientSkyBlue = Color(0xFF7AAECE);
+  static const Color backgroundGradientPeriwinkle = Color(0xFF9DA8D8);
+  static const Color backgroundGradientLavender = Color(0xFFB8B0D8);
+
+  static const Color avatarShadow = Color(0x1F000000);
+
+   
   
 
   

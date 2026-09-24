@@ -39,4 +39,16 @@ class AppAssets {
   static const String profileUser = '$profileIconsPath/user.svg';
   static const String profileWorkHistory = '$profileIconsPath/work-history.svg';
   static const String profileWorkflowCircle = '$profileIconsPath/workflow-circle.svg';
+  static const String profileUpArrow = '$profileIconsPath/up_arrow.svg';
+
+  static const String documentsImagesPath = '$imagesPath/documents';
+  static const String drivingLicenseBack = '$documentsImagesPath/driving_license_back.png';
+  static const String passportFront = '$documentsImagesPath/passport_front.png';
+  static const String passportBack = '$documentsImagesPath/passport_back.png';
+  static const String employmentIdFront = '$documentsImagesPath/employment_id_front.png';
+  static const String employmentIdBack = '$documentsImagesPath/employment_id_back.png';
+  static const String bankPassbookFront = '$documentsImagesPath/bank_passbook_front.png';
+  static const String bankPassbookBack = '$documentsImagesPath/bank_passbook_back.png';
+  static const String panCardFront = '$documentsImagesPath/pan_card_front.png';
+  static const String panCardBack = '$documentsImagesPath/pan_card_back.png';
 }

@@ -83,9 +83,11 @@ class _AppTextFieldState extends State<AppTextField> {
                       style: textTheme.geist13Regular,
                       children: widget.isRequired
                           ? <InlineSpan>[
-                              const TextSpan(
+                              TextSpan(
                                 text: ' *',
-                                style: TextStyle(color: AppColors.statusDanger),
+                                style: textTheme.geist13Regular.copyWith(
+                                  color: AppColors.statusDanger,
+                                ),
                               ),
                             ]
                           : null,

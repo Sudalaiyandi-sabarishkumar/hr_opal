@@ -152,7 +152,7 @@ class AppOptionCard extends StatelessWidget {
     stops: <double>[0.0013, 0.8055, 1.0],
   );
 
-  static const Color _backgroundColor = Color(0x33ECECEC);
+  static const Color _backgroundColor = AppColors.optionTileBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +164,7 @@ class AppOptionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: const Color(0x14FFFFFF),
+            color: AppColors.optionTileShadow,
             offset: Offset(0, 3.h),
             blurRadius: 4.8.r,
           ),
