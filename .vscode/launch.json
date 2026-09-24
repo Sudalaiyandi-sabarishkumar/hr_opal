@@ -20,6 +20,14 @@
         "toolArgs": ["--dart-define-from-file", ".env.staging"]
       },
       {
+        "name": "prod",
+        "request": "launch",
+        "type": "dart",
+        "flutterMode": "debug",
+        "args": ["--flavor", "prod"],
+        "toolArgs": ["--dart-define-from-file", ".env.prod"]
+      },
+      {
         "name": "production release",
         "request": "launch",
         "type": "dart",
