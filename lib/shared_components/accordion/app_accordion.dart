@@ -61,7 +61,7 @@ class _AppAccordionState extends State<AppAccordion> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: outerRadius,
-        border: Border.all(color: AppColors.neutral200, width: 1),
+        border: Border.all(color: AppColors.neutral200),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(

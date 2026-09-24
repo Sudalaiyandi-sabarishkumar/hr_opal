@@ -144,8 +144,6 @@ class AppOptionCard extends StatelessWidget {
   static const double _borderWidth = 0.4;
 
   static const LinearGradient _borderGradient = LinearGradient(
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
     colors: <Color>[
       AppColors.white,
       AppColors.dark3blue,
@@ -180,7 +178,7 @@ class AppOptionCard extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(radius),
-          child: Container(
+          child: ColoredBox(
             color: _backgroundColor,
             child: Column(
               mainAxisSize: MainAxisSize.min,

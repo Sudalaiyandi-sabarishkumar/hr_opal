@@ -161,7 +161,9 @@ class ProfileScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 4.w, top: 4.h),
               child: IconButton(
                 onPressed: () {
-                  if (context.canPop()) context.pop();
+                  if (context.canPop()) {
+                    context.pop();
+                  }
                 },
                 icon: Icon(
                   Icons.chevron_left_rounded,

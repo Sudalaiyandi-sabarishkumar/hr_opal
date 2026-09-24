@@ -128,13 +128,13 @@ class PersonalInformationScreen extends StatelessWidget {
                             // =================================================
                             // BASIC INFORMATION
                             // =================================================
-                            AppAccordion(
+                            const AppAccordion(
                               title: 'Basic Information',
                               icon: Icons.badge_outlined,
                               headerColor: AppColors.accordionPurpleBg,
                               iconColor: AppColors.accordionPurpleFg,
                               initiallyExpanded: true,
-                              child: const Column(
+                              child: Column(
                                 children: <Widget>[
                                   AppInfoRow(
                                     label: 'Title',
@@ -197,12 +197,12 @@ class PersonalInformationScreen extends StatelessWidget {
                             // =================================================
                             // CONTACT INFORMATION
                             // =================================================
-                            AppAccordion(
+                            const AppAccordion(
                               title: 'Contact Information',
                               icon: Icons.mail_outline_rounded,
                               headerColor: AppColors.accordionGreenBg,
                               iconColor: AppColors.accordionGreenFg,
-                              child: const Column(
+                              child: Column(
                                 children: <Widget>[
                                   AppInfoRow(
                                     label: 'Email',
@@ -294,7 +294,6 @@ class PersonalInformationScreen extends StatelessWidget {
                                     color: AppColors.white,
                                     border: Border.all(
                                       color: AppColors.neutral200,
-                                      width: 1,
                                     ),
                                   ),
                                   child: Icon(
@@ -356,3 +355,4 @@ class PersonalInformationScreen extends StatelessWidget {
 
 TextTheme textThemeOf(BuildContext context) =>
     Theme.of(context).textTheme;
+    

@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'profile/family_address.dart';
 import 'profile/my_team.dart' hide ProfilePage;
 import 'profile/profile_information.dart';
-import 'profile/profile_screen.dart' hide ProfilePage;
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
