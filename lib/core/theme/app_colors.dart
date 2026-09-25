@@ -97,6 +97,8 @@ class AppColors {
    static const Color headerGradientBlue = Color(0xFFD6E4F7);
    static const Color purple1 = Color(0xFFA8B0E2);
    static const Color purple2 = Color(0xFFF8F5FF);
+   static const Color purple3 = Color(0xFFF7F9FF);
+   static const Color yellow1 = Color(0xFFFCD34D);
 
   static const Color headerRadialPurple = Color(0xFF918CF6);
   static const Color headerRadialPurpleTransparent = Color(0x00918CF6);
@@ -149,6 +151,8 @@ class AppColors {
   static const Color backgroundGradientLavender = Color(0xFFB8B0D8);
 
   static const Color avatarShadow = Color(0x1F000000);
+  static const Color tagColor = Color(0xFF7D5DCB);
+
 
    
   

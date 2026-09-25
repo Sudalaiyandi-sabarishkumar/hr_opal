@@ -154,7 +154,7 @@ class AppTagChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: textTheme.geist12Medium.copyWith(color: foreground),
+        style: textTheme.geist12Regular.copyWith(color: foreground),
       ),
     );
   }
@@ -216,8 +216,8 @@ class AppAccentCircleIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 28.r,
-      height: 28.r,
+      width: 21.r,
+      height: 21.r,
       decoration: BoxDecoration(shape: BoxShape.circle, color: background),
       child: Icon(icon, size: 16.r, color: foreground),
     );

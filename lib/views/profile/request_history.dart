@@ -62,15 +62,12 @@ class RequestsHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    
 
     return AppGradientHeaderScaffold(
       title: 'Requests History',
       headerHeight: 150,
-      titleStyle: textTheme.geist20SemiBold.copyWith(
-        color: AppColors.textPrimary,
-        fontFamily: hostGroteskFont,
-      ),
+      
       body: Column(
         children: <Widget>[
           Padding(
@@ -114,15 +111,15 @@ class _RequestCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   item.title,
-                  style: textTheme.geist14SemiBold.copyWith(
+                  style: textTheme.geist14Medium.copyWith(
                     color: AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: 6.h),
                 AppTagChip(
                   label: item.tag,
-                  background: AppColors.amendmentPurpleBg,
-                  foreground: AppColors.amendmentPurple,
+                  background: AppColors.accordionPurpleBg,
+                  foreground: AppColors.tagColor,
                 ),
               ],
             ),

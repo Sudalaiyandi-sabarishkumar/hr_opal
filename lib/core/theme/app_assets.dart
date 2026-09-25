@@ -10,6 +10,7 @@ class AppAssets {
   static const String bg2Image = '$imagesPath/bg2.svg';
   static const String bg3Image = '$imagesPath/bg3.svg';
   static const String bg4Image = '$imagesPath/bg4.png';
+  static const String bg5Image = '$imagesPath/bg5.png';
   static const String card1 = '$imagesPath/card1.svg';
   static const String card2 = '$imagesPath/card2.svg';
   static const String dottedLine = '$imagesPath/dotted_line.svg';
@@ -43,6 +44,11 @@ class AppAssets {
   static const String profileEdit = '$profileIconsPath/edit.svg';
   static const String profileBackArrow = '$profileIconsPath/profile_back_arrow.svg';
   static const String profileMail = '$profileIconsPath/mail.svg';
+  static const String profilePhone = '$profileIconsPath/phone.svg';
+  static const String profileCake = '$profileIconsPath/cake.svg';
+  static const String profileRing = '$profileIconsPath/ring.svg';
+  static const String profileFilter = '$profileIconsPath/filter.svg';
+  static const String profileSearch = '$profileIconsPath/search.svg';
 
   static const String documentsImagesPath = '$imagesPath/documents';
   static const String drivingLicenseBack = '$documentsImagesPath/driving_license_back.png';
@@ -54,4 +60,5 @@ class AppAssets {
   static const String bankPassbookBack = '$documentsImagesPath/bank_passbook_back.png';
   static const String panCardFront = '$documentsImagesPath/pan_card_front.png';
   static const String panCardBack = '$documentsImagesPath/pan_card_back.png';
+  
 }

@@ -74,27 +74,33 @@ class DocumentsScreen extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 16.w,
           mainAxisSpacing: 20.h,
-          childAspectRatio: 185 / 235,
+          mainAxisExtent: 188.h,
         ),
         itemBuilder: (BuildContext context, int index) {
           final DocumentItem item = documents[index];
-          return DocumentFolderCard(
-            title: item.title,
-            updatedOn: item.updatedOn,
-            onTap: () {
-              if (onDocumentTap != null) {
-                onDocumentTap!(item);
-                return;
-              }
-              Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => DocumentViewerScreen(
-                    title: item.title,
-                    imagePaths: item.imagePaths,
-                  ),
-                ),
-              );
-            },
+          return Center(
+            child: SizedBox(
+              width: 148.w,
+              height: 188.h,
+              child: DocumentFolderCard(
+                title: item.title,
+                updatedOn: item.updatedOn,
+                onTap: () {
+                  if (onDocumentTap != null) {
+                    onDocumentTap!(item);
+                    return;
+                  }
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => DocumentViewerScreen(
+                        title: item.title,
+                        imagePaths: item.imagePaths,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           );
         },
       ),

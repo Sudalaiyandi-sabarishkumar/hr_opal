@@ -52,8 +52,8 @@ class DocumentViewerScreen extends StatelessWidget {
                           onTap: () => Navigator.of(context).maybePop(),
                           customBorder: const CircleBorder(),
                           child: Container(
-                            width: 40.r,
-                            height: 40.r,
+                            width: 35.r,
+                            height: 35.r,
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: AppColors.white,

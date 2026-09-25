@@ -39,11 +39,7 @@ class AppSearchFilterBar extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.search,
-                  size: 22.r,
-                  color: AppColors.searchHint,
-                ),
+               SvgPicture.asset(AppAssets.profileSearch,height: 16.h,),
                 SizedBox(width: 8.w),
                 Expanded(
                   child: TextField(
@@ -51,7 +47,7 @@ class AppSearchFilterBar extends StatelessWidget {
                     onChanged: onChanged,
                     decoration: InputDecoration(
                       hintText: hintText,
-                      hintStyle: textTheme.geist16Regular.copyWith(
+                      hintStyle: textTheme.geist13Regular.copyWith(
                         color: AppColors.searchHint,
                       ),
                       border: InputBorder.none,
@@ -83,7 +79,7 @@ class AppSearchFilterBar extends StatelessWidget {
               height: _height.h,
               child: Center(
                 child: SvgPicture.asset(
-                  AppAssets.profileBookOpen, // <- your filter/sliders svg
+                  AppAssets.profileFilter, // <- your filter/sliders svg
                   width: 20.w,
                   height: 20.w,
                 ),

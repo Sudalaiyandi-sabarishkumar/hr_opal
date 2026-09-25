@@ -176,7 +176,7 @@ class MyTeamScreen extends StatelessWidget {
                           children: <Widget>[
                             Expanded(
                               child: _InfoBlock(
-                                icon: Icons.cake_outlined,
+                                icon: AppAssets.profileCake,
                                 label: 'Birthday',
                                 value: birthday,
                               ),
@@ -189,7 +189,7 @@ class MyTeamScreen extends StatelessWidget {
                             ),
                             Expanded(
                               child: _InfoBlock(
-                                icon: Icons.phone_outlined,
+                                icon: AppAssets.profileRing,
                                 label: 'Phone',
                                 value: phone,
                               ),
@@ -257,7 +257,7 @@ class _InfoBlock extends StatelessWidget {
     required this.value,
   });
 
-  final IconData icon;
+  final String icon;
   final String label;
   final String value;
 
@@ -269,7 +269,7 @@ class _InfoBlock extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(icon, size: 16.r, color: AppColors.textSecondary),
+            if (icon==AppAssets.profileRing) SvgPicture.asset(icon,height: 11.h, width: 11.w,) else SvgPicture.asset(icon,height: 14.h, width: 14.w,),
             SizedBox(width: 6.w),
             Text(
               label,

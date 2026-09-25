@@ -84,36 +84,65 @@ class AppGradientHeaderScaffold extends StatelessWidget {
       backgroundColor: scaffoldBackgroundColor,
       body: Stack(
         children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: headerHeight.h,
-            child: _GradientBackground(style: gradient),
+          Positioned.fill(
+            child: Image.asset(AppAssets.bg5Image, fit: BoxFit.cover),
           ),
 
           SafeArea(
             bottom: false,
             child: Column(
               children: <Widget>[
-                SizedBox(height: topSpacing.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Center(
-                    child: Text(
-                      title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          titleStyle ??
-                          textTheme.geist18SemiBold.copyWith(
-                            color: titleColor ?? AppColors.textPrimary,
-                            fontFamily: hostGroteskFont,
+                SizedBox(
+                  height: topSpacing.h + 22.h + titleBottomSpacing.h,
+                  child: Stack(
+                    children: <Widget>[
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 56.w),
+                          child: Text(
+                            title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style:
+                                titleStyle ??
+                                textTheme.geist18SemiBold.copyWith(
+                                  color: titleColor ?? AppColors.textPrimary,
+                                  fontFamily: hostGroteskFont,
+                                ),
                           ),
-                    ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 12.w),
+                          child: InkWell(
+                            onTap:
+                                onBack ??
+                                () {
+                                  if (context.canPop()) {
+                                    context.pop();
+                                  }
+                                },
+                            borderRadius: BorderRadius.circular(22.r),
+                            child: SizedBox(
+                              width: 44.r,
+                              height: 44.r,
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  AppAssets.profileBackArrow,
+                                  width: 34.r,
+                                  height: 34.r,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: titleBottomSpacing.h),
                 Expanded(
                   child: Container(
                     width: double.infinity,
@@ -130,118 +159,8 @@ class AppGradientHeaderScaffold extends StatelessWidget {
               ],
             ),
           ),
-
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: EdgeInsets.only(left: 12.w, top: topSpacing.h - 5.h),
-              child: InkWell(
-                onTap:
-                    onBack ??
-                    () {
-                      if (context.canPop()) {
-                        context.pop();
-                      }
-                    },
-                borderRadius: BorderRadius.circular(22.r),
-                child: SizedBox(
-                  width: 44.r,
-                  height: 44.r,
-                  child: Center(
-                    child: SvgPicture.asset(
-                      AppAssets.profileBackArrow,
-                      width: 34.r,
-                      height: 34.r,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
-  }
-}
-
-class _GradientBackground extends StatelessWidget {
-  const _GradientBackground({required this.style});
-
-  final AppHeaderGradient style;
-
-  @override
-  Widget build(BuildContext context) {
-    switch (style) {
-      case AppHeaderGradient.peach:
-        return Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment(-0.06, -1.0),
-                    end: Alignment(0.06, 1.0),
-                    colors: <Color>[
-                      AppColors.white,
-                      AppColors.headerGradientPeach,
-                      AppColors.headerGradientPeach,
-                    ],
-                    stops: <double>[0.1186, 0.2587, 1.0],
-                  ),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: RadialGradient(
-                    center: Alignment(-0.32, -1.5),
-                    radius: 0.9,
-                    colors: <Color>[
-                      AppColors.headerRadialPurple,
-                      AppColors.headerRadialPurpleTransparent,
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      case AppHeaderGradient.lavender:
-        return Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                      AppColors.headerGradientLavenderTop,
-                      AppColors.headerGradientLavenderMid,
-                      AppColors.headerGradientLavenderBottom,
-                    ],
-                    stops: <double>[0.0, 0.6, 1.0],
-                  ),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: RadialGradient(
-                    center: Alignment(1.0, 1.1),
-                    radius: 0.7,
-                    colors: <Color>[
-                      AppColors.headerGlowPeach,
-                      AppColors.headerGlowPeachTransparent,
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-    }
   }
 }
