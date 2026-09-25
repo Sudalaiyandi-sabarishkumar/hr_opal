@@ -13,9 +13,17 @@ class AppAssets {
   static const String card1 = '$imagesPath/card1.svg';
   static const String card2 = '$imagesPath/card2.svg';
   static const String dottedLine = '$imagesPath/dotted_line.svg';
+  static const String memberCardBg = '$imagesPath/card_bg.svg';
+  static const String dummyImage = '$imagesPath/dummy_image.png';
+  static const String familyPageBg = '$imagesPath/family_page_bg.svg';
 
   static const String infoCircle = '$iconsPath/information-circle.svg';
   static const String successCircle = '$iconsPath/checkmark-circle-02.svg';
+  static const String backIcon = '$iconsPath/back_icon.svg';
+  static const String cakeIcon = '$iconsPath/cake_icon.svg';
+  static const String copyIcon = '$iconsPath/copy_icon.svg';
+  static const String emailIcon = '$iconsPath/email_icon.svg';
+  static const String phoneIcon = '$iconsPath/phone_icon.svg';
   static const String warningTriangle = '$iconsPath/alert-02.svg';
   static const String dangerCircle = '$iconsPath/alert-circle.svg';
   static const String closeButton = '$iconsPath/CloseButton.svg';
@@ -28,30 +36,39 @@ class AppAssets {
   static const String profileIconsPath = '$iconsPath/profile';
   static const String profileBookOpen = '$profileIconsPath/book-open.svg';
   static const String profileBriefcase = '$profileIconsPath/briefcase.svg';
-  static const String profileComputerPhone = '$profileIconsPath/computer-phone.svg';
+  static const String profileComputerPhone =
+      '$profileIconsPath/computer-phone.svg';
   static const String profileFile = '$profileIconsPath/file.svg';
   static const String profileFlow = '$profileIconsPath/flow.svg';
   static const String profileLock = '$profileIconsPath/lock.svg';
   static const String profileLogout = '$profileIconsPath/logout.svg';
-  static const String profileNotification = '$profileIconsPath/notification.svg';
+  static const String profileNotification =
+      '$profileIconsPath/notification.svg';
   static const String profileUserGroup = '$profileIconsPath/user-group.svg';
   static const String profileUserSharing = '$profileIconsPath/user-sharing.svg';
   static const String profileUser = '$profileIconsPath/user.svg';
   static const String profileWorkHistory = '$profileIconsPath/work-history.svg';
-  static const String profileWorkflowCircle = '$profileIconsPath/workflow-circle.svg';
+  static const String profileWorkflowCircle =
+      '$profileIconsPath/workflow-circle.svg';
   static const String profileUpArrow = '$profileIconsPath/up_arrow.svg';
   static const String profileEdit = '$profileIconsPath/edit.svg';
-  static const String profileBackArrow = '$profileIconsPath/profile_back_arrow.svg';
+  static const String profileBackArrow =
+      '$profileIconsPath/profile_back_arrow.svg';
   static const String profileMail = '$profileIconsPath/mail.svg';
 
   static const String documentsImagesPath = '$imagesPath/documents';
-  static const String drivingLicenseBack = '$documentsImagesPath/driving_license_back.png';
+  static const String drivingLicenseBack =
+      '$documentsImagesPath/driving_license_back.png';
   static const String passportFront = '$documentsImagesPath/passport_front.png';
   static const String passportBack = '$documentsImagesPath/passport_back.png';
-  static const String employmentIdFront = '$documentsImagesPath/employment_id_front.png';
-  static const String employmentIdBack = '$documentsImagesPath/employment_id_back.png';
-  static const String bankPassbookFront = '$documentsImagesPath/bank_passbook_front.png';
-  static const String bankPassbookBack = '$documentsImagesPath/bank_passbook_back.png';
+  static const String employmentIdFront =
+      '$documentsImagesPath/employment_id_front.png';
+  static const String employmentIdBack =
+      '$documentsImagesPath/employment_id_back.png';
+  static const String bankPassbookFront =
+      '$documentsImagesPath/bank_passbook_front.png';
+  static const String bankPassbookBack =
+      '$documentsImagesPath/bank_passbook_back.png';
   static const String panCardFront = '$documentsImagesPath/pan_card_front.png';
   static const String panCardBack = '$documentsImagesPath/pan_card_back.png';
 }

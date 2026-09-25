@@ -18,7 +18,7 @@ import 'views/loader/app_loader.dart';
 import 'views/profile/amendments.dart';
 import 'views/profile/assets.dart';
 import 'views/profile/document.dart';
-import 'views/profile/family_address_details.dart';
+import 'views/profile/family_address.dart';
 import 'views/profile/job_details.dart';
 import 'views/profile/my_team.dart';
 import 'views/profile/profile_information.dart';
@@ -172,8 +172,8 @@ class GoRouterInit {
             path: '/familyaddress',
             name: RouteConstants.familyAddressPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<FamilyAddressDetailsScreen>(
-              child: FamilyAddressDetailsScreen(),
+                const MaterialPage<FamilyAddressPage>(
+              child: FamilyAddressPage(),
             ),
           ),
            GoRoute(
