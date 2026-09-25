@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import 'document_viewer_screen.dart';
 
 class DocumentItem {
@@ -72,145 +73,41 @@ class DocumentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 180.h,
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          AppColors.headerGradientLavenderTop,
-                          AppColors.headerGradientLavenderMid,
-                          AppColors.headerGradientLavenderBottom,
-                        ],
-                        stops: <double>[0.0, 0.6, 1.0],
-                      ),
-                    ),
+    return AppGradientHeaderScaffold(
+      title: 'Documents',
+      titleColor: AppColors.headerTitleNavy,
+      gradient: AppHeaderGradient.lavender,
+      backButtonHasBorder: true,
+      body: GridView.builder(
+        padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 24.h),
+        itemCount: documents.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16.w,
+          mainAxisSpacing: 20.h,
+          childAspectRatio: 185 / 235,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          final DocumentItem item = documents[index];
+          return DocumentFolderCard(
+            title: item.title,
+            updatedOn: item.updatedOn,
+            onTap: () {
+              if (onDocumentTap != null) {
+                onDocumentTap!(item);
+                return;
+              }
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => DocumentViewerScreen(
+                    title: item.title,
+                    imagePaths: item.imagePaths,
                   ),
                 ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: RadialGradient(
-                        center: Alignment(1.0, 1.1),
-                        radius: 0.7,
-                        colors: <Color>[
-                          AppColors.headerGlowPeach,
-                          AppColors.headerGlowPeachTransparent,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 39.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Center(
-                    child: Text(
-                      'Documents',
-                      style: textTheme.geist18SemiBold.copyWith(
-                        color: AppColors.headerTitleNavy,
-                        fontFamily: hostGroteskFont,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.r),
-                        topRight: Radius.circular(24.r),
-                      ),
-                    ),
-                    child: GridView.builder(
-                      padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 24.h),
-                      itemCount: documents.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16.w,
-                        mainAxisSpacing: 20.h,
-                        childAspectRatio: 185 / 235,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        final DocumentItem item = documents[index];
-                        return DocumentFolderCard(
-                          title: item.title,
-                          updatedOn: item.updatedOn,
-                          onTap: () {
-                            if (onDocumentTap != null) {
-                              onDocumentTap!(item);
-                              return;
-                            }
-                            Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (_) => DocumentViewerScreen(
-                                  title: item.title,
-                                  imagePaths: item.imagePaths,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: EdgeInsets.only(left: 12.w, top: 39.h),
-              child: InkWell(
-                onTap: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  }
-                },
-                borderRadius: BorderRadius.circular(20.r),
-                child: Container(
-                  width: 36.r,
-                  height: 36.r,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.white,
-                    border: Border.all(color: AppColors.chipBorder),
-                  ),
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    size: 22.r,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+              );
+            },
+          );
+        },
       ),
     );
   }

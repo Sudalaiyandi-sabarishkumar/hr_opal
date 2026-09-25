@@ -6,11 +6,66 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../global_widgets/widget_helper.dart';
 
+import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/info_card/app_info_card.dart';
 import '../../shared_components/tabs/app_segmented_tabs.dart';
 
+class AddressDetail {
+  const AddressDetail({
+    required this.title,
+    required this.headerColor,
+    required this.addressLine,
+    required this.contactName,
+    required this.email,
+    required this.phone,
+  });
+
+  final String title;
+  final Color headerColor;
+  final String addressLine;
+  final String contactName;
+  final String email;
+  final String phone;
+}
+
 class FamilyAddressDetailsScreen extends StatefulWidget {
-  const FamilyAddressDetailsScreen({super.key});
+  const FamilyAddressDetailsScreen({
+    super.key,
+    this.addresses = const <AddressDetail>[
+      AddressDetail(
+        title: 'Current Address',
+        headerColor: AppColors.accordionPurpleBg,
+        addressLine:
+            '123 Oak Street, Apartment 4B, Austin, Texas, 877534, '
+            'United States',
+        contactName: 'Jonathan Doeverington',
+        email: 'katie63@aol.com',
+        phone: '(765) 322-1399',
+      ),
+      AddressDetail(
+        title: 'Permanent Address',
+        headerColor: AppColors.accordionGreenBg,
+        addressLine:
+            '123 Oak Street, Apartment 4B, Austin, Texas, 877534, '
+            'United States',
+        contactName: 'Jonathan Doeverington',
+        email: 'katie63@aol.com',
+        phone: '(765) 322-1399',
+      ),
+      AddressDetail(
+        title: 'Emergency Address',
+        headerColor: AppColors.accordionYellowBg,
+        addressLine:
+            '123 Oak Street, Apartment 4B, Austin, Texas, 877534, '
+            'United States',
+        contactName: 'Jonathan Doeverington',
+        email: 'katie63@aol.com',
+        phone: '(765) 322-1399',
+      ),
+    ],
+  });
+
+  final List<AddressDetail> addresses;
 
   @override
   State<FamilyAddressDetailsScreen> createState() =>
@@ -25,262 +80,88 @@ class _FamilyAddressDetailsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 180.h,
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment(-0.06, -1.0),
-                        end: Alignment(0.06, 1.0),
-                        colors: <Color>[
-                          AppColors.white,
-                          AppColors.headerGradientPeach,
-                          AppColors.headerGradientPeach,
-                        ],
-                        stops: <double>[0.1186, 0.2587, 1.0],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: RadialGradient(
-                        center: Alignment(-0.32, -1.5),
-                        radius: 0.9,
-                        colors: <Color>[
-                          AppColors.headerRadialPurple,
-                          AppColors.headerRadialPurpleTransparent,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          SafeArea(
-            bottom: false,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  SizedBox(height: 39.h),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Center(
-                      child: Text(
-                        'Family & Address',
-                        style: textTheme.geist18SemiBold.copyWith(
-                          color: AppColors.textPrimary,
-                          fontFamily: hostGroteskFont,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  Container(
-                    width: double.infinity,
-                    constraints: BoxConstraints(
-                      minHeight: MediaQuery.sizeOf(context).height - 130.h,
-                    ),
-                    padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.r),
-                        topRight: Radius.circular(24.r),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Align(
-
-                          child: IntrinsicWidth(
-                            child: AppSegmentedTabs(
-                              labels: tabLabels,
-                              selectedIndex: _segmentedIndex,
-                              onChanged: (int i) =>
-                                  setState(() => _segmentedIndex = i),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 16.h),
-                        if (_segmentedIndex == 0)
-                          emptyBox()
-                        else
-                          _buildAddressContent(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: EdgeInsets.only(left: 12.w, top: 39.h),
-              child: InkWell(
-                onTap: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  }
-                },
-                borderRadius: BorderRadius.circular(20.r),
-                child: Container(
-                  width: 36.r,
-                  height: 36.r,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.white,
-                  ),
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    size: 22.r,
-                    color: AppColors.textPrimary,
-                  ),
+    return AppGradientHeaderScaffold(
+      title: 'Family & Address',
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Align(
+              child: IntrinsicWidth(
+                child: AppSegmentedTabs(
+                  labels: tabLabels,
+                  selectedIndex: _segmentedIndex,
+                  onChanged: (int i) => setState(() => _segmentedIndex = i),
                 ),
               ),
             ),
-          ),
-        ],
+            SizedBox(height: 16.h),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 24.h),
+                child: _segmentedIndex == 0
+                    ? emptyBox()
+                    : _buildAddressContent(widget.addresses),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildAddressContent() {
+  Widget _buildAddressContent(List<AddressDetail> addresses) {
     return Column(
-      children: [
-        AppInfoCard(
-          title: 'Current Address',
-          headerColor: AppColors.accordionPurpleBg,
-          child: Builder(
-            builder: (BuildContext context) {
-              final TextTheme textTheme = Theme.of(context).textTheme;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '123 Oak Street, Apartment 4B, Austin, Texas, 877534, '
-                    'United States',
-                    style: textTheme.geist14Regular.copyWith(
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Contact details',
-                    value: 'Jonathan Doeverington',
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Email',
-                    value: 'katie63@aol.com',
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Phone',
-                    value: '(765) 322-1399',
-                    icon: Icons.smartphone_outlined,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-        SizedBox(height: 15.h,),
-        AppInfoCard(
-          title: 'Permanent Address',
-          headerColor: AppColors.accordionGreenBg,
-          child: Builder(
-            builder: (BuildContext context) {
-              final TextTheme textTheme = Theme.of(context).textTheme;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '123 Oak Street, Apartment 4B, Austin, Texas, 877534, '
-                    'United States',
-                    style: textTheme.geist14Regular.copyWith(
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Contact details',
-                    value: 'Jonathan Doeverington',
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Email',
-                    value: 'katie63@aol.com',
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Phone',
-                    value: '(765) 322-1399',
-                    icon: Icons.smartphone_outlined,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-         SizedBox(height: 15.h,),
-        AppInfoCard(
-          title: 'Emergency Address',
-          headerColor: AppColors.accordionYellowBg,
-          child: Builder(
-            builder: (BuildContext context) {
-              final TextTheme textTheme = Theme.of(context).textTheme;
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    '123 Oak Street, Apartment 4B, Austin, Texas, 877534, '
-                    'United States',
-                    style: textTheme.geist14Regular.copyWith(
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Contact details',
-                    value: 'Jonathan Doeverington',
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Email',
-                    value: 'katie63@aol.com',
-                  ),
-                  SizedBox(height: 16.h),
-                  const AppStackedInfoRow(
-                    label: 'Phone',
-                    value: '(765) 322-1399',
-                    icon: Icons.smartphone_outlined,
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
+      children: <Widget>[
+        for (int i = 0; i < addresses.length; i++) ...<Widget>[
+          if (i != 0) SizedBox(height: 15.h),
+          _AddressCard(address: addresses[i]),
+        ],
       ],
+    );
+  }
+}
+
+class _AddressCard extends StatelessWidget {
+  const _AddressCard({required this.address});
+
+  final AddressDetail address;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+
+    return AppInfoCard(
+      title: address.title,
+      headerColor: address.headerColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            address.addressLine,
+            style: textTheme.geist14Regular.copyWith(
+              color: AppColors.textPrimary,
+            ),
+          ),
+          SizedBox(height: 16.h),
+          AppStackedInfoRow(
+            label: 'Contact details',
+            value: address.contactName,
+          ),
+          SizedBox(height: 16.h),
+          AppStackedInfoRow(
+            label: 'Email',
+            value: address.email,
+          ),
+          SizedBox(height: 16.h),
+          AppStackedInfoRow(
+            label: 'Phone',
+            value: address.phone,
+            icon: Icons.smartphone_outlined,
+          ),
+        ],
+      ),
     );
   }
 }

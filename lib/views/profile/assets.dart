@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 
+import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/info_card/app_info_card2.dart';
 
 class AssetItem {
@@ -67,122 +68,18 @@ class AssetsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 180.h,
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          AppColors.headerGradientLavenderTop,
-                          AppColors.headerGradientLavenderMid,
-                          AppColors.headerGradientLavenderBottom,
-                        ],
-                        stops: <double>[0.0, 0.6, 1.0],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: RadialGradient(
-                        center: Alignment(1.0, 1.1),
-                        radius: 0.7,
-                        colors: <Color>[
-                          AppColors.headerGlowPeach,
-                          AppColors.headerGlowPeachTransparent,
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 39.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: Center(
-                    child: Text(
-                      'Assets',
-                      style: textTheme.geist18SemiBold.copyWith(
-                        color: AppColors.headerTitleNavy,
-                        fontFamily: hostGroteskFont,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.r),
-                        topRight: Radius.circular(24.r),
-                      ),
-                    ),
-                    child: ListView.separated(
-                      padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 24.h),
-                      itemCount: assets.length,
-                      separatorBuilder: (_, __) => SizedBox(height: 16.h),
-                      itemBuilder: (BuildContext context, int index) {
-                        return _AssetCard(asset: assets[index]);
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: EdgeInsets.only(left: 12.w, top: 39.h),
-              child: InkWell(
-                onTap: () {
-                  if (context.canPop()) {
-                    context.pop();
-                  }
-                },
-                borderRadius: BorderRadius.circular(20.r),
-                child: Container(
-                  width: 36.r,
-                  height: 36.r,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.white,
-                    border: Border.all(color: AppColors.chipBorder),
-                  ),
-                  child: Icon(
-                    Icons.chevron_left_rounded,
-                    size: 22.r,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+    return AppGradientHeaderScaffold(
+      title: 'Assets',
+      titleColor: AppColors.headerTitleNavy,
+      gradient: AppHeaderGradient.lavender,
+      backButtonHasBorder: true,
+      body: ListView.separated(
+        padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 24.h),
+        itemCount: assets.length,
+        separatorBuilder: (_, __) => SizedBox(height: 16.h),
+        itemBuilder: (BuildContext context, int index) {
+          return _AssetCard(asset: assets[index]);
+        },
       ),
     );
   }
