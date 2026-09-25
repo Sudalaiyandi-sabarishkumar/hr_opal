@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
-
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/info_card/app_info_card.dart';
 import '../../shared_components/tabs/app_segmented_tabs.dart';
 
@@ -144,44 +143,17 @@ class _FamilyAddressPageState extends State<FamilyAddressPage> {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      extendBodyBehindAppBar: true,
-      appBar: ProfileAppBar(
-        title: 'Family & Address',
-        textTheme: textTheme,
-      ),
-      body: SafeArea(
-        top: false,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            pageBackground(),
-            pageForeground(textTheme: textTheme),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget pageBackground() {
-    return SvgPicture.asset(
-      AppAssets.familyPageBg,
-      fit: BoxFit.cover,
-      width: double.infinity,
-      height: double.infinity,
+    return AppGradientHeaderScaffold(
+      title: 'Family & Address',
+      topSpacing: 59,
+      body: pageForeground(textTheme: textTheme),
     );
   }
 
   Widget pageForeground({
     required TextTheme textTheme,
   }) {
-    return Positioned(
-      top: 101.h,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: Container(
+    return Container(
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.only(
@@ -219,7 +191,6 @@ class _FamilyAddressPageState extends State<FamilyAddressPage> {
             ),
           ],
         ),
-      ),
     );
   }
 
@@ -735,68 +706,6 @@ class _AddressCard extends StatelessWidget {
             icon: AppAssets.profileRing,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ProfileAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
-  const ProfileAppBar({
-    super.key,
-    required this.title,
-    required this.textTheme,
-  });
-
-  final String title;
-  final TextTheme textTheme;
-
-  @override
-  Size get preferredSize => Size.fromHeight(39.h);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: AppColors.transparent,
-      surfaceTintColor: AppColors.transparent,
-      shadowColor: AppColors.transparent,
-      elevation: 0,
-      toolbarHeight: 64.h,
-      automaticallyImplyLeading: false,
-      centerTitle: true,
-      leadingWidth: 50.w,
-      leading: backIcon(
-        context: context,
-      ),
-      title: titleWidget(),
-    );
-  }
-
-  Widget backIcon({
-    required BuildContext context,
-  }) {
-    return Padding(
-      padding: EdgeInsets.only(left: 16.w),
-      child: InkWell(
-        onTap: context.pop,
-        child: SizedBox(
-          height: 12.h,
-          width: 7.w,
-          child: SvgPicture.asset(
-            AppAssets.profileBackArrow,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget titleWidget() {
-    return Text(
-      title,
-      textAlign: TextAlign.center,
-      style: textTheme.geist20SemiBold.copyWith(
-        color: AppColors.appBarTitleColor,
-        fontFamily: 'HostGrotesk',
       ),
     );
   }

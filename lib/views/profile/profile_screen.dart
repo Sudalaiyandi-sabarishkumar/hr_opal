@@ -16,7 +16,7 @@ import '../../shared_components/shared_components.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     super.key,
-    this.employeeId = 'HRC0001',
+    this.employeeId = 'HROP2001',
     this.name = 'Sarah Johnson',
     this.designation = 'Senior Software Engineer',
     this.isClockedIn = true,
@@ -220,18 +220,35 @@ class _Header extends StatelessWidget {
             children: <Widget>[
 
               IgnorePointer(
-                child: Text(
-                  employeeId,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  softWrap: false,
-                  style: textTheme.geist40Bold.copyWith(
-                    color: AppColors.watermarkOnGradient,
-                    letterSpacing: 4,
-                    fontSize: 56.sp,
-                  ),
-                ),
-              ),
+  child: ShaderMask(
+    shaderCallback: (Rect bounds) {
+      return const LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: <Color>[
+          Color(0xFF42639F),
+          Color(0x006E91D3), // rgba(110, 145, 211, 0)
+        ],
+        stops: <double>[0.0, 0.8403],
+      ).createShader(bounds);
+    },
+    blendMode: BlendMode.srcIn,
+    child: Text(
+      employeeId,
+      textAlign: TextAlign.center,
+      maxLines: 1,
+      softWrap: false,
+      style: textTheme.geist40Bold.copyWith(
+        color: AppColors.white, // must be opaque for ShaderMask to apply gradient correctly
+        fontFamily: 'HostGrotesk',
+        fontWeight: FontWeight.w700,
+        fontSize: 56.sp,
+        height: 72 / 56, // line-height 72px ÷ font-size 56px
+        letterSpacing: -0.76,
+      ),
+    ),
+  ),
+),
 
               Container(
                 width: 98.r,
@@ -266,6 +283,7 @@ class _Header extends StatelessWidget {
             name,
             style: textTheme.geist20SemiBold.copyWith(
               color: AppColors.textPrimary,
+              fontFamily: hostGroteskFont
             ),
           ),
           SizedBox(height: 4.h),
