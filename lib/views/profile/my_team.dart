@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/theme/app_assets.dart';
-import '../core/theme/app_colors.dart';
-import '../core/theme/app_styles.dart';
+import '../../core/theme/app_assets.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_styles.dart';
 
 
 

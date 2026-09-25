@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/theme/app_colors.dart';
-import '../core/theme/app_styles.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_styles.dart';
 
-import '../shared_components/info_card/app_info_card2.dart';
-import '../shared_components/search_filter/app_search_filter.dart';
+import '../../shared_components/info_card/app_info_card2.dart';
+import '../../shared_components/search_filter/app_search_filter.dart';
 
 class Amendment {
   const Amendment({
