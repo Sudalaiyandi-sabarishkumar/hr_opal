@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
@@ -111,10 +110,10 @@ class MyTeamScreen extends StatelessWidget {
                             Container(
                               width: 72.r,
                               height: 72.r,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.dark4blue,
-                                boxShadow: const <BoxShadow>[
+                                boxShadow: <BoxShadow>[
                                   BoxShadow(
                                     blurRadius: 16,
                                     offset: Offset(0, 8),
@@ -198,7 +197,7 @@ class MyTeamScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 16.h),
-                        Divider(color: AppColors.neutral200, height: 1),
+                        const Divider(color: AppColors.neutral200, height: 1),
                         SizedBox(height: 24.h),
 
 
@@ -304,7 +303,6 @@ class _ManagerNode extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         ClipOval(
           child: Image.network(

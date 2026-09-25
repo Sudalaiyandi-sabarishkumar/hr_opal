@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 
+import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_styles.dart';
 import '../../shared_components/accordion/app_accordion.dart';
 import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 
@@ -51,7 +50,7 @@ class JobDetailsScreen extends StatelessWidget {
           children: <Widget>[
             AppAccordion(
               title: 'Job Details',
-              icon: Icons.badge_outlined,
+              icon: AppAssets.profileBriefcase,
               headerColor: AppColors.accordionPurpleBg,
               iconColor: AppColors.accordionPurpleFg,
               initiallyExpanded: true,

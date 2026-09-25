@@ -40,6 +40,9 @@ class AppAssets {
   static const String profileWorkHistory = '$profileIconsPath/work-history.svg';
   static const String profileWorkflowCircle = '$profileIconsPath/workflow-circle.svg';
   static const String profileUpArrow = '$profileIconsPath/up_arrow.svg';
+  static const String profileEdit = '$profileIconsPath/edit.svg';
+  static const String profileBackArrow = '$profileIconsPath/profile_back_arrow.svg';
+  static const String profileMail = '$profileIconsPath/mail.svg';
 
   static const String documentsImagesPath = '$imagesPath/documents';
   static const String drivingLicenseBack = '$documentsImagesPath/driving_license_back.png';

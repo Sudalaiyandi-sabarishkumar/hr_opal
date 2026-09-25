@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/accordion/app_accordion.dart';
+import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 
 class ProfileInfoRowData {
   const ProfileInfoRowData({required this.label, required this.value});
@@ -25,7 +26,7 @@ class ProfileInfoSection {
   });
 
   final String title;
-  final IconData icon;
+  final String icon;
   final Color headerColor;
   final Color iconColor;
   final List<ProfileInfoRowData> rows;
@@ -40,7 +41,7 @@ class PersonalInformationScreen extends StatelessWidget {
     this.sections = const <ProfileInfoSection>[
       ProfileInfoSection(
         title: 'Basic Information',
-        icon: Icons.badge_outlined,
+        icon: AppAssets.profileUserSharing,
         headerColor: AppColors.accordionPurpleBg,
         iconColor: AppColors.accordionPurpleFg,
         initiallyExpanded: true,
@@ -67,7 +68,7 @@ class PersonalInformationScreen extends StatelessWidget {
       ),
       ProfileInfoSection(
         title: 'Contact Information',
-        icon: Icons.mail_outline_rounded,
+        icon: AppAssets.profileMail,
         headerColor: AppColors.accordionGreenBg,
         iconColor: AppColors.accordionGreenFg,
         rows: <ProfileInfoRowData>[
@@ -80,7 +81,7 @@ class PersonalInformationScreen extends StatelessWidget {
       ),
       ProfileInfoSection(
         title: 'Employee details',
-        icon: Icons.badge_outlined,
+        icon: AppAssets.profileMail,
         headerColor: AppColors.accordionYellowBg,
         iconColor: AppColors.accordionYellowFg,
         rows: <ProfileInfoRowData>[
@@ -177,8 +178,8 @@ class PersonalInformationScreen extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: <Widget>[
                   Container(
-                    width: 90.w,
-                    height: 90.h,
+                    width: 83.w,
+                    height: 83.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.dark4blue,
@@ -201,21 +202,19 @@ class PersonalInformationScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    right: -2.w,
+                    right: 2.w,
                     bottom: 2.h,
                     child: Container(
-                      width: 30.r,
-                      height: 30.r,
+                     
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: AppColors.white,
                         border: Border.all(color: AppColors.neutral200),
                       ),
-                      child: Icon(
-                        Icons.edit_outlined,
-                        size: 15.r,
-                        color: AppColors.textSecondary,
-                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: SvgPicture.asset(AppAssets.profileEdit,height: 8.h,width: 8.w,),
+                      )
                     ),
                   ),
                 ],

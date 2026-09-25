@@ -73,7 +73,7 @@ class AppSearchFilterBar extends StatelessWidget {
         Material(
           color: AppColors.white,
           shape: const CircleBorder(
-            side: BorderSide(color: AppColors.searchBorder, width: 1),
+            side: BorderSide(color: AppColors.searchBorder),
           ),
           child: InkWell(
             customBorder: const CircleBorder(),

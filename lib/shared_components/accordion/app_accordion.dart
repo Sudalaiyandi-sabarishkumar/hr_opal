@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
@@ -20,7 +21,7 @@ class AppAccordion extends StatefulWidget {
   final String title;
 
   
-  final IconData icon;
+  final String icon;
 
   
   final Color headerColor;
@@ -85,7 +86,7 @@ class _AppAccordionState extends State<AppAccordion> {
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(widget.icon, size: 18.r, color: AppColors.black),
+                  SvgPicture.asset(widget.icon,height: 14.h,width: 14.w,),
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Text(

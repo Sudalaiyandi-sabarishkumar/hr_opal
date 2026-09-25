@@ -4,15 +4,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'views/profile/amendments.dart';
-import 'views/profile/assets.dart';
-import 'views/profile/document.dart';
-import 'views/profile/family_address_details.dart';
-import 'views/profile/job_details.dart';
-import 'views/profile/my_team.dart' hide ProfilePage;
-import 'views/profile/profile_information.dart';
-import 'views/profile/profile_screen.dart';
-import 'views/profile/request_history.dart';
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
@@ -24,6 +15,15 @@ import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
+import 'views/profile/amendments.dart';
+import 'views/profile/assets.dart';
+import 'views/profile/document.dart';
+import 'views/profile/family_address_details.dart';
+import 'views/profile/job_details.dart';
+import 'views/profile/my_team.dart';
+import 'views/profile/profile_information.dart';
+import 'views/profile/profile_screen.dart';
+import 'views/profile/request_history.dart';
 
 
 class FirebaseUtils {

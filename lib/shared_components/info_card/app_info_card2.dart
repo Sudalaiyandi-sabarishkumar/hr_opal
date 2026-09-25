@@ -39,7 +39,7 @@ class AppInfoCard2 extends StatelessWidget {
             padding: EdgeInsets.all(16.r),
             child: header,
           ),
-          Divider(color: AppColors.neutral200, height: 1),
+          const Divider(color: AppColors.neutral200, height: 1),
           Padding(
             padding: EdgeInsets.all(16.r),
             child: body,

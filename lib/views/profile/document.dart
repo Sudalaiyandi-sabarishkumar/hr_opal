@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
@@ -28,18 +27,12 @@ class DocumentsScreen extends StatelessWidget {
       DocumentItem(
         title: 'Driving License',
         updatedOn: 'Oct 2025',
-        imagePaths: <String>[
-          AppAssets.bgImage,
-          AppAssets.drivingLicenseBack,
-        ],
+        imagePaths: <String>[AppAssets.bgImage, AppAssets.drivingLicenseBack],
       ),
       DocumentItem(
         title: 'Passport',
         updatedOn: 'Oct 2025',
-        imagePaths: <String>[
-          AppAssets.passportFront,
-          AppAssets.passportBack,
-        ],
+        imagePaths: <String>[AppAssets.passportFront, AppAssets.passportBack],
       ),
       DocumentItem(
         title: 'Employment ID',
@@ -60,10 +53,7 @@ class DocumentsScreen extends StatelessWidget {
       DocumentItem(
         title: 'PAN Card',
         updatedOn: 'Oct 2025',
-        imagePaths: <String>[
-          AppAssets.panCardFront,
-          AppAssets.panCardBack,
-        ],
+        imagePaths: <String>[AppAssets.panCardFront, AppAssets.panCardBack],
       ),
     ],
   });
@@ -77,7 +67,6 @@ class DocumentsScreen extends StatelessWidget {
       title: 'Documents',
       titleColor: AppColors.headerTitleNavy,
       gradient: AppHeaderGradient.lavender,
-      backButtonHasBorder: true,
       body: GridView.builder(
         padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 24.h),
         itemCount: documents.length,
@@ -146,7 +135,10 @@ class DocumentFolderCard extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[AppColors.folderGradientTop, AppColors.folderGradientBottom],
+                colors: <Color>[
+                  AppColors.folderGradientTop,
+                  AppColors.folderGradientBottom,
+                ],
               ),
               boxShadow: const <BoxShadow>[
                 BoxShadow(
@@ -283,9 +275,12 @@ class _FolderPainter extends CustomPainter {
       ..quadraticBezierTo(0, 0, r, 0)
       ..lineTo(tabEnd, 0)
       ..cubicTo(
-        tabEnd + slope * 0.45, 0,
-        tabEnd + slope * 0.55, tabH,
-        tabEnd + slope, tabH,
+        tabEnd + slope * 0.45,
+        0,
+        tabEnd + slope * 0.55,
+        tabH,
+        tabEnd + slope,
+        tabH,
       )
       ..lineTo(w - r, tabH)
       ..quadraticBezierTo(w, tabH, w, tabH + r)
@@ -298,9 +293,7 @@ class _FolderPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-
     canvas.drawPath(_path(size, size.height), Paint()..color = dark);
-
 
     final Rect rect = Offset.zero & size;
     canvas.drawPath(

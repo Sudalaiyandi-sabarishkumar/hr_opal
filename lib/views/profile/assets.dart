@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
@@ -72,7 +71,6 @@ class AssetsScreen extends StatelessWidget {
       title: 'Assets',
       titleColor: AppColors.headerTitleNavy,
       gradient: AppHeaderGradient.lavender,
-      backButtonHasBorder: true,
       body: ListView.separated(
         padding: EdgeInsets.fromLTRB(16.w, 20.h, 16.w, 24.h),
         itemCount: assets.length,
@@ -150,12 +148,7 @@ class _StatusChip extends StatelessWidget {
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           SizedBox(width: 5.w),
-          Text(
-            label,
-            style: textTheme.geist12Medium.copyWith(
-              color: color,
-            ),
-          ),
+          Text(label, style: textTheme.geist12Medium.copyWith(color: color)),
         ],
       ),
     );

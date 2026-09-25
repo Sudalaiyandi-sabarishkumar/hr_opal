@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 
@@ -27,7 +29,6 @@ class AppGradientHeaderScaffold extends StatelessWidget {
     this.headerHeight = 180,
     this.titleColor,
     this.titleStyle,
-    this.backButtonHasBorder = false,
     this.onBack,
     this.scaffoldBackgroundColor = AppColors.white,
     this.bodyBackgroundColor = AppColors.white,
@@ -55,10 +56,6 @@ class AppGradientHeaderScaffold extends StatelessWidget {
   /// Overrides the title's whole text style. Takes precedence over
   /// [titleColor] when provided.
   final TextStyle? titleStyle;
-
-  /// Whether the circular back button gets a hairline border, matching
-  /// screens whose gradient runs light-to-light near the top edge.
-  final bool backButtonHasBorder;
 
   /// Called when the back button is tapped. Defaults to popping the
   /// current route via GoRouter.
@@ -107,7 +104,8 @@ class AppGradientHeaderScaffold extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: titleStyle ??
+                      style:
+                          titleStyle ??
                           textTheme.geist18SemiBold.copyWith(
                             color: titleColor ?? AppColors.textPrimary,
                             fontFamily: hostGroteskFont,
@@ -136,15 +134,27 @@ class AppGradientHeaderScaffold extends StatelessWidget {
           SafeArea(
             bottom: false,
             child: Padding(
-              padding: EdgeInsets.only(left: 12.w, top: topSpacing.h-5.h),
-              child: _BackButton(
-                hasBorder: backButtonHasBorder,
-                onTap: onBack ??
+              padding: EdgeInsets.only(left: 12.w, top: topSpacing.h - 5.h),
+              child: InkWell(
+                onTap:
+                    onBack ??
                     () {
                       if (context.canPop()) {
                         context.pop();
                       }
                     },
+                borderRadius: BorderRadius.circular(22.r),
+                child: SizedBox(
+                  width: 44.r,
+                  height: 44.r,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      AppAssets.profileBackArrow,
+                      width: 34.r,
+                      height: 34.r,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -233,34 +243,5 @@ class _GradientBackground extends StatelessWidget {
           ],
         );
     }
-  }
-}
-
-class _BackButton extends StatelessWidget {
-  const _BackButton({required this.hasBorder, required this.onTap});
-
-  final bool hasBorder;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(20.r),
-      child: Container(
-        width: 36.r,
-        height: 36.r,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.white,
-          border: hasBorder ? Border.all(color: AppColors.chipBorder) : null,
-        ),
-        child: Icon(
-          Icons.chevron_left_rounded,
-          size: 22.r,
-          color: AppColors.textPrimary,
-        ),
-      ),
-    );
   }
 }

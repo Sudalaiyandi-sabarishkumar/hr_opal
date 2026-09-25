@@ -240,7 +240,7 @@ class _Header extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: AppColors.white,
-                    width: 2,
+                    width: 0.75.w,
                   ),
                   shape: BoxShape.circle,
                   color: AppColors.dark4blue,
