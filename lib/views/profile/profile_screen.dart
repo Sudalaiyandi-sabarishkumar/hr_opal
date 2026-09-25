@@ -302,7 +302,7 @@ class _ClockedInBadge extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(7.r),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: AppColors.shadow,
@@ -312,10 +312,11 @@ class _ClockedInBadge extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5.h),
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
         child: Text(
           'Clocked In',
-          style: textTheme.geist12SemiBold.copyWith(
+          style: textTheme.geist12Medium.copyWith(
+            fontSize: 11.sp,
             color: AppColors.statusSuccess,
           ),
         ),

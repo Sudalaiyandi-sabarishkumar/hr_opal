@@ -153,7 +153,15 @@ class AppColors {
   static const Color avatarShadow = Color(0x1F000000);
   static const Color tagColor = Color(0xFF7D5DCB);
 
-
+ static const Color appBarPeach = Color(0xFFFDDBBF);
+  static const Color appBarPurple = Color(0xFF9184F6);
+  static const Color borderBlue = Color(0xFF93C5FD);
+  static const Color backBorderColor = Color(0xFFE9E9E9);
+  static const Color appBarTitleColor = Color(0xFF27194A);
+  static const Color darkBlueShadow = Color(0xFF18274B);
+  static const Color darkPurple = Color(0xFF7D5DCB);
+  static const Color cardFooterGreen = Color(0xFFDCFADC);
+  static const Color cardFooterDarkGreen = Color(0xFF1A8A1E);
    
   
 

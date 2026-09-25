@@ -7,6 +7,7 @@ import '../../core/utils/utils.dart';
 import '../home/home_page.dart';
 import '../loader/app_loader.dart';
 import '../profile/profile_screen.dart';
+import 'login_page.dart';
 
 
 class InitPage extends StatefulWidget {

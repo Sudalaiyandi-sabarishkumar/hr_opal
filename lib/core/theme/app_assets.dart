@@ -49,6 +49,7 @@ class AppAssets {
   static const String profileRing = '$profileIconsPath/ring.svg';
   static const String profileFilter = '$profileIconsPath/filter.svg';
   static const String profileSearch = '$profileIconsPath/search.svg';
+  static const String profileCopy = '$profileIconsPath/copy.svg';
 
   static const String documentsImagesPath = '$imagesPath/documents';
   static const String drivingLicenseBack = '$documentsImagesPath/driving_license_back.png';
@@ -60,5 +61,8 @@ class AppAssets {
   static const String bankPassbookBack = '$documentsImagesPath/bank_passbook_back.png';
   static const String panCardFront = '$documentsImagesPath/pan_card_front.png';
   static const String panCardBack = '$documentsImagesPath/pan_card_back.png';
+  static const String dummyImage = '$imagesPath/dummy_image.png';
+  static const String familyPageBg = '$imagesPath/family_page_bg.svg';
+  static const String memberCardBg = '$imagesPath/card_bg.svg';
   
 }

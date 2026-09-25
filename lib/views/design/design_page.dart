@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../core/utils/crashlytics_service.dart';
 import '../../shared_components/shared_components.dart';
 import 'badges_chips_controls_page.dart';
 import 'tabs_buttons_modal_drawer_page.dart';
@@ -35,6 +37,14 @@ class _DesignPageState extends State<DesignPage> {
       appBar: AppBar(
         backgroundColor: AppColors.white,
         title: Text('Design System', style: textTheme.geist18SemiBold),
+        actions: <Widget>[
+          if (kDebugMode)
+            IconButton(
+              tooltip: 'Trigger Crashlytics test crash',
+              icon: const Icon(Icons.bug_report_outlined),
+              onPressed: () => CrashlyticsService.triggerTestCrash(),
+            ),
+        ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(52.h),
           child: Padding(
