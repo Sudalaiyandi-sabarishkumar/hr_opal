@@ -68,7 +68,6 @@ class AppColors {
   static const Color textFieldCardShadow = Color(0x14FFFFFF);
   static const Color lightblue = Color(0xFFBCC5E3);
 
-
   // Profile screen header gradient (blue -> lavender -> soft pink).
   static const Color profileHeaderGradientTop = Color(0xFF6C8ACC);
   static const Color profileHeaderGradientMid = Color(0xFF98A9D6);
@@ -82,7 +81,7 @@ class AppColors {
   static const Color dark2blue = Color(0xFF6E91D3);
   static const Color dark3blue = Color(0xFFBCC7E4);
   static const Color dark4blue = Color(0xFF97ACDA);
-   static const Color accordionPurpleBg = Color(0xFFF0EBFA);
+  static const Color accordionPurpleBg = Color(0xFFF0EBFA);
   static const Color accordionPurpleFg = Color(0xFF5B4FE0);
 
   static const Color accordionGreenBg = Color(0xFFF0FBF0);
@@ -90,14 +89,17 @@ class AppColors {
 
   static const Color accordionYellowBg = Color(0xFFFFFBEB);
   static const Color accordionYellowFg = Color(0xFFC08A1E);
-    static const Color headerGradientPurple = Color(0xFFDCD9F5);
+  static const Color headerGradientPurple = Color(0xFFDCD9F5);
   static const Color headerGradientOrange = Color(0xFFF7D9C4);
   static const Color avatarRing = Color(0xFFA8B8E8);
-   static const Color headerGradientBlue = Color(0xFFD6E4F7);
-  
-
-  
-  
-  
-
+  static const Color headerGradientBlue = Color(0xFFD6E4F7);
+  static const Color appBarPeach = Color(0xFFFDDBBF);
+  static const Color appBarPurple = Color(0xFF9184F6);
+  static const Color borderBlue = Color(0xFF93C5FD);
+  static const Color backBorderColor = Color(0xFFE9E9E9);
+  static const Color appBarTitleColor = Color(0xFF27194A);
+  static const Color darkBlueShadow = Color(0xFF18274B);
+  static const Color darkPurple = Color(0xFF7D5DCB);
+  static const Color cardFooterGreen = Color(0xFFDCFADC);
+  static const Color cardFooterDarkGreen = Color(0xFF1A8A1E);
 }

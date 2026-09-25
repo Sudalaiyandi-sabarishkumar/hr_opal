@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'profile/family_address.dart';
-import 'profile/my_team.dart' hide ProfilePage;
+import 'profile/my_team.dart';
 import 'profile/profile_information.dart';
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
@@ -161,8 +161,8 @@ class GoRouterInit {
             path: '/familyaddress',
             name: RouteConstants.familyAddressPage,
             pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<FamilyAddress>(
-              child: FamilyAddress(),
+                const MaterialPage<FamilyAddressPage>(
+              child: FamilyAddressPage(),
             ),
           ),
            GoRoute(
