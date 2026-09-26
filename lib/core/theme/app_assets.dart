@@ -23,6 +23,7 @@ class AppAssets {
   static const String skillsIcon = '$iconsPath/skills_icon.svg';
   static const String emojiIcon = '$iconsPath/star_face.svg';
   static const String awardIcon = '$iconsPath/award.svg';
+  static const String backIcon = '$iconsPath/back_icon.svg';
   static const String languageIcon = '$iconsPath/language_icon.svg';
   static const String schoolIcon = '$iconsPath/school.svg';
   static const String calanderIcon = '$iconsPath/calendar.svg';
@@ -84,6 +85,7 @@ class AppAssets {
   static const String dummyImage = '$imagesPath/dummy_image.png';
   static const String dummyImage2 = '$imagesPath/dummy_image_2.jpg';
   static const String dummyImage3 = '$imagesPath/dummy_image_3.jpg';
+  static const String dummyImage4 = '$imagesPath/dummy_image_4.png';
   static const String familyPageBg = '$imagesPath/family_page_bg.svg';
   static const String memberCardBg = '$imagesPath/card_bg.svg';
   static const String blueCardBg = '$imagesPath/blue_line_bg.svg';

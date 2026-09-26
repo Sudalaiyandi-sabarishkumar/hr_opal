@@ -23,7 +23,7 @@ import 'views/profile/family_address_details.dart';
 import 'views/profile/job_details.dart';
 import 'views/profile/my_team.dart';
 import 'views/profile/profile_information.dart';
-import 'views/profile/profile_screen.dart';
+import 'views/profile/profile_page.dart';
 import 'views/profile/qualifications_page.dart';
 import 'views/profile/request_history.dart';
 import 'views/profile/timeline_page.dart';
