@@ -24,12 +24,13 @@ import 'views/profile/job_details.dart';
 import 'views/profile/my_team.dart';
 import 'views/profile/profile_information.dart';
 import 'views/profile/profile_screen.dart';
+import 'views/profile/qualifications_page.dart';
 import 'views/profile/request_history.dart';
-
 
 class FirebaseUtils {
   static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
 }
+
 class RouteConstants {
   static String initPage = 'init';
   static String appLoaderPage = 'appLoader';
@@ -42,16 +43,16 @@ class RouteConstants {
   static String loginPage = 'login';
   static String homePage = 'home';
   static String designPage = 'design';
-    static String profilePage = 'profile';
-    static String myteamPage = 'myteam';
-    static String familyAddressPage = 'familyaddress';
-    static String personalInformationPage = 'personalInformation';
-    static String jobDetailsPage = 'jobdetails';
-    static String amendmentsPage = 'amendments';
-    static String requestHistoryPage = 'requestHistory';
-    static String documentsPage = 'documents';
-    static String assetsPage = 'assets';
-  
+  static String profilePage = 'profile';
+  static String myteamPage = 'myteam';
+  static String familyAddressPage = 'familyaddress';
+  static String personalInformationPage = 'personalInformation';
+  static String jobDetailsPage = 'jobdetails';
+  static String amendmentsPage = 'amendments';
+  static String requestHistoryPage = 'requestHistory';
+  static String documentsPage = 'documents';
+  static String assetsPage = 'assets';
+  static String qualificationsPage = 'qualifications';
 }
 
 class GoRouterInit {
@@ -73,174 +74,147 @@ class GoRouterInit {
     navigatorKey: navigatorKey,
     routes: <RouteBase>[
       // Init Page
-       GoRoute(
-            path: '/',
-            name: RouteConstants.initPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<InitPage>(
-              child: InitPage(),
-            ),
-          ),
-          GoRoute(
-            path: '/loader',
-            name: RouteConstants.appLoaderPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<AppLoader>(
-              child: AppLoader(),
-            ),
-          ),
-            GoRoute(
-            path: '/profile',
-            name: RouteConstants.profilePage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<ProfilePage>(
-              child: ProfilePage(),
-            ),
-          ),
-          GoRoute(
-            path: '/auth/landing',
-            name: RouteConstants.landingPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<LandingPage>(
-              child: LandingPage(),
-            ),
-          ),
-          GoRoute(
-            path: '/auth/sign-in',
-            name: RouteConstants.signInPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<SignInPage>(
-              child: SignInPage(),
-            ),
-          ),
-          GoRoute(
-            path: '/auth/sign-in/forgot-password',
-            name: RouteConstants.forgotPasswordPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<ForgotPasswordPage>(
-              child: ForgotPasswordPage(),
-            ),
-          ),
-          GoRoute(
-            path: '/auth/otp',
-            name: RouteConstants.otpPage,
-            pageBuilder: (BuildContext context, GoRouterState state) {
-              final Map<String, dynamic> data =
-                  (state.extra as Map<String, dynamic>?) ?? <String, dynamic>{};
+      GoRoute(
+        path: '/',
+        name: RouteConstants.initPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<InitPage>(child: InitPage()),
+      ),
+      GoRoute(
+        path: '/loader',
+        name: RouteConstants.appLoaderPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<AppLoader>(child: AppLoader()),
+      ),
+      GoRoute(
+        path: '/profile',
+        name: RouteConstants.profilePage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<ProfilePage>(child: ProfilePage()),
+      ),
+      GoRoute(
+        path: '/auth/landing',
+        name: RouteConstants.landingPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<LandingPage>(child: LandingPage()),
+      ),
+      GoRoute(
+        path: '/auth/sign-in',
+        name: RouteConstants.signInPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<SignInPage>(child: SignInPage()),
+      ),
+      GoRoute(
+        path: '/auth/sign-in/forgot-password',
+        name: RouteConstants.forgotPasswordPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<ForgotPasswordPage>(child: ForgotPasswordPage()),
+      ),
+      GoRoute(
+        path: '/auth/otp',
+        name: RouteConstants.otpPage,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          final Map<String, dynamic> data =
+              (state.extra as Map<String, dynamic>?) ?? <String, dynamic>{};
 
-              return MaterialPage<OtpPage>(
-                child: OtpPage(
-                  email: (data['email'] as String?) ?? '',
-                  maskedMobileNumber: (data['maskedMobileNumber'] as String?) ?? '966*******56',
-                  onVerify: data['on_verify'] as OtpVerificationCallback?,
-                ),
-              );
-            },
-          ),
-          GoRoute(
-            path: '/auth/login',
-            name: RouteConstants.loginPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<LoginPage>(
-              child: LoginPage(),
+          return MaterialPage<OtpPage>(
+            child: OtpPage(
+              email: (data['email'] as String?) ?? '',
+              maskedMobileNumber:
+                  (data['maskedMobileNumber'] as String?) ?? '966*******56',
+              onVerify: data['on_verify'] as OtpVerificationCallback?,
             ),
-          ),
-          GoRoute(
-            path: '/auth/reset-password',
-            name: RouteConstants.resetPasswordPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<ResetPasswordPage>(
-              child: ResetPasswordPage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/auth/login',
+        name: RouteConstants.loginPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<LoginPage>(child: LoginPage()),
+      ),
+      GoRoute(
+        path: '/auth/reset-password',
+        name: RouteConstants.resetPasswordPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<ResetPasswordPage>(child: ResetPasswordPage()),
+      ),
+      GoRoute(
+        path: '/auth/change-password',
+        name: RouteConstants.changePasswordPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<ChangePasswordPage>(child: ChangePasswordPage()),
+      ),
+      GoRoute(
+        path: '/home',
+        name: RouteConstants.homePage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<HomePage>(child: HomePage()),
+      ),
+      GoRoute(
+        path: '/familyaddress',
+        name: RouteConstants.familyAddressPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<FamilyAddressPage>(child: FamilyAddressPage()),
+      ),
+      GoRoute(
+        path: '/myteam',
+        name: RouteConstants.myteamPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<MyTeamScreen>(child: MyTeamScreen()),
+      ),
+      GoRoute(
+        path: '/requestHistory',
+        name: RouteConstants.requestHistoryPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<RequestsHistoryScreen>(
+              child: RequestsHistoryScreen(),
             ),
-          ),
-           GoRoute(
-            path: '/auth/change-password',
-            name: RouteConstants.changePasswordPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<ChangePasswordPage>(
-              child: ChangePasswordPage(),
-            ),
-          ),
-          GoRoute(
-            path: '/home',
-            name: RouteConstants.homePage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<HomePage>(
-              child: HomePage(),
-            ),
-          ),
-           GoRoute(
-            path: '/familyaddress',
-            name: RouteConstants.familyAddressPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<FamilyAddressPage>(
-              child: FamilyAddressPage(),
-            ),
-          ),
-           GoRoute(
-            path: '/myteam',
-            name: RouteConstants.myteamPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<MyTeamScreen>(
-              child:MyTeamScreen(),
-            ),
-          ),
-          GoRoute(
-            path: '/requestHistory',
-            name: RouteConstants.requestHistoryPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<RequestsHistoryScreen>(
-              child:RequestsHistoryScreen(),
-            ),
-          ),
-           GoRoute(
-            path: '/jobdetails',
-            name: RouteConstants.jobDetailsPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<JobDetailsScreen>(
-              child:JobDetailsScreen(),
-            ),
-          ),
-           GoRoute(
-            path: '/assets',
-            name: RouteConstants.assetsPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<AssetsScreen>(
-              child:AssetsScreen(),
-            ),
-          ),
-           GoRoute(
-            path: '/documents',
-            name: RouteConstants.documentsPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<DocumentsScreen>(
-              child:DocumentsScreen(),
-            ),
-          ),
-          GoRoute(
-            path: '/personalInformation',
-            name: RouteConstants.personalInformationPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<PersonalInformationScreen>(
+      ),
+      GoRoute(
+        path: '/jobdetails',
+        name: RouteConstants.jobDetailsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<JobDetailsScreen>(child: JobDetailsScreen()),
+      ),
+      GoRoute(
+        path: '/assets',
+        name: RouteConstants.assetsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<AssetsScreen>(child: AssetsScreen()),
+      ),
+      GoRoute(
+        path: '/qualifications',
+        name: RouteConstants.qualificationsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<QualificationsPage>(child: QualificationsPage()),
+      ),
+      GoRoute(
+        path: '/documents',
+        name: RouteConstants.documentsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<DocumentsScreen>(child: DocumentsScreen()),
+      ),
+      GoRoute(
+        path: '/personalInformation',
+        name: RouteConstants.personalInformationPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<PersonalInformationScreen>(
               child: PersonalInformationScreen(),
             ),
-          ),
-          GoRoute(
-            path: '/amendments',
-            name: RouteConstants.amendmentsPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<AmendmentsScreen>(
-              child: AmendmentsScreen(),
-            ),
-          ),
-          GoRoute(
-            path: '/design',
-            name: RouteConstants.designPage,
-            pageBuilder: (BuildContext context, GoRouterState state) =>
-                const MaterialPage<DesignPage>(
-              child: DesignPage(),
-            ),
-          ),
+      ),
+      GoRoute(
+        path: '/amendments',
+        name: RouteConstants.amendmentsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<AmendmentsScreen>(child: AmendmentsScreen()),
+      ),
+      GoRoute(
+        path: '/design',
+        name: RouteConstants.designPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<DesignPage>(child: DesignPage()),
+      ),
     ],
   );
 }

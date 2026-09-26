@@ -162,11 +162,14 @@ class AppColors {
   static const Color darkPurple = Color(0xFF7D5DCB);
   static const Color cardFooterGreen = Color(0xFFDCFADC);
   static const Color cardFooterDarkGreen = Color(0xFF1A8A1E);
-   
-  
-
-  
-  
-  
-
+  static const Color educationCardIconBg = Color(0xFF1E3A8A);
+  static const Color experienceCardIconBg = Color(0xFF342260);
+  static const Color skillsCardIconBg = Color(0xFF6B2D0A);
+  static const Color languageCardIconBg = Color(0xFF1A8A1E);
+  static const Color cardTitleBlack = Color(0xFF18181B);
+  static const Color purpleBorderColor = Color(0xFFC7B7F4);
+  static const Color peachBorderColor = Color(0xFFFDDF93);
+  static const Color greenBorderColor = Color(0xFF95D382);
+  static const Color headingBlue = Color(0xFF60A5FA);
+  static const Color tagTextGreen = Color(0xFF0C4D0F);
 }

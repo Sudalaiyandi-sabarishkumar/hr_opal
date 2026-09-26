@@ -9,10 +9,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../shared_components/shared_components.dart';
 
-
-
-
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
     super.key,
@@ -27,13 +23,14 @@ class ProfileScreen extends StatelessWidget {
   final String designation;
   final bool isClockedIn;
 
-
-
-  List<AppOptionTile> _profileDetailTiles(BuildContext context) => <AppOptionTile>[
+  List<AppOptionTile> _profileDetailTiles(BuildContext context) =>
+      <AppOptionTile>[
         AppOptionTile(
           svgAsset: AppAssets.profileUserSharing,
           label: 'Personal Information',
-          onTap: () {context.push(RouteConstants.personalInformationPage);},
+          onTap: () {
+            context.push(RouteConstants.personalInformationPage);
+          },
         ),
         AppOptionTile(
           svgAsset: AppAssets.profileUserGroup,
@@ -43,23 +40,25 @@ class ProfileScreen extends StatelessWidget {
         AppOptionTile(
           svgAsset: AppAssets.profileBriefcase,
           label: 'Job Details',
-          onTap: () {context.push(RouteConstants.jobDetailsPage);},
+          onTap: () {
+            context.push(RouteConstants.jobDetailsPage);
+          },
         ),
         AppOptionTile(
-         svgAsset: AppAssets.profileFlow,
+          svgAsset: AppAssets.profileFlow,
           label: 'My Team',
           onTap: () => context.push(RouteConstants.myteamPage),
         ),
         AppOptionTile(
           svgAsset: AppAssets.profileBookOpen,
           label: 'Qualification and Skills',
-          onTap: () {},
+          onTap: () => context.push(RouteConstants.qualificationsPage),
         ),
         AppOptionTile(
           svgAsset: AppAssets.profileFile,
           label: 'My Documents',
           onTap: () {
-             context.push(RouteConstants.documentsPage);
+            context.push(RouteConstants.documentsPage);
           },
         ),
         AppOptionTile(
@@ -70,19 +69,19 @@ class ProfileScreen extends StatelessWidget {
           },
         ),
         AppOptionTile(
-   svgAsset: AppAssets.profileWorkflowCircle,
+          svgAsset: AppAssets.profileWorkflowCircle,
           label: 'Employee Timeline',
           onTap: () {},
         ),
         AppOptionTile(
-        svgAsset: AppAssets.profileWorkHistory,
+          svgAsset: AppAssets.profileWorkHistory,
           label: 'Transaction History',
           onTap: () {
             context.push(RouteConstants.requestHistoryPage);
           },
         ),
         AppOptionTile(
-         svgAsset: AppAssets.profileUser,
+          svgAsset: AppAssets.profileUser,
           label: 'Amendments',
           onTap: () {
             context.push(RouteConstants.amendmentsPage);
@@ -90,19 +89,18 @@ class ProfileScreen extends StatelessWidget {
         ),
       ];
 
-
   List<AppOptionTile> get _settingsTiles => <AppOptionTile>[
-        AppOptionTile(
-         svgAsset: AppAssets.profileNotification,
-          label: 'Notification Preferences',
-          onTap: () {},
-        ),
-        AppOptionTile(
-          svgAsset: AppAssets.profileLock,
-          label: 'Change Password',
-          onTap: () {},
-        ),
-      ];
+    AppOptionTile(
+      svgAsset: AppAssets.profileNotification,
+      label: 'Notification Preferences',
+      onTap: () {},
+    ),
+    AppOptionTile(
+      svgAsset: AppAssets.profileLock,
+      label: 'Change Password',
+      onTap: () {},
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +108,12 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: Image.asset(AppAssets.bg4Image, fit: BoxFit.cover),
           ),
-
 
           SafeArea(
             bottom: false,
@@ -160,8 +156,6 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-
-
 
           SafeArea(
             bottom: false,
@@ -207,18 +201,13 @@ class _Header extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
-
-
-
       padding: EdgeInsets.fromLTRB(8.w, 48.h, 8.w, 16.h),
       child: Column(
         children: <Widget>[
-
           Stack(
             alignment: Alignment.center,
             clipBehavior: Clip.none,
             children: <Widget>[
-
               IgnorePointer(
                 child: Text(
                   employeeId,
@@ -238,10 +227,7 @@ class _Header extends StatelessWidget {
                 height: 98.r,
                 padding: EdgeInsets.all(3.r),
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.white,
-                    width: 0.75.w,
-                  ),
+                  border: Border.all(color: AppColors.white, width: 0.75.w),
                   shape: BoxShape.circle,
                   color: AppColors.dark4blue,
                 ),
@@ -255,10 +241,7 @@ class _Header extends StatelessWidget {
               ),
 
               if (isClockedIn)
-                Positioned(
-                  bottom: -12.h,
-                  child: const _ClockedInBadge(),
-                ),
+                Positioned(bottom: -12.h, child: const _ClockedInBadge()),
             ],
           ),
           SizedBox(height: 22.h),

@@ -379,7 +379,7 @@ class _FamilyAddressPageState extends State<FamilyAddressPage> {
       padding: EdgeInsets.symmetric(horizontal: 22.5.w),
       child: Text(
         name,
-        style: textTheme.geist24Medium.copyWith(fontFamily: 'HostGrotesk'),
+        style: textTheme.geist24Medium.copyWith(fontFamily: 'Reckless'),
         textAlign: TextAlign.center,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
@@ -652,7 +652,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget backIcon({required BuildContext context}) {
     return Padding(
       padding: EdgeInsets.only(left: 16.w),
-      child: InkWell(
+      child: GestureDetector(
         onTap: context.pop,
         child: SizedBox(
           height: 12.h,
