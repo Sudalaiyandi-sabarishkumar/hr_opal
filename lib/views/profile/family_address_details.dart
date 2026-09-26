@@ -625,10 +625,12 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     required this.textTheme,
+    this.showTitle = true,
   });
 
   final String title;
   final TextTheme textTheme;
+  final bool showTitle;
 
   @override
   Size get preferredSize => Size.fromHeight(39.h);
@@ -640,12 +642,13 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: AppColors.transparent,
       shadowColor: AppColors.transparent,
       elevation: 0,
+      scrolledUnderElevation: 0,
       toolbarHeight: 64.h,
       automaticallyImplyLeading: false,
       centerTitle: true,
       leadingWidth: 50.w,
       leading: backIcon(context: context),
-      title: titleWidget(),
+      title: showTitle ? titleWidget() : null,
     );
   }
 

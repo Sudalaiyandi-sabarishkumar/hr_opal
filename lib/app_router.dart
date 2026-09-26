@@ -26,6 +26,7 @@ import 'views/profile/profile_information.dart';
 import 'views/profile/profile_screen.dart';
 import 'views/profile/qualifications_page.dart';
 import 'views/profile/request_history.dart';
+import 'views/profile/timeline_page.dart';
 
 class FirebaseUtils {
   static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
@@ -53,6 +54,7 @@ class RouteConstants {
   static String documentsPage = 'documents';
   static String assetsPage = 'assets';
   static String qualificationsPage = 'qualifications';
+  static String timeleinePage = 'timeline';
 }
 
 class GoRouterInit {
@@ -188,6 +190,12 @@ class GoRouterInit {
         name: RouteConstants.qualificationsPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<QualificationsPage>(child: QualificationsPage()),
+      ),
+      GoRoute(
+        path: '/timeline',
+        name: RouteConstants.timeleinePage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<TimelinePage>(child: TimelinePage()),
       ),
       GoRoute(
         path: '/documents',

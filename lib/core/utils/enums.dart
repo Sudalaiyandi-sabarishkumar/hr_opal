@@ -29,3 +29,9 @@ enum AppButtonVariant { primary, secondary, dark, light, subtle, outline, neutra
 enum AppButtonSize { large, medium, small }
 
 enum AppDrawerPlacement { top, bottom, left, right }
+
+enum TimelineColorBase { purple, green, orange }
+
+enum TimelineType { anniversary, award }
+
+enum QualificationAndSkillsType { education, experience, skills, languages }

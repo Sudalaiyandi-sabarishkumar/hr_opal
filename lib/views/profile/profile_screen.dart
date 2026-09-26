@@ -71,7 +71,9 @@ class ProfileScreen extends StatelessWidget {
         AppOptionTile(
           svgAsset: AppAssets.profileWorkflowCircle,
           label: 'Employee Timeline',
-          onTap: () {},
+          onTap: () {
+            context.push(RouteConstants.timeleinePage);
+          },
         ),
         AppOptionTile(
           svgAsset: AppAssets.profileWorkHistory,

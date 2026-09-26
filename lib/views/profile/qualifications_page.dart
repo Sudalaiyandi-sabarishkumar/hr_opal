@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../core/utils/enums.dart';
 import 'family_address_details.dart';
 
 class QualificationsPage extends StatelessWidget {
@@ -709,5 +710,3 @@ String getCardBg(QualificationAndSkillsType cardType) {
       return AppAssets.greenCardBg;
   }
 }
-
-enum QualificationAndSkillsType { education, experience, skills, languages }

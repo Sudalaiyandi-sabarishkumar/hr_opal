@@ -14,12 +14,15 @@ class AppAssets {
   static const String card1 = '$imagesPath/card1.svg';
   static const String card2 = '$imagesPath/card2.svg';
   static const String dottedLine = '$imagesPath/dotted_line.svg';
+  static const String timelinePageBg = '$imagesPath/timeline_bg.png';
 
   static const String infoCircle = '$iconsPath/information-circle.svg';
   static const String successCircle = '$iconsPath/checkmark-circle-02.svg';
   static const String educationIcon = '$iconsPath/education_icon.svg';
   static const String experienceIcon = '$iconsPath/experience_icon.svg';
   static const String skillsIcon = '$iconsPath/skills_icon.svg';
+  static const String emojiIcon = '$iconsPath/star_face.svg';
+  static const String awardIcon = '$iconsPath/award.svg';
   static const String languageIcon = '$iconsPath/language_icon.svg';
   static const String schoolIcon = '$iconsPath/school.svg';
   static const String calanderIcon = '$iconsPath/calendar.svg';
@@ -79,10 +82,18 @@ class AppAssets {
   static const String panCardFront = '$documentsImagesPath/pan_card_front.png';
   static const String panCardBack = '$documentsImagesPath/pan_card_back.png';
   static const String dummyImage = '$imagesPath/dummy_image.png';
+  static const String dummyImage2 = '$imagesPath/dummy_image_2.jpg';
+  static const String dummyImage3 = '$imagesPath/dummy_image_3.jpg';
   static const String familyPageBg = '$imagesPath/family_page_bg.svg';
   static const String memberCardBg = '$imagesPath/card_bg.svg';
   static const String blueCardBg = '$imagesPath/blue_line_bg.svg';
   static const String purpleCardBg = '$imagesPath/purple_lines_bg.svg';
   static const String peachCardBg = '$imagesPath/peach_lines_bg.svg';
   static const String greenCardBg = '$imagesPath/green_lines_bg.svg';
+  static const String purpleTimelineSeparator =
+      '$imagesPath/purple_timeline_separator.svg';
+  static const String greenTimelineSeparator =
+      '$imagesPath/green_timeline_separator.svg';
+  static const String orangeTimelineSeparator =
+      '$imagesPath/orange_timeline_separator.svg';
 }
