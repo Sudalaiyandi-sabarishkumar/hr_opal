@@ -6,18 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_styles.dart';
 import 'dummy_pages.dart';
 import 'payroll/payroll_screen.dart';
-
-
-
-/// ---------------------------------------------------------------------------
-/// Asset paths. Move these into your AppAssets class and add the SVGs to
-/// pubspec.yaml (assets: - assets/icons/nav/).
-/// ---------------------------------------------------------------------------
-
-
-
 
 class _TabItem {
   const _TabItem(this.label, this.asset);
@@ -49,25 +40,32 @@ class _MainShellState extends State<MainShell> {
     _TabItem('Payroll', AppAssets.payroll),
   ];
 
-  // Listed top -> bottom, same as the design.
   static final List<_MenuItem> _menuItems = <_MenuItem>[
-    _MenuItem('Holiday Calendar', AppAssets.holidayCalendar,
-        (_) => const HolidayCalendarPage()),
+    _MenuItem(
+      'Holiday Calendar',
+      AppAssets.holidayCalendar,
+      (_) => const HolidayCalendarPage(),
+    ),
     _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const MyLeavesPage()),
-    _MenuItem('Announcements', AppAssets.announcements,
-        (_) => const AnnouncementsPage()),
+    _MenuItem(
+      'Announcements',
+      AppAssets.announcements,
+      (_) => const AnnouncementsPage(),
+    ),
   ];
 
   static const List<Widget> _pages = <Widget>[
     HomePage(),
     AttendancePage(),
-    PayrollPage()
+    PayrollPage(),
   ];
 
   void _toggleMenu() => setState(() => _menuOpen = !_menuOpen);
 
   void _closeMenu() {
-    if (_menuOpen) setState(() => _menuOpen = false);
+    if (_menuOpen) {
+      setState(() => _menuOpen = false);
+    }
   }
 
   void _onTabTap(int i) {
@@ -91,18 +89,18 @@ class _MainShellState extends State<MainShell> {
     return PopScope(
       canPop: !_menuOpen,
       onPopInvokedWithResult: (bool didPop, Object? _) {
-        if (!didPop) _closeMenu();
+        if (!didPop) {
+          _closeMenu();
+        }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.white,
         body: Stack(
           children: <Widget>[
-            // Pages
             Positioned.fill(
               child: IndexedStack(index: _index, children: _pages),
             ),
 
-            // Blurred dark overlay
             Positioned.fill(
               child: IgnorePointer(
                 ignoring: !_menuOpen,
@@ -132,7 +130,6 @@ class _MainShellState extends State<MainShell> {
               ),
             ),
 
-            // Expanded menu items
             Positioned(
               right: 20.w,
               bottom: barBottom + barHeight + 20.h,
@@ -141,7 +138,6 @@ class _MainShellState extends State<MainShell> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: List<Widget>.generate(_menuItems.length, (int i) {
-                    // Item closest to the button appears first.
                     final int order = _menuItems.length - 1 - i;
                     return _AnimatedMenuRow(
                       visible: _menuOpen,
@@ -154,7 +150,6 @@ class _MainShellState extends State<MainShell> {
               ),
             ),
 
-            // Pill tab bar + circular menu button
             Positioned(
               left: 20.w,
               right: 20.w,
@@ -185,9 +180,6 @@ class _MainShellState extends State<MainShell> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Pill tab bar
-// ---------------------------------------------------------------------------
 class _PillTabBar extends StatelessWidget {
   const _PillTabBar({
     required this.height,
@@ -202,85 +194,81 @@ class _PillTabBar extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   @override
-Widget build(BuildContext context) {
-  final double borderWidth = 1.5.r; // adjust to match the design
-  final double outerRadius = height / 2;
-  final double innerRadius = outerRadius - borderWidth;
+  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final double borderWidth = 1.5.r;
+    final double outerRadius = height / 2;
+    final double innerRadius = outerRadius - borderWidth;
 
-  return Container(
-    height: height,
-    padding: EdgeInsets.all(borderWidth),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(outerRadius),
-      gradient: const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          Color(0xFFE4DBFF), // gradient start, replace with your color
-          Color(0xFFFFFFFF), // gradient end, replace with your color
+    return Container(
+      height: height,
+      padding: EdgeInsets.all(borderWidth),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(outerRadius),
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[
+            AppColors.pillTabGradientStart,
+            AppColors.pillTabGradientEnd,
+          ],
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.10),
+            blurRadius: 16.r,
+            offset: Offset(0, 4.h),
+          ),
         ],
       ),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: Colors.black.withOpacity(0.10),
-          blurRadius: 16.r,
-          offset: Offset(0, 4.h),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(innerRadius),
         ),
-      ],
-    ),
-    child: Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(innerRadius),
-      ),
-      child: Row(
-        children: List<Widget>.generate(tabs.length, (int i) {
-          final bool selected = i == currentIndex;
-          final Color color =
-              selected ? AppColors.active : AppColors.inactive;
-          return Expanded(
-            child: InkWell(
-              onTap: () => onTap(i),
-              borderRadius: BorderRadius.circular(innerRadius),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SvgPicture.asset(
-                    tabs[i].asset,
-                    width: 26.r,
-                    height: 26.r,
-                    colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    tabs[i].label,
-                    style: TextStyle(
-                      fontSize: 11.sp,
-                      fontWeight:
-                          selected ? FontWeight.w600 : FontWeight.w400,
-                      color: color,
+        child: Row(
+          children: List<Widget>.generate(tabs.length, (int i) {
+            final bool selected = i == currentIndex;
+            final Color color = selected
+                ? AppColors.active
+                : AppColors.inactive;
+            return Expanded(
+              child: InkWell(
+                onTap: () => onTap(i),
+                borderRadius: BorderRadius.circular(innerRadius),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      tabs[i].asset,
+                      width: 26.r,
+                      height: 26.r,
+                      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 4.h),
+                    Text(
+                      tabs[i].label,
+                      style: textTheme.geist12Medium.copyWith(
+                        fontSize: 11.sp,
+                        fontWeight: selected
+                            ? FontWeight.w600
+                            : FontWeight.w400,
+                        color: color,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
-// ---------------------------------------------------------------------------
-// Circular purple menu button
-// ---------------------------------------------------------------------------
 class _MenuFab extends StatelessWidget {
-  const _MenuFab({
-    required this.size,
-    required this.open,
-    required this.onTap,
-  });
+  const _MenuFab({required this.size, required this.open, required this.onTap});
 
   final double size;
   final bool open;
@@ -313,16 +301,18 @@ class _MenuFab extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             transitionBuilder: (Widget child, Animation<double> anim) =>
                 RotationTransition(
-              turns: Tween<double>(begin: 0.85, end: 1).animate(anim),
-              child: FadeTransition(opacity: anim, child: child),
-            ),
+                  turns: Tween<double>(begin: 0.85, end: 1).animate(anim),
+                  child: FadeTransition(opacity: anim, child: child),
+                ),
             child: SvgPicture.asset(
               open ? AppAssets.menuClose : AppAssets.menuGrid,
               key: ValueKey<bool>(open),
               width: 24.r,
               height: 24.r,
-              colorFilter:
-                  const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(
+                AppColors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
@@ -331,9 +321,6 @@ class _MenuFab extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Menu row: label + translucent circle with image icon
-// ---------------------------------------------------------------------------
 class _AnimatedMenuRow extends StatelessWidget {
   const _AnimatedMenuRow({
     required this.visible,
@@ -349,6 +336,7 @@ class _AnimatedMenuRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     final Duration duration = Duration(
       milliseconds: 220 + (visible ? delay.inMilliseconds : 0),
     );
@@ -369,10 +357,9 @@ class _AnimatedMenuRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   item.label,
-                  style: TextStyle(
+                  style: textTheme.geist16Medium.copyWith(
                     fontSize: 15.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
                 SizedBox(width: 14.w),
@@ -389,7 +376,7 @@ class _AnimatedMenuRow extends StatelessWidget {
                       width: 22.r,
                       height: 22.r,
                       colorFilter: const ColorFilter.mode(
-                        Colors.white,
+                        AppColors.white,
                         BlendMode.srcIn,
                       ),
                     ),

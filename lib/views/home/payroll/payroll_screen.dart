@@ -40,10 +40,9 @@ class _PayrollPageState extends State<PayrollPage> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: Stack(
         children: <Widget>[
-          // Top background image
           Positioned(
             top: 0,
             left: 0,
@@ -81,7 +80,6 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Top bar -------------------------------------------------------------
   Widget _buildTopBar(TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
@@ -94,7 +92,7 @@ class _PayrollPageState extends State<PayrollPage> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: Colors.white.withValues(alpha: 0.7),
+                color: AppColors.white.withValues(alpha: 0.7),
                 width: 0.5.w,
               ),
             ),
@@ -111,7 +109,7 @@ class _PayrollPageState extends State<PayrollPage> {
               Text(
                 widget.dateLabel,
                 style: textTheme.geist13Regular.copyWith(
-                  color: Colors.white.withValues(alpha: 0.9),
+                  color: AppColors.white.withValues(alpha: 0.9),
                 ),
               ),
               SizedBox(width: 10.w),
@@ -120,7 +118,7 @@ class _PayrollPageState extends State<PayrollPage> {
                 width: 16.r,
                 height: 16.r,
                 colorFilter: ColorFilter.mode(
-                  Colors.white.withValues(alpha: 0.9),
+                  AppColors.white.withValues(alpha: 0.9),
                   BlendMode.srcIn,
                 ),
               ),
@@ -128,7 +126,7 @@ class _PayrollPageState extends State<PayrollPage> {
               Text(
                 widget.temperature,
                 style: textTheme.geist13Regular.copyWith(
-                  color: Colors.white.withValues(alpha: 0.9),
+                  color: AppColors.white.withValues(alpha: 0.9),
                 ),
               ),
             ],
@@ -141,7 +139,7 @@ class _PayrollPageState extends State<PayrollPage> {
                 width: 24.r,
                 height: 24.r,
                 colorFilter: const ColorFilter.mode(
-                  Colors.white,
+                  AppColors.white,
                   BlendMode.srcIn,
                 ),
               ),
@@ -164,7 +162,6 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Annual pay ----------------------------------------------------------
   Widget _buildAnnualPay(TextTheme textTheme) {
     return Center(
       child: Column(
@@ -172,7 +169,7 @@ class _PayrollPageState extends State<PayrollPage> {
           Text(
             'My Annual Pay',
             style: textTheme.geist13Regular.copyWith(
-              color: Colors.white.withValues(alpha: 0.9),
+              color: AppColors.white.withValues(alpha: 0.9),
             ),
           ),
           SizedBox(height: 12.h),
@@ -181,13 +178,13 @@ class _PayrollPageState extends State<PayrollPage> {
             children: <Widget>[
               Text(
                 '₹',
-                style: textTheme.geist34Bold.copyWith(color: Colors.white),
+                style: textTheme.geist34Bold.copyWith(color: AppColors.white),
               ),
               SizedBox(width: 10.w),
               if (_showPay)
                 Text(
                   widget.annualPay,
-                  style: textTheme.geist30Bold.copyWith(color: Colors.white),
+                  style: textTheme.geist30Bold.copyWith(color: AppColors.white),
                 )
               else
                 Row(
@@ -198,7 +195,7 @@ class _PayrollPageState extends State<PayrollPage> {
                       height: 9.r,
                       margin: EdgeInsets.only(right: i == 5 ? 0 : 8.w),
                       decoration: const BoxDecoration(
-                        color: Colors.white,
+                        color: AppColors.white,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -212,7 +209,7 @@ class _PayrollPageState extends State<PayrollPage> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 4.h),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Text(
@@ -228,7 +225,6 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Quick actions -------------------------------------------------------
   Widget _buildQuickActions(TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -265,7 +261,6 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Expense requests ----------------------------------------------------
   Widget _buildExpenseRequests(TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -302,7 +297,6 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Tax summary ---------------------------------------------------------
   Widget _buildTaxSummary(TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -316,7 +310,7 @@ class _PayrollPageState extends State<PayrollPage> {
                 'Tax Summary',
                 style: textTheme.geist18SemiBold.copyWith(
                   color: AppColors.payrollInk,
-                  fontFamily: hostGroteskFont
+                  fontFamily: hostGroteskFont,
                 ),
               ),
               Container(
@@ -329,7 +323,7 @@ class _PayrollPageState extends State<PayrollPage> {
                   'FY 2025-26',
                   style: textTheme.geist12Regular.copyWith(
                     color: AppColors.statusInfo,
-                    fontSize: 11.sp
+                    fontSize: 11.sp,
                   ),
                 ),
               ),
@@ -346,14 +340,19 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Tax forms -----------------------------------------------------------
   Widget _buildTaxForms(TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Tax Forms', style: textTheme.geist14Medium.copyWith(color: AppColors.statusNeutralText,fontFamily: hostGroteskFont),),
+          Text(
+            'Tax Forms',
+            style: textTheme.geist14Medium.copyWith(
+              color: AppColors.statusNeutralText,
+              fontFamily: hostGroteskFont,
+            ),
+          ),
           SizedBox(height: 12.h),
           TaxFormCard(
             title: 'Form 16 (2025-26)',
@@ -377,14 +376,18 @@ class _PayrollPageState extends State<PayrollPage> {
     );
   }
 
-  // ---- Previous declarations -----------------------------------------------
   Widget _buildPreviousDeclarations(TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Previous Declarations',style: textTheme.geist14Medium.copyWith(color: AppColors.statusNeutralText),),
+          Text(
+            'Previous Declarations',
+            style: textTheme.geist14Medium.copyWith(
+              color: AppColors.statusNeutralText,
+            ),
+          ),
           SizedBox(height: 4.h),
           DeclarationTile(
             year: 'FY 2023-24',
@@ -407,9 +410,6 @@ class _PayrollPageState extends State<PayrollPage> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Private page-level helpers
-// ---------------------------------------------------------------------------
 class _SectionLabel extends StatelessWidget {
   const _SectionLabel(this.text);
   final String text;
@@ -449,7 +449,7 @@ class _QuickAction extends StatelessWidget {
             height: 44.r,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withValues(alpha: 0.55),
+              color: AppColors.white.withValues(alpha: 0.55),
             ),
             child: Center(
               child: SvgPicture.asset(

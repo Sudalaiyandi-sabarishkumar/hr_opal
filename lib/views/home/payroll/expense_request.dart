@@ -5,12 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/theme/app_assets.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_styles.dart';
-import '../../../core/utils/enums.dart';
 import '../../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../../shared_components/input_field/app_text_field.dart';
 import '../../../shared_components/shared_components.dart';
-
-// Adjust this path to wherever AppTextField / InputFieldGroup live.
 
 class ExpenseRequest extends StatefulWidget {
   const ExpenseRequest({super.key});
@@ -32,7 +29,6 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
   DateTime? _fromDate;
   DateTime? _toDate;
 
-  // TODO: replace with real data from your API / enums.
   static const List<String> _expenseTypes = <String>[
     'Travel',
     'Food',
@@ -70,7 +66,9 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
         ),
       ),
     );
-    if (picked != null) onSelected(picked);
+    if (picked != null) {
+      onSelected(picked);
+    }
   }
 
   Future<void> _pickDate({
@@ -84,12 +82,12 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
       firstDate: DateTime(now.year - 5),
       lastDate: DateTime(now.year + 5),
     );
-    if (picked != null) onSelected(picked);
+    if (picked != null) {
+      onSelected(picked);
+    }
   }
 
-  void _onSubmit() {
-    // TODO: validate + submit.
-  }
+  void _onSubmit() {}
 
   @override
   Widget build(BuildContext context) {
@@ -218,9 +216,7 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
             SizedBox(height: 8.h),
             InkWell(
               borderRadius: BorderRadius.circular(8.r),
-              onTap: () {
-                // TODO: open file picker (png, pdf, jpeg, max 10MB).
-              },
+              onTap: () {},
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 16.h),
@@ -231,7 +227,11 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SvgPicture.asset(AppAssets.payrollUpload,height: 16.h,width: 16.w,),
+                    SvgPicture.asset(
+                      AppAssets.payrollUpload,
+                      height: 16.h,
+                      width: 16.w,
+                    ),
                     SizedBox(width: 8.w),
                     Text('Upload file', style: textTheme.geist13Regular),
                   ],
@@ -271,34 +271,6 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                     onTap: _onSubmit,
                   ),
                 ),
-                // Expanded(
-                //   child: ElevatedButton(
-                //     onPressed: () => Navigator.of(context).maybePop(),
-                //     style: ElevatedButton.styleFrom(
-                //       elevation: 0,
-                //       backgroundColor: Colors.grey.shade200,
-                //       foregroundColor: Colors.black,
-                //       minimumSize: Size.fromHeight(48.h),
-                //       shape: const StadiumBorder(),
-                //     ),
-                //     child: const Text('Cancel'),
-                //   ),
-                // ),
-                // SizedBox(width: 12.w),
-                // Expanded(
-                //   child: ElevatedButton(
-                //     onPressed: _onSubmit,
-                //     style: ElevatedButton.styleFrom(
-                //       elevation: 0,
-                //       // TODO: use your app's primary purple from AppColors.
-                //       backgroundColor: Theme.of(context).colorScheme.primary,
-                //       foregroundColor: Colors.white,
-                //       minimumSize: Size.fromHeight(48.h),
-                //       shape: const StadiumBorder(),
-                //     ),
-                //     child: const Text('Submit'),
-                //   ),
-                // ),
               ],
             ),
           ],
@@ -308,7 +280,6 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
   }
 }
 
-/// Tappable field (dropdown / date) styled like [AppTextField].
 class _SelectField extends StatelessWidget {
   const _SelectField({
     required this.label,
@@ -316,7 +287,6 @@ class _SelectField extends StatelessWidget {
     required this.trailing,
     required this.onTap,
     this.value,
-    this.isRequired = true,
   });
 
   final String label;
@@ -324,7 +294,6 @@ class _SelectField extends StatelessWidget {
   final String? value;
   final Widget trailing;
   final VoidCallback onTap;
-  final bool isRequired;
 
   @override
   Widget build(BuildContext context) {
@@ -350,16 +319,14 @@ class _SelectField extends StatelessWidget {
                       style: textTheme.geist13Regular.copyWith(
                         color: groupType.labelColor,
                       ),
-                      children: isRequired
-                          ? <InlineSpan>[
-                              TextSpan(
-                                text: ' *',
-                                style: textTheme.geist13Regular.copyWith(
-                                  color: AppColors.statusDanger,
-                                ),
-                              ),
-                            ]
-                          : null,
+                      children: <InlineSpan>[
+                        TextSpan(
+                          text: ' *',
+                          style: textTheme.geist13Regular.copyWith(
+                            color: AppColors.statusDanger,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(height: 4.h),
@@ -371,8 +338,6 @@ class _SelectField extends StatelessWidget {
                         ? textTheme.geist16Regular.copyWith(
                             color: groupType.hintColor,
                           )
-                        // If AppColors.textPrimary doesn't exist, use your
-                        // dark text color here.
                         : textTheme.geist16Regular.copyWith(
                             color: AppColors.textPrimary,
                           ),

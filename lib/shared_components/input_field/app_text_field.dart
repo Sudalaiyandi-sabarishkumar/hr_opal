@@ -31,13 +31,8 @@ class AppTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final AutovalidateMode? autovalidateMode;
 
-  /// When true, restricts input to digits 0-9 only (e.g. OTP, phone number,
-  /// PIN fields). Also switches the on-screen keyboard to numeric unless
-  /// [keyboardType] is explicitly overridden.
   final bool numericOnly;
 
-  /// Caps the number of characters that can be entered. The default
-  /// character counter is hidden since the design doesn't show one.
   final int? maxLength;
 
   @override
@@ -118,8 +113,6 @@ class _AppTextFieldState extends State<AppTextField> {
                       errorBorder: InputBorder.none,
                       focusedErrorBorder: InputBorder.none,
                       contentPadding: EdgeInsets.zero,
-                      // Hide the default "n/max" counter row under the
-                      // field; the design has no room/spec for it.
                       counterText: '',
                       hintText: widget.hint,
                       hintStyle: textTheme.geist16Regular.copyWith(
@@ -157,19 +150,14 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 }
 
-/// Visual variants for [InputFieldGroup].
-
-
 extension InputFieldGroupTypeStyle on InputFieldGroupType {
-  /// null = keep the default text style from the theme.
   Color? get labelColor =>
-      this == InputFieldGroupType.neutral ? const Color(0xFF606E82) : null;
+      this == InputFieldGroupType.neutral ? AppColors.toastMessage : null;
 
   Color? get hintColor =>
-      this == InputFieldGroupType.neutral ? const Color(0xFF8896A7) : null;
+      this == InputFieldGroupType.neutral ? AppColors.textSecondary : null;
 }
 
-/// Lets fields inside an [InputFieldGroup] know which type they are in.
 class InputFieldGroupScope extends InheritedWidget {
   const InputFieldGroupScope({
     super.key,
@@ -190,8 +178,6 @@ class InputFieldGroupScope extends InheritedWidget {
       type != oldWidget.type;
 }
 
-/// Groups one or more fields inside a single card. The look is chosen with
-/// [type]; fields inside pick up matching label/hint colors automatically.
 class InputFieldGroup extends StatelessWidget {
   const InputFieldGroup({
     super.key,
@@ -202,8 +188,8 @@ class InputFieldGroup extends StatelessWidget {
   final List<Widget> children;
   final InputFieldGroupType type;
 
-  static const Color _neutralBackground = Color(0xFFFAFAFA); // HROPAL Neutral-25
-  static const Color _neutralBorder = Color(0xFFEAECF0);
+  static const Color _neutralBackground = AppColors.neutral25;
+  static const Color _neutralBorder = AppColors.borderSubtle;
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +204,7 @@ class InputFieldGroup extends StatelessWidget {
           decoration: BoxDecoration(
             color: _neutralBackground,
             borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: _neutralBorder, width: 1),
+            border: Border.all(color: _neutralBorder),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12.r),

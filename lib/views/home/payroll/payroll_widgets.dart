@@ -6,9 +6,6 @@ import '../../../core/theme/app_assets.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_styles.dart';
 
-// ---------------------------------------------------------------------------
-// Status badge (dot + label)
-// ---------------------------------------------------------------------------
 enum RequestStatus { pending, approved, rejected, filed }
 
 extension RequestStatusX on RequestStatus {
@@ -32,7 +29,6 @@ class StatusBadge extends StatelessWidget {
 
   final RequestStatus status;
 
-  /// White pill background (used inside request cards).
   final bool filled;
 
   @override
@@ -44,7 +40,7 @@ class StatusBadge extends StatelessWidget {
         vertical: filled ? 2.h : 0,
       ),
       decoration: BoxDecoration(
-        color: filled ? Colors.white : Colors.transparent,
+        color: filled ? AppColors.white : AppColors.transparent,
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: Row(
@@ -61,7 +57,10 @@ class StatusBadge extends StatelessWidget {
           SizedBox(width: 5.w),
           Text(
             status.label,
-            style: textTheme.geist12Medium.copyWith(color: status.color,fontSize: 11.sp),
+            style: textTheme.geist12Medium.copyWith(
+              color: status.color,
+              fontSize: 11.sp,
+            ),
           ),
         ],
       ),
@@ -69,9 +68,6 @@ class StatusBadge extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// 1) Request card  (TR-202606 / Expense Request / Pending  Olivia Rhye)
-// ---------------------------------------------------------------------------
 class RequestCard extends StatelessWidget {
   const RequestCard({
     super.key,
@@ -111,7 +107,7 @@ class RequestCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.statusInfoSoft,
                   borderRadius: BorderRadius.circular(8.r),
-                ),  
+                ),
                 child: Text(
                   requestId,
                   style: textTheme.geist10Regular.copyWith(
@@ -124,7 +120,7 @@ class RequestCard extends StatelessWidget {
                 title,
                 style: textTheme.geist14Medium.copyWith(
                   color: AppColors.cardTitleBlack,
-                  fontFamily: hostGroteskFont
+                  fontFamily: hostGroteskFont,
                 ),
               ),
               SizedBox(height: 8.h),
@@ -152,9 +148,6 @@ class RequestCard extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// 2) Tax summary card
-// ---------------------------------------------------------------------------
 class TaxBreakdownItem {
   const TaxBreakdownItem({required this.label, required this.amount});
   final String label;
@@ -193,14 +186,14 @@ class TaxSummaryCard extends StatelessWidget {
                 totalLabel,
                 style: textTheme.geist14Medium.copyWith(
                   color: AppColors.statusNeutralText,
-                  fontSize: 13.sp
+                  fontSize: 13.sp,
                 ),
               ),
               Text(
                 totalAmount,
                 style: textTheme.geist18SemiBold.copyWith(
                   color: AppColors.textPrimary,
-                  fontFamily: hostGroteskFont
+                  fontFamily: hostGroteskFont,
                 ),
               ),
             ],
@@ -239,9 +232,6 @@ class TaxSummaryCard extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// 3) Tax form card (PDF icon, title, subtitle, download)
-// ---------------------------------------------------------------------------
 class TaxFormCard extends StatelessWidget {
   const TaxFormCard({
     super.key,
@@ -279,7 +269,7 @@ class TaxFormCard extends StatelessWidget {
                       title,
                       style: textTheme.geist12Medium.copyWith(
                         color: AppColors.textPrimary,
-                        fontSize: 13.sp
+                        fontSize: 13.sp,
                       ),
                     ),
                     SizedBox(height: 2.h),
@@ -287,7 +277,7 @@ class TaxFormCard extends StatelessWidget {
                       subtitle,
                       style: textTheme.geist12Regular.copyWith(
                         color: AppColors.textSecondary,
-                        fontSize: 11.sp
+                        fontSize: 11.sp,
                       ),
                     ),
                   ],
@@ -317,9 +307,6 @@ class TaxFormCard extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Small helpers used by the page
-// ---------------------------------------------------------------------------
 class DeclarationTile extends StatelessWidget {
   const DeclarationTile({
     super.key,
@@ -346,7 +333,7 @@ class DeclarationTile extends StatelessWidget {
               child: Text(
                 year,
                 style: textTheme.geist12Regular.copyWith(
-                  color: AppColors.textPrimary
+                  color: AppColors.textPrimary,
                 ),
               ),
             ),
