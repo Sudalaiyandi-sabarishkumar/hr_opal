@@ -107,7 +107,7 @@ class ProfilePage extends StatelessWidget {
         svgAsset: AppAssets.profileUserSharing,
         label: 'Personal Information',
         onTap: () {
-          context.push(RouteConstants.personalInformationPage);
+          context.push(RouteConstants.payslipsPage);
         },
       ),
       AppOptionTile(

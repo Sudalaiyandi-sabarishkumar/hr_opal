@@ -29,6 +29,9 @@ class AppAssets {
   static const String calanderIcon = '$iconsPath/calendar.svg';
   static const String locationIcon = '$iconsPath/location.svg';
   static const String certificateIcon = '$iconsPath/certificate.svg';
+  static const String downloadIcon = '$iconsPath/download_icon.svg';
+  static const String chevronLeftIcon = '$iconsPath/chevron_left.svg';
+  static const String chevronRightIcon = '$iconsPath/chevron_right.svg';
   static const String warningTriangle = '$iconsPath/alert-02.svg';
   static const String dangerCircle = '$iconsPath/alert-circle.svg';
   static const String closeButton = '$iconsPath/CloseButton.svg';
