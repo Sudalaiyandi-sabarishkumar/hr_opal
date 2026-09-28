@@ -35,3 +35,5 @@ enum TimelineColorBase { purple, green, orange }
 enum TimelineType { anniversary, award }
 
 enum QualificationAndSkillsType { education, experience, skills, languages }
+
+enum InputFieldGroupType { gradient, neutral }

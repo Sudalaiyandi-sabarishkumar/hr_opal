@@ -172,4 +172,44 @@ class AppColors {
   static const Color greenBorderColor = Color(0xFF95D382);
   static const Color headingBlue = Color(0xFF60A5FA);
   static const Color tagTextGreen = Color(0xFF0C4D0F);
+  static const Color statusPending = Color(0xFFD9792B);
+  static const Color navActive = Color(0xFF16161D);
+  static const Color navInactive = Color(0xFF8A8A99);
+  static const Color navPill = Colors.white;
+  static const Color navFabStart = Color(0xFF8E6BE0);
+  static const Color navFabEnd = Color(0xFF5B3EA6);
+  static const Color navOverlayTop = Color(0x66261C45);
+  static const Color navOverlayBottom = Color(0xF2261C45);
+  static const Color navMenuCircle = Color(0x40FFFFFF);
+  static const Color payrollInk = Color(0xFF141820);
+  static const Color payrollSecondary = Color(0xFF6B6B7B);
+  static const Color payrollMuted = Color(0xFF8A8A99);
+ 
+  static const Color payrollGradientTop = Color(0xFF6F8FD4);
+  static const Color payrollGradientMid1 = Color(0xFF9DA6DC);
+  static const Color payrollGradientMid2 = Color(0xFFDCDDF0);
+ 
+  static const Color payrollQuickActionIcon = Color(0xFF3B3560);
+  static const Color notificationDot = Color(0xFFFFC53D);
+ 
+  static const Color payrollRequestCardBg = Color(0xFFF7F9FF);
+  static const Color payrollRequestCardBorder = Color(0xFFF5F6F8);
+  static const Color payrollIdChipBg = Color(0xFFE9EAF3);
+ 
+  static const Color payrollSummaryBg = Color(0xFFF5F6F8);
+  static const Color payrollSummaryBorder = Color(0xFFEAECF0);
+ 
+  static const Color payrollFormCardBg = Color(0xFFF5F6F8);
+ 
+  static const Color payrollFyChipBg = Color(0xFFECEDFA);
+  static const Color payrollFyChipText = Color(0xFF3E3A8C);
+    static const Color active = Color(0xFF16161D);
+  static const Color inactive = Color(0xFF8A8A99);
+  static const Color pill = Colors.white;
+  static const Color fabStart = Color(0xFF8E6BE0);
+  static const Color fabEnd = Color(0xFF5B3EA6);
+  static const Color overlayTop = Color(0x66261C45);
+  static const Color overlayBottom = Color(0xF2261C45);
+  static const Color menuCircle = Color(0x40FFFFFF);
+
 }

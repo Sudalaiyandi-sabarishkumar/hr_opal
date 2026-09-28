@@ -14,6 +14,7 @@ import 'views/auth/reset_password.dart';
 import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
+import 'views/home/payroll/expense_request.dart';
 import 'views/loader/app_loader.dart';
 import 'views/profile/amendments.dart';
 import 'views/profile/assets.dart';
@@ -55,6 +56,7 @@ class RouteConstants {
   static String assetsPage = 'assets';
   static String qualificationsPage = 'qualifications';
   static String timeleinePage = 'timeline';
+  static String expenseRequest = 'expenseRequest';
 }
 
 class GoRouterInit {
@@ -222,6 +224,12 @@ class GoRouterInit {
         name: RouteConstants.designPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<DesignPage>(child: DesignPage()),
+      ),
+      GoRoute(
+        path: '/expenseRequest',
+        name: RouteConstants.expenseRequest,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<ExpenseRequest>(child: ExpenseRequest()),
       ),
     ],
   );

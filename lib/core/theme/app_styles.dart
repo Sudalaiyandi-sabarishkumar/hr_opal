@@ -36,6 +36,7 @@ extension CustomTextTheme on TextTheme {
     fontWeight: FontWeight.w400,
     color: AppColors.black,
   );
+  
 
   TextStyle get geist16Regular => TextStyle(
     fontFamily: geistFont,

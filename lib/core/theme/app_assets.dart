@@ -98,4 +98,29 @@ class AppAssets {
       '$imagesPath/green_timeline_separator.svg';
   static const String orangeTimelineSeparator =
       '$imagesPath/orange_timeline_separator.svg';
+
+  static const String home = 'assets/icons/home/home.svg';
+  static const String attendance = 'assets/icons/home/calendar.svg';
+  static const String payroll = 'assets/icons/home/money.svg';
+
+  static const String menuGrid = 'assets/icons/home/menu.svg';
+  static const String menuClose = 'assets/icons/home/cancel.svg';
+
+  static const String holidayCalendar = 'assets/icons/home/marketing.svg';
+  static const String myLeaves = 'assets/icons/home/beach.svg';
+  static const String announcements = 'assets/icons/home/calendar_outline.svg';
+  static const String payrollAvatar = 'assets/images/female.png';
+  
+  static const String payrollCloud = 'assets/icons/home/sun-cloud.svg';
+  static const String payrollPayslips = 'assets/icons/home/money_add.svg';
+  static const String payrollPayBreakdown =
+      'assets/icons/home/list.svg';
+  static const String payrollExpenseRequest =
+      'assets/icons/home/money_add.svg';
+ 
+  static const String payrollPdf = 'assets/icons/home/pdf.svg';
+  static const String payrollDownload = 'assets/icons/home/download.svg';
+  static const String payrollUpload = 'assets/icons/home/upload.svg';
+  static const String payrollChevronRight ='assets/icons/home/go.svg';
+  static const String down ='assets/icons/home/down.svg';
 }

@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../core/utils/enums.dart';
 import '../gradient_border_box.dart';
-
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -57,6 +57,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final InputFieldGroupType groupType = InputFieldGroupScope.of(context);
 
     final List<TextInputFormatter> inputFormatters = <TextInputFormatter>[
       if (widget.numericOnly) FilteringTextInputFormatter.digitsOnly,
@@ -80,7 +81,9 @@ class _AppTextFieldState extends State<AppTextField> {
                   RichText(
                     text: TextSpan(
                       text: widget.label,
-                      style: textTheme.geist13Regular,
+                      style: textTheme.geist13Regular.copyWith(
+                        color: groupType.labelColor,
+                      ),
                       children: widget.isRequired
                           ? <InlineSpan>[
                               TextSpan(
@@ -119,7 +122,9 @@ class _AppTextFieldState extends State<AppTextField> {
                       // field; the design has no room/spec for it.
                       counterText: '',
                       hintText: widget.hint,
-                      hintStyle: textTheme.geist16Regular,
+                      hintStyle: textTheme.geist16Regular.copyWith(
+                        color: groupType.hintColor,
+                      ),
                       errorStyle: textTheme.geist12Regular.copyWith(
                         color: AppColors.statusDanger,
                       ),
@@ -152,30 +157,88 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 }
 
-/// Groups one or more [AppTextField]s inside a single gradient-bordered
-/// card, matching the shared design spec (see [GradientBorderBox]).
+/// Visual variants for [InputFieldGroup].
+
+
+extension InputFieldGroupTypeStyle on InputFieldGroupType {
+  /// null = keep the default text style from the theme.
+  Color? get labelColor =>
+      this == InputFieldGroupType.neutral ? const Color(0xFF606E82) : null;
+
+  Color? get hintColor =>
+      this == InputFieldGroupType.neutral ? const Color(0xFF8896A7) : null;
+}
+
+/// Lets fields inside an [InputFieldGroup] know which type they are in.
+class InputFieldGroupScope extends InheritedWidget {
+  const InputFieldGroupScope({
+    super.key,
+    required this.type,
+    required super.child,
+  });
+
+  final InputFieldGroupType type;
+
+  static InputFieldGroupType of(BuildContext context) =>
+      context
+          .dependOnInheritedWidgetOfExactType<InputFieldGroupScope>()
+          ?.type ??
+      InputFieldGroupType.gradient;
+
+  @override
+  bool updateShouldNotify(InputFieldGroupScope oldWidget) =>
+      type != oldWidget.type;
+}
+
+/// Groups one or more fields inside a single card. The look is chosen with
+/// [type]; fields inside pick up matching label/hint colors automatically.
 class InputFieldGroup extends StatelessWidget {
-  const InputFieldGroup({super.key, required this.children});
+  const InputFieldGroup({
+    super.key,
+    required this.children,
+    this.type = InputFieldGroupType.gradient,
+  });
 
   final List<Widget> children;
+  final InputFieldGroupType type;
+
+  static const Color _neutralBackground = Color(0xFFFAFAFA); // HROPAL Neutral-25
+  static const Color _neutralBorder = Color(0xFFEAECF0);
 
   @override
   Widget build(BuildContext context) {
-    return GradientBorderBox(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          for (int i = 0; i < children.length; i++) ...<Widget>[
-            children[i],
-            if (i != children.length - 1)
-              const Divider(
-                height: 1,
-                thickness: 1,
-                color: AppColors.textFieldCardBackground,
-              ),
-          ],
+    final Widget card;
+    switch (type) {
+      case InputFieldGroupType.gradient:
+        card = GradientBorderBox(
+          child: _buildRows(AppColors.textFieldCardBackground),
+        );
+      case InputFieldGroupType.neutral:
+        card = Container(
+          decoration: BoxDecoration(
+            color: _neutralBackground,
+            borderRadius: BorderRadius.circular(12.r),
+            border: Border.all(color: _neutralBorder, width: 1),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: _buildRows(_neutralBorder),
+          ),
+        );
+    }
+    return InputFieldGroupScope(type: type, child: card);
+  }
+
+  Widget _buildRows(Color dividerColor) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        for (int i = 0; i < children.length; i++) ...<Widget>[
+          children[i],
+          if (i != children.length - 1)
+            Divider(height: 1, thickness: 1, color: dividerColor),
         ],
-      ),
+      ],
     );
   }
 }
