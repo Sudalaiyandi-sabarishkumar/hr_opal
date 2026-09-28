@@ -174,4 +174,8 @@ class AppColors {
   static const Color darkBlue = Color(0xFF1E2939);
   static const Color shadowScroll = Color(0xFFF5F5F5);
   static const Color liteGrey = Color(0xFFFAFAFA);
+  static const Color chartPurple = Color(0xFFA281E5);
+  static const Color chartGreen = Color(0xFFB8F1B9);
+  static const Color chartPink = Color(0xFFFF8B85);
+  static const Color chartBlue1 = Color(0xFF566AC7);
 }

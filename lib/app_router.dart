@@ -15,6 +15,7 @@ import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
+import 'views/payroll/pay_breakdown_page.dart';
 import 'views/payroll/pay_slips_page.dart';
 import 'views/profile/amendments.dart';
 import 'views/profile/assets.dart';
@@ -57,6 +58,7 @@ class RouteConstants {
   static String qualificationsPage = 'qualifications';
   static String timeleinePage = 'timeline';
   static String payslipsPage = 'payslips';
+  static String payBreakdownPage = 'payBreakdown';
 }
 
 class GoRouterInit {
@@ -230,6 +232,12 @@ class GoRouterInit {
         name: RouteConstants.payslipsPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<PaySlipsPage>(child: PaySlipsPage()),
+      ),
+      GoRoute(
+        path: '/payBreakdown',
+        name: RouteConstants.payBreakdownPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<PayBreakdownPage>(child: PayBreakdownPage()),
       ),
     ],
   );

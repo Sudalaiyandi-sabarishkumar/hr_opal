@@ -7,6 +7,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../models/amount_data.dart';
 import '../profile/family_address_details.dart';
+import 'pay_slip_card_body.dart';
 
 class PaySlipsPage extends StatefulWidget {
   const PaySlipsPage({super.key});
@@ -17,8 +18,6 @@ class PaySlipsPage extends StatefulWidget {
 
 class _PaySlipsPageState extends State<PaySlipsPage> {
   DateTime _selectedMonth = DateTime(2026, 7);
-
-  int _animationDirection = 1;
 
   static const List<AmountData> staticData = <AmountData>[
     AmountData(field: 'Basic Salary', amount: '62,500'),
@@ -100,47 +99,9 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
             ),
             SizedBox(height: 18.h),
             Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 280),
-                reverseDuration: const Duration(milliseconds: 220),
-                switchInCurve: Curves.easeOutCubic,
-                switchOutCurve: Curves.easeInCubic,
-                layoutBuilder:
-                    (Widget? currentChild, List<Widget> previousChildren) {
-                      return Stack(
-                        alignment: Alignment.topCenter,
-                        children: <Widget>[
-                          ...previousChildren,
-                          if (currentChild != null) currentChild,
-                        ],
-                      );
-                    },
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  final Animation<Offset> slideAnimation =
-                      Tween<Offset>(
-                        begin: Offset(
-                          _animationDirection > 0 ? 0.12 : -0.12,
-                          0,
-                        ),
-                        end: Offset.zero,
-                      ).animate(
-                        CurvedAnimation(
-                          parent: animation,
-                          curve: Curves.easeOutCubic,
-                        ),
-                      );
-                  return FadeTransition(
-                    opacity: animation,
-                    child: SlideTransition(
-                      position: slideAnimation,
-                      child: child,
-                    ),
-                  );
-                },
-                child: _payslipContent(
-                  textTheme: textTheme,
-                  key: ValueKey<String>(_monthKey(_selectedMonth)),
-                ),
+              child: _payslipContent(
+                textTheme: textTheme,
+                key: ValueKey<String>(_monthKey(_selectedMonth)),
               ),
             ),
           ],
@@ -152,13 +113,14 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
   Widget _payslipContent({required TextTheme textTheme, required Key key}) {
     return SingleChildScrollView(
       key: key,
+      physics: const ClampingScrollPhysics(),
       padding: EdgeInsets.only(bottom: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          cardHeading(textTheme: textTheme, heading: 'Earnings'),
+          PayslipCardHeading(textTheme: textTheme, heading: 'Earnings'),
           SizedBox(height: 9.h),
-          cardBody(
+          PayslipCardBody(
             textTheme: textTheme,
             amountData: staticData,
             bodyTotal: const AmountData(
@@ -167,9 +129,9 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
             ),
           ),
           SizedBox(height: 18.h),
-          cardHeading(textTheme: textTheme, heading: 'Contributions'),
+          PayslipCardHeading(textTheme: textTheme, heading: 'Contributions'),
           SizedBox(height: 9.h),
-          cardBody(
+          PayslipCardBody(
             textTheme: textTheme,
             amountData: staticData2,
             bodyTotal: const AmountData(
@@ -178,9 +140,9 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
             ),
           ),
           SizedBox(height: 18.h),
-          cardHeading(textTheme: textTheme, heading: 'Deductions'),
+          PayslipCardHeading(textTheme: textTheme, heading: 'Deductions'),
           SizedBox(height: 9.h),
-          cardBody(
+          PayslipCardBody(
             textTheme: textTheme,
             amountData: staticData3,
             bodyTotal: const AmountData(
@@ -189,172 +151,13 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
             ),
           ),
           SizedBox(height: 18.h),
-          grandTotalWidget(
+          PayslipGrandTotal(
             textTheme: textTheme,
             amount: '1,06,750',
             amountInWords: 'One lakh six thousand seven fifty rupees',
           ),
           SizedBox(height: 18.h),
           footerText(textTheme: textTheme),
-        ],
-      ),
-    );
-  }
-
-  Widget cardHeading({required TextTheme textTheme, required String heading}) {
-    return Text(
-      heading,
-      style: textTheme.geist12SemiBold.copyWith(color: AppColors.secondary500),
-      textAlign: TextAlign.left,
-    );
-  }
-
-  Widget cardBody({
-    required TextTheme textTheme,
-    required List<AmountData> amountData,
-    required AmountData bodyTotal,
-  }) {
-    final TextStyle amountStyle = textTheme.geist12Regular.copyWith(
-      color: AppColors.toastMessage,
-    );
-
-    final TextStyle totalAmountStyle = textTheme.geist12SemiBold.copyWith(
-      fontSize: 13.sp,
-      color: AppColors.darkBlue,
-    );
-
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(width: 1.w, color: AppColors.statusSoftBg),
-      ),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.w).copyWith(top: 9.h),
-            child: Column(
-              children: <Widget>[
-                for (
-                  int index = 0;
-                  index < amountData.length;
-                  index++
-                ) ...<Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          amountData[index].field,
-                          style: amountStyle,
-                        ),
-                      ),
-                      SizedBox(width: 8.w),
-                      Text.rich(
-                        TextSpan(
-                          children: <InlineSpan>[
-                            TextSpan(text: '₹', style: amountStyle),
-                            TextSpan(
-                              text: amountData[index].amount,
-                              style: amountStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (index != amountData.length - 1) SizedBox(height: 9.h),
-                ],
-              ],
-            ),
-          ),
-          SizedBox(height: 9.h),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 12.w),
-            decoration: BoxDecoration(
-              color: AppColors.neutral50,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10.r),
-                bottomRight: Radius.circular(10.r),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    bodyTotal.field,
-                    style: textTheme.geist12SemiBold.copyWith(
-                      fontSize: 13.sp,
-                      color: AppColors.darkBlue,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                Text.rich(
-                  TextSpan(
-                    children: <InlineSpan>[
-                      TextSpan(text: '₹', style: totalAmountStyle),
-                      TextSpan(text: bodyTotal.amount, style: totalAmountStyle),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget grandTotalWidget({
-    required TextTheme textTheme,
-    required String amount,
-    required String amountInWords,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        color: AppColors.secondary500,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Flexible(
-            flex: 4,
-            child: Text(
-              'Net Salary Payable\n(A - B - C)',
-              style: textTheme.geist14Medium.copyWith(
-                color: AppColors.white,
-                fontFamily: 'HostGrotesk',
-              ),
-            ),
-          ),
-          SizedBox(width: 10.w),
-          Expanded(
-            flex: 5,
-            child: Column(
-              spacing: 3.h,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  '₹ $amount',
-                  textAlign: TextAlign.end,
-                  style: textTheme.geist18Bold.copyWith(color: AppColors.white),
-                ),
-                Text(
-                  amountInWords,
-                  textAlign: TextAlign.end,
-                  softWrap: true,
-                  style: textTheme.geist12Regular.copyWith(
-                    color: AppColors.shadowScroll,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -406,17 +209,10 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
                 ),
               ),
               SizedBox(width: 30.w),
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 180),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return FadeTransition(opacity: animation, child: child);
-                },
-                child: Text(
-                  monthYear,
-                  key: ValueKey<String>(monthYear),
-                  style: textTheme.geist14Medium.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
+              Text(
+                monthYear,
+                style: textTheme.geist14Medium.copyWith(
+                  color: AppColors.textPrimary,
                 ),
               ),
               SizedBox(width: 30.w),
@@ -441,6 +237,7 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
 
   Widget downloadIcon() {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {},
       child: Container(
         height: 30.r,
@@ -456,14 +253,12 @@ class _PaySlipsPageState extends State<PaySlipsPage> {
 
   void _showPreviousMonth() {
     setState(() {
-      _animationDirection = -1;
       _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month - 1);
     });
   }
 
   void _showNextMonth() {
     setState(() {
-      _animationDirection = 1;
       _selectedMonth = DateTime(_selectedMonth.year, _selectedMonth.month + 1);
     });
   }
