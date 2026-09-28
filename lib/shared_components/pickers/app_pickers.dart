@@ -3,18 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-import '../button/custom_button.dart';
 import '../shared_components.dart';
 
 // TODO: swap these for your AppColors equivalents.
 const Color _purple = Color(0xFF5B3FA0);
-const Color _purpleLight = Color(0xFF6E4BB8);
-const Color _border = Color(0xFFE9E9EE);
-const Color _grey = Color(0xFF8A8A9A);
-const Color _cancelBg = Color(0xFFEAEAEE);
-const Color _disabledBg = Color(0xFFF3F3F6);
-const Color _disabledText = Color(0xFFC9C9D2);
-const Color _textDark = Color(0xFF0F0D14);
+
+
+
+
+
 
 Future<T?> _showSheet<T>(BuildContext context, Widget child) {
   return showModalBottomSheet<T>(
@@ -77,14 +74,15 @@ Future<String?> showAppOptionSheet(
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           decoration: BoxDecoration(
+                            color: isSel ? AppColors.darkPurple : AppColors.white,
                             borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
-                              color: isSel ? _purple : _border,
+                              color: isSel ? AppColors.darkPurple : AppColors.borderSubtle,
                             ),
                           ),
                           child: Text(
                             options[i],
-                            style: t.geist16Regular.copyWith(color: AppColors.textPrimary),
+                            style: t.geist16Regular.copyWith(color: isSel ? AppColors.white : AppColors.textPrimary ),
                           ),
                         ),
                       );
@@ -238,7 +236,7 @@ class _CalendarSheetState extends State<_CalendarSheet> {
                       ? Icons.keyboard_arrow_up
                       : Icons.keyboard_arrow_down,
                   size: 20.r,
-                  color: _textDark,
+                  color: AppColors.textPrimary,
                 ),
               ],
             ),
@@ -247,13 +245,13 @@ class _CalendarSheetState extends State<_CalendarSheet> {
         const Spacer(),
         IconButton(
           visualDensity: VisualDensity.compact,
-          icon: Icon(Icons.chevron_left, color: _purple, size: 22.r),
+          icon: Icon(Icons.chevron_left, color: AppColors.darkPurple, size: 22.r),
           onPressed: () => _shift(-1),
         ),
         SizedBox(width: 16.w),
         IconButton(
           visualDensity: VisualDensity.compact,
-          icon: Icon(Icons.chevron_right, color: _purple, size: 22.r),
+          icon: Icon(Icons.chevron_right, color: AppColors.darkPurple, size: 22.r),
           onPressed: () => _shift(1),
         ),
       ],
@@ -303,8 +301,12 @@ class _CalendarSheetState extends State<_CalendarSheet> {
     final bool ok = _enabled(d);
 
     Color color = inMonth ? AppColors.textPrimary : AppColors.toastMessage;
-    if (!ok) color = _disabledText;
-    if (isSel) color = Colors.white;
+    if (!ok) {
+      color = AppColors.toastMessage;
+    }
+    if (isSel) {
+      color = Colors.white;
+    }
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,

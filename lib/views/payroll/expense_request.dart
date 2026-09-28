@@ -64,7 +64,9 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
     options: options,
     selected: current,
   );
-  if (picked != null) onSelected(picked);
+  if (picked != null) {
+    onSelected(picked);
+  }
 }
 
 Future<void> _pickDate({
@@ -80,7 +82,9 @@ Future<void> _pickDate({
     firstDate: DateTime(now.year - 5),
     lastDate: DateTime(now.year + 5),
   );
-  if (picked != null) onSelected(picked);
+  if (picked != null) {
+    onSelected(picked);
+  }
 }
 
   void _onSubmit() {}
@@ -91,190 +95,193 @@ Future<void> _pickDate({
 
     return AppGradientHeaderScaffold(
       title: 'New Expense Request',
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            InputFieldGroup(
-              type: InputFieldGroupType.neutral,
-              children: <Widget>[
-                _SelectField(
-                  label: 'Expense Type',
-                  hint: 'Select',
-                  value: _expenseType,
-                  trailing: SvgPicture.asset(
-                    AppAssets.down,
-                    width: 8.w,
-                    height: 4.h,
-                  ),
-                 onTap: () => _pickOption(
-  title: 'Select Expense type',
-  options: _expenseTypes,
-  current: _expenseType,
-  onSelected: (String v) => setState(() => _expenseType = v),
-),
-                ),
-                AppTextField(
-                  label: 'Reference Number',
-                  hint: 'Enter Reference Number',
-                  controller: _referenceController,
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: _SelectField(
-                        label: 'From Date',
-                        hint: 'Select',
-                        value: _fromDate == null
-                            ? null
-                            : _formatDate(_fromDate!),
-                        trailing: SvgPicture.asset(
-                          AppAssets.calanderIcon,
-                          width: 16.w,
-                          height: 16.h,
-                        ),
-                        onTap: () => _pickDate(
-  title: 'Select From Date',
-  current: _fromDate,
-  onSelected: (DateTime d) => setState(() => _fromDate = d),
-),
-                      ),
+      body: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 24.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              InputFieldGroup(
+                type: InputFieldGroupType.neutral,
+                children: <Widget>[
+                  _SelectField(
+                    label: 'Expense Type',
+                    hint: 'Select',
+                    value: _expenseType,
+                    trailing: SvgPicture.asset(
+                      AppAssets.down,
+                      width: 8.w,
+                      height: 4.h,
                     ),
-                    Expanded(
-                      child: _SelectField(
-                        label: 'To Date',
-                        hint: 'Select',
-                        value: _toDate == null ? null : _formatDate(_toDate!),
-                        trailing: SvgPicture.asset(
-                          AppAssets.calanderIcon,
-                          width: 16.w,
-                          height: 16.h,
+                   onTap: () => _pickOption(
+          title: 'Select Expense type',
+          options: _expenseTypes,
+          current: _expenseType,
+          onSelected: (String v) => setState(() => _expenseType = v),
+        ),
+                  ),
+                  AppTextField(
+                    label: 'Reference Number',
+                    hint: 'Enter Reference Number',
+                    controller: _referenceController,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: _SelectField(
+                          label: 'From Date',
+                          hint: 'Select',
+                          value: _fromDate == null
+                              ? null
+                              : _formatDate(_fromDate!),
+                          trailing: SvgPicture.asset(
+                            AppAssets.calanderIcon,
+                            width: 16.w,
+                            height: 16.h,
+                          ),
+                          onTap: () => _pickDate(
+          title: 'Select From Date',
+          current: _fromDate,
+          onSelected: (DateTime d) => setState(() => _fromDate = d),
+        ),
                         ),
-                        onTap: () => _pickDate(
-  title: 'Select To Date',
-  current: _toDate,
-  onSelected: (DateTime d) => setState(() => _toDate = d),
-),
+                      ),
+                      Expanded(
+                        child: _SelectField(
+                          label: 'To Date',
+                          hint: 'Select',
+                          value: _toDate == null ? null : _formatDate(_toDate!),
+                          trailing: SvgPicture.asset(
+                            AppAssets.calanderIcon,
+                            width: 16.w,
+                            height: 16.h,
+                          ),
+                          onTap: () => _pickDate(
+          title: 'Select To Date',
+          current: _toDate,
+          onSelected: (DateTime d) => setState(() => _toDate = d),
+        ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  AppTextField(
+                    label: 'Expense Incurred',
+                    hint: 'Enter Expense Incurred',
+                    controller: _expenseIncurredController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                  ),
+                  AppTextField(
+                    label: 'Pay From Company',
+                    hint: 'Enter Pay from Company',
+                    controller: _payFromCompanyController,
+                  ),
+                  _SelectField(
+                    label: 'Expense Currency',
+                    hint: 'Select',
+                    value: _currency,
+                    trailing: SvgPicture.asset(
+                      AppAssets.down,
+                      width: 8.w,
+                      height: 4.h,
+                    ),
+                    onTap: () => _pickOption(
+          title: 'Select Currency',
+          options: _currencies,
+          current: _currency,
+          onSelected: (String v) => setState(() => _currency = v),
+        ),
+        
+                  ),
+                  AppTextField(
+                    label: 'Remarks',
+                    hint: 'Enter Remarks',
+                    controller: _remarksController,
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              RichText(
+                text: TextSpan(
+                  text: 'Attachment',
+                  style: textTheme.geist13Regular.copyWith(
+                    color: AppColors.toastMessage,
+                  ),
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: ' *',
+                      style: textTheme.geist13Regular.copyWith(
+                        color: AppColors.statusDanger,
                       ),
                     ),
                   ],
                 ),
-                AppTextField(
-                  label: 'Expense Incurred',
-                  hint: 'Enter Expense Incurred',
-                  controller: _expenseIncurredController,
-                  keyboardType: const TextInputType.numberWithOptions(
-                    decimal: true,
+              ),
+              SizedBox(height: 8.h),
+              InkWell(
+                borderRadius: BorderRadius.circular(8.r),
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.statusSoftBg,
+                    borderRadius: BorderRadius.circular(9.r),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SvgPicture.asset(
+                        AppAssets.payrollUpload,
+                        height: 16.h,
+                        width: 16.w,
+                      ),
+                      SizedBox(width: 8.w),
+                      Text('Upload file', style: textTheme.geist13Regular),
+                    ],
                   ),
                 ),
-                AppTextField(
-                  label: 'Pay From Company',
-                  hint: 'Enter Pay from Company',
-                  controller: _payFromCompanyController,
-                ),
-                _SelectField(
-                  label: 'Expense Currency',
-                  hint: 'Select',
-                  value: _currency,
-                  trailing: SvgPicture.asset(
-                    AppAssets.down,
-                    width: 8.w,
-                    height: 4.h,
+              ),
+              SizedBox(height: 6.h),
+              Center(
+                child: Text(
+                  'Supporting files are png, pdf, jpeg & max size 10MB',
+                  style: textTheme.geist10Regular.copyWith(
+                    color: AppColors.neutral300,
                   ),
-                  onTap: () => _pickOption(
-  title: 'Select Currency',
-  options: _currencies,
-  current: _currency,
-  onSelected: (String v) => setState(() => _currency = v),
-),
-
                 ),
-                AppTextField(
-                  label: 'Remarks',
-                  hint: 'Enter Remarks',
-                  controller: _remarksController,
-                ),
-              ],
-            ),
-            SizedBox(height: 20.h),
-            RichText(
-              text: TextSpan(
-                text: 'Attachment',
-                style: textTheme.geist13Regular.copyWith(
-                  color: AppColors.toastMessage,
-                ),
-                children: <InlineSpan>[
-                  TextSpan(
-                    text: ' *',
-                    style: textTheme.geist13Regular.copyWith(
-                      color: AppColors.statusDanger,
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: CustomButton(
+                      borderRadius: 60.r,
+                      textStyle: textTheme.geist14Regular,
+                      height: 46.h,
+                      buttonName: 'Cancel',
+                      variant: AppButtonVariant.neutral,
+                      onTap: () => Navigator.of(context).maybePop(),
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    child: CustomButton(
+                      textStyle: textTheme.geist14Regular,
+                      height: 46.h,
+                      borderRadius: 60.r,
+                      buttonName: 'Submit',
+                      variant: AppButtonVariant.secondary,
+                      onTap: _onSubmit,
                     ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 8.h),
-            InkWell(
-              borderRadius: BorderRadius.circular(8.r),
-              onTap: () {},
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                decoration: BoxDecoration(
-                  color: AppColors.statusSoftBg,
-                  borderRadius: BorderRadius.circular(9.r),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SvgPicture.asset(
-                      AppAssets.payrollUpload,
-                      height: 16.h,
-                      width: 16.w,
-                    ),
-                    SizedBox(width: 8.w),
-                    Text('Upload file', style: textTheme.geist13Regular),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 6.h),
-            Center(
-              child: Text(
-                'Supporting files are png, pdf, jpeg & max size 10MB',
-                style: textTheme.geist10Regular.copyWith(
-                  color: AppColors.neutral300,
-                ),
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: CustomButton(
-                    borderRadius: 60.r,
-                    textStyle: textTheme.geist14Regular,
-                    height: 46.h,
-                    buttonName: 'Cancel',
-                    variant: AppButtonVariant.neutral,
-                    onTap: () => Navigator.of(context).maybePop(),
-                  ),
-                ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: CustomButton(
-                    textStyle: textTheme.geist14Regular,
-                    height: 46.h,
-                    borderRadius: 60.r,
-                    buttonName: 'Submit',
-                    variant: AppButtonVariant.secondary,
-                    onTap: _onSubmit,
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

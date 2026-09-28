@@ -7,7 +7,6 @@ import '../../core/utils/utils.dart';
 import '../home/home_page.dart';
 import '../home/main_shell.dart';
 import '../loader/app_loader.dart';
-import '../profile/profile_page.dart';
 
 
 class InitPage extends StatefulWidget {
@@ -43,8 +42,8 @@ class _InitPageState extends State<InitPage> {
                   final CheckForPreferenceSuccess currentState = state as CheckForPreferenceSuccess;
                   appBloc.add(SaveCurrentUser(user: currentState.user));
                   if(Utils.nullOrEmpty(currentState.user?.firstname)){
-                    return const ProfilePage();
-                  }else{
+                    return const MainShell();
+                }else{
                     return const HomePage();
                   }
                 default:
