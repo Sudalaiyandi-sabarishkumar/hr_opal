@@ -5,8 +5,8 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../shared_components.dart';
 
-// TODO: swap these for your AppColors equivalents.
-const Color _purple = Color(0xFF5B3FA0);
+
+
 
 
 
@@ -29,7 +29,7 @@ Future<T?> _showSheet<T>(BuildContext context, Widget child) {
   );
 }
 
-/// "Select Expense type" style list sheet.
+
 Future<String?> showAppOptionSheet(
   BuildContext context, {
   required String title,
@@ -98,7 +98,7 @@ Future<String?> showAppOptionSheet(
   );
 }
 
-/// "Select From Date" style calendar sheet. Returns null on Cancel.
+
 Future<DateTime?> showAppDateSheet(
   BuildContext context, {
   required String title,
@@ -143,7 +143,7 @@ class _CalendarSheetState extends State<_CalendarSheet> {
     'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
   ];
 
-  late DateTime _month; // first day of displayed month
+  late DateTime _month; 
   DateTime? _selected;
   bool _pickingMonth = false;
 
@@ -278,7 +278,7 @@ class _CalendarSheetState extends State<_CalendarSheet> {
   }
 
   Widget _dayGrid(TextTheme t) {
-    final int leading = _month.weekday - 1; // Monday start
+    final int leading = _month.weekday - 1; 
     final DateTime start = DateTime(_month.year, _month.month, 1 - leading);
 
     return Column(
@@ -405,43 +405,6 @@ class _CalendarSheetState extends State<_CalendarSheet> {
            )
         ),
       ],
-    );
-  }
-}
-
-class _PillButton extends StatelessWidget {
-  const _PillButton({
-    required this.label,
-    required this.textColor,
-    required this.onTap,
-    this.background,
-    this.gradient,
-  });
-
-  final String label;
-  final Color textColor;
-  final Color? background;
-  final Gradient? gradient;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme t = Theme.of(context).textTheme;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 46.h,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: background,
-          gradient: gradient,
-          borderRadius: BorderRadius.circular(60.r),
-        ),
-        child: Text(
-          label,
-          style: t.geist14Regular.copyWith(color: textColor),
-        ),
-      ),
     );
   }
 }
