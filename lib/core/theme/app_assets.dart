@@ -106,9 +106,9 @@ class AppAssets {
   static const String menuGrid = 'assets/icons/home/menu.svg';
   static const String menuClose = 'assets/icons/home/cancel.svg';
 
-  static const String holidayCalendar = 'assets/icons/home/marketing.svg';
+  static const String holidayCalendar = 'assets/icons/home/calendar_outline.svg';
   static const String myLeaves = 'assets/icons/home/beach.svg';
-  static const String announcements = 'assets/icons/home/calendar_outline.svg';
+  static const String announcements = 'assets/icons/home/marketing.svg';
   static const String payrollAvatar = 'assets/images/female.png';
   
   static const String payrollCloud = 'assets/icons/home/sun-cloud.svg';

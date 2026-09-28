@@ -357,7 +357,7 @@ class _AnimatedMenuRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   item.label,
-                  style: textTheme.geist16Medium.copyWith(
+                  style: textTheme.geist14Regular.copyWith(
                     fontSize: 15.sp,
                     color: AppColors.white,
                   ),
