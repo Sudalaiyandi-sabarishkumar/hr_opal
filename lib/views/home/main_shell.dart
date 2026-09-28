@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../payroll/payroll_screen.dart';
 import 'dummy_pages.dart';
-import 'payroll/payroll_screen.dart';
 
 class _TabItem {
   const _TabItem(this.label, this.asset);

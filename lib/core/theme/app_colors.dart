@@ -70,7 +70,6 @@ class AppColors {
   static const Color textFieldCardShadow = Color(0x14FFFFFF);
   static const Color lightblue = Color(0xFFBCC5E3);
 
-
   // Profile screen header gradient (blue -> lavender -> soft pink).
   static const Color profileHeaderGradientTop = Color(0xFF6C8ACC);
   static const Color profileHeaderGradientMid = Color(0xFF98A9D6);
@@ -84,7 +83,7 @@ class AppColors {
   static const Color dark2blue = Color(0xFF6E91D3);
   static const Color dark3blue = Color(0xFFBCC7E4);
   static const Color dark4blue = Color(0xFF97ACDA);
-   static const Color accordionPurpleBg = Color(0xFFF0EBFA);
+  static const Color accordionPurpleBg = Color(0xFFF0EBFA);
   static const Color accordionPurpleFg = Color(0xFF5B4FE0);
 
   static const Color accordionGreenBg = Color(0xFFF0FBF0);
@@ -92,15 +91,15 @@ class AppColors {
 
   static const Color accordionYellowBg = Color(0xFFFFFBEB);
   static const Color accordionYellowFg = Color(0xFFC08A1E);
-    static const Color headerGradientPurple = Color(0xFFDCD9F5);
+  static const Color headerGradientPurple = Color(0xFFDCD9F5);
   static const Color headerGradientOrange = Color(0xFFF7D9C4);
   static const Color avatarRing = Color(0xFFA8B8E8);
   static const Color headerGradientPeach = Color(0xFFFDDBBF);
-   static const Color headerGradientBlue = Color(0xFFD6E4F7);
-   static const Color purple1 = Color(0xFFA8B0E2);
-   static const Color purple2 = Color(0xFFF8F5FF);
-   static const Color purple3 = Color(0xFFF7F9FF);
-   static const Color yellow1 = Color(0xFFFCD34D);
+  static const Color headerGradientBlue = Color(0xFFD6E4F7);
+  static const Color purple1 = Color(0xFFA8B0E2);
+  static const Color purple2 = Color(0xFFF8F5FF);
+  static const Color purple3 = Color(0xFFF7F9FF);
+  static const Color yellow1 = Color(0xFFFCD34D);
 
   static const Color headerRadialPurple = Color(0xFF918CF6);
   static const Color headerRadialPurpleTransparent = Color(0x00918CF6);
@@ -155,7 +154,7 @@ class AppColors {
   static const Color avatarShadow = Color(0x1F000000);
   static const Color tagColor = Color(0xFF7D5DCB);
 
- static const Color appBarPeach = Color(0xFFFDDBBF);
+  static const Color appBarPeach = Color(0xFFFDDBBF);
   static const Color appBarPurple = Color(0xFF9184F6);
   static const Color borderBlue = Color(0xFF93C5FD);
   static const Color backBorderColor = Color(0xFFE9E9E9);
@@ -198,4 +197,11 @@ class AppColors {
   static const Color overlayBottom = Color(0xF2261C45);
   static const Color menuCircle = Color(0x40FFFFFF);
 
+  static const Color darkBlue = Color(0xFF1E2939);
+  static const Color shadowScroll = Color(0xFFF5F5F5);
+  static const Color liteGrey = Color(0xFFFAFAFA);
+  static const Color chartPurple = Color(0xFFA281E5);
+  static const Color chartGreen = Color(0xFFB8F1B9);
+  static const Color chartPink = Color(0xFFFF8B85);
+  static const Color chartBlue1 = Color(0xFF566AC7);
 }

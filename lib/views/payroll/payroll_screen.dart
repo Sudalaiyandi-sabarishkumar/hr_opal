@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../app_router.dart';
-import '../../../core/theme/app_assets.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_styles.dart';
+import '../../app_router.dart';
+import '../../core/theme/app_assets.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_styles.dart';
 import 'payroll_widgets.dart';
 
 class PayrollPage extends StatefulWidget {
@@ -235,7 +235,9 @@ class _PayrollPageState extends State<PayrollPage> {
               textTheme: textTheme,
               label: 'My Payslips',
               asset: AppAssets.payrollPayslips,
-              onTap: () {},
+              onTap: () {
+                context.push(RouteConstants.payslipsPage);
+              },
             ),
           ),
           Expanded(
@@ -243,7 +245,9 @@ class _PayrollPageState extends State<PayrollPage> {
               textTheme: textTheme,
               label: 'Pay Breakdown',
               asset: AppAssets.payrollPayBreakdown,
-              onTap: () {},
+              onTap: () {
+                context.push(RouteConstants.payBreakdownPage);
+              },
             ),
           ),
           Expanded(

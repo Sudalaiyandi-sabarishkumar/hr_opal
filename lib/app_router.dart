@@ -14,12 +14,13 @@ import 'views/auth/reset_password.dart';
 import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
-import 'views/home/payroll/expense_request.dart';
 import 'views/loader/app_loader.dart';
+import 'views/payroll/expense_request.dart';
+import 'views/payroll/pay_breakdown_page.dart';
+import 'views/payroll/pay_slips_page.dart';
 import 'views/profile/amendments.dart';
 import 'views/profile/assets.dart';
 import 'views/profile/document.dart';
-
 import 'views/profile/family_address_details.dart';
 import 'views/profile/job_details.dart';
 import 'views/profile/my_team.dart';
@@ -57,6 +58,8 @@ class RouteConstants {
   static String qualificationsPage = 'qualifications';
   static String timeleinePage = 'timeline';
   static String expenseRequest = 'expenseRequest';
+  static String payslipsPage = 'payslips';
+  static String payBreakdownPage = 'payBreakdown';
 }
 
 class GoRouterInit {
@@ -230,6 +233,18 @@ class GoRouterInit {
         name: RouteConstants.expenseRequest,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<ExpenseRequest>(child: ExpenseRequest()),
+      ),
+      GoRoute(
+        path: '/payslips',
+        name: RouteConstants.payslipsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<PaySlipsPage>(child: PaySlipsPage()),
+      ),
+      GoRoute(
+        path: '/payBreakdown',
+        name: RouteConstants.payBreakdownPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<PayBreakdownPage>(child: PayBreakdownPage()),
       ),
     ],
   );
