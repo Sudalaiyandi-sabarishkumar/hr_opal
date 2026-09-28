@@ -111,16 +111,17 @@ class _MainShellState extends State<MainShell> {
                     opacity: _menuOpen ? 1 : 0,
                     duration: const Duration(milliseconds: 250),
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                      child: const DecoratedBox(
+                      filter: ImageFilter.blur(),
+                      child: DecoratedBox(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
                             colors: <Color>[
-                              AppColors.overlayTop,
                               AppColors.overlayBottom,
+                              AppColors.overlayTop.withValues(alpha: 0),
                             ],
+                            stops: const <double>[0.3, 0.8],
                           ),
                         ),
                       ),

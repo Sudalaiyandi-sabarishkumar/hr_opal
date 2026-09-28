@@ -193,8 +193,8 @@ class AppColors {
   static const Color pillTabGradientEnd = Colors.white;
   static const Color fabStart = Color(0xFF8E6BE0);
   static const Color fabEnd = Color(0xFF5B3EA6);
-  static const Color overlayTop = Color(0x66261C45);
-  static const Color overlayBottom = Color(0xF2261C45);
+  static const Color overlayTop = Color(0xFF141820);
+  static const Color overlayBottom = Color(0xFF2F2236);
   static const Color menuCircle = Color(0x40FFFFFF);
 
   static const Color darkBlue = Color(0xFF1E2939);
