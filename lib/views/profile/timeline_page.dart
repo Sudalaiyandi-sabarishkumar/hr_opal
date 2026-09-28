@@ -161,8 +161,8 @@ class TimelinePage extends StatelessWidget {
           child: Text(
             'Timeline',
             textAlign: TextAlign.center,
-            style: textTheme.geist20Bold.copyWith(
-              fontFamily: 'HostGrotesk',
+            style: textTheme.geist32Regular.copyWith(
+              fontFamily: midableFont,
               color: AppColors.tagColor,
             ),
           ),

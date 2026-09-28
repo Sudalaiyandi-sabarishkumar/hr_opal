@@ -379,7 +379,7 @@ class _FamilyAddressPageState extends State<FamilyAddressPage> {
       padding: EdgeInsets.symmetric(horizontal: 22.5.w),
       child: Text(
         name,
-        style: textTheme.geist24Medium.copyWith(fontFamily: 'Reckless'),
+        style: textTheme.geist24Medium.copyWith(fontFamily: recklessFont),
         textAlign: TextAlign.center,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,

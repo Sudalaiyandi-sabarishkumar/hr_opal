@@ -7,6 +7,8 @@ import 'app_colors.dart';
 
 const String geistFont = 'Geist';
 const String hostGroteskFont = 'HostGrotesk';
+const String recklessFont = 'Reckless';
+const String midableFont = 'Midable';
 
 extension CustomTextTheme on TextTheme {
   TextStyle get geist10Regular => TextStyle(
@@ -36,7 +38,6 @@ extension CustomTextTheme on TextTheme {
     fontWeight: FontWeight.w400,
     color: AppColors.black,
   );
-  
 
   TextStyle get geist16Regular => TextStyle(
     fontFamily: geistFont,
@@ -395,7 +396,7 @@ extension CustomTextTheme on TextTheme {
     color: AppColors.black,
   );
 
-   TextStyle get geist30Bold => TextStyle(
+  TextStyle get geist30Bold => TextStyle(
     fontFamily: geistFont,
     fontSize: 30.sp,
     fontWeight: FontWeight.w700,

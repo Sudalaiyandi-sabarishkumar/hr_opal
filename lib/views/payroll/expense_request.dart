@@ -7,6 +7,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/input_field/app_text_field.dart';
+import '../../shared_components/pickers/app_pickers.dart';
 import '../../shared_components/shared_components.dart';
 
 class ExpenseRequest extends StatefulWidget {
@@ -30,11 +31,13 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
   DateTime? _toDate;
 
   static const List<String> _expenseTypes = <String>[
-    'Travel',
-    'Food',
-    'Accommodation',
-    'Other',
-  ];
+  'Food',
+  'Travel',
+  'Accommodation',
+  'Client Relation',
+  'Tickets and Passes',
+  'Miscellaneous',
+];
   static const List<String> _currencies = <String>['INR', 'USD', 'EUR', 'AED'];
 
   @override
@@ -49,43 +52,36 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
   String _formatDate(DateTime d) =>
       '${d.day.toString().padLeft(2, '0')}/${d.month.toString().padLeft(2, '0')}/${d.year}';
 
-  Future<void> _pickOption({
-    required List<String> options,
-    required ValueChanged<String> onSelected,
-  }) async {
-    final String? picked = await showModalBottomSheet<String>(
-      context: context,
-      showDragHandle: true,
-      builder: (BuildContext ctx) => SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            for (final String o in options)
-              ListTile(title: Text(o), onTap: () => Navigator.pop(ctx, o)),
-          ],
-        ),
-      ),
-    );
-    if (picked != null) {
-      onSelected(picked);
-    }
-  }
+ Future<void> _pickOption({
+  required String title,
+  required List<String> options,
+  required String? current,
+  required ValueChanged<String> onSelected,
+}) async {
+  final String? picked = await showAppOptionSheet(
+    context,
+    title: title,
+    options: options,
+    selected: current,
+  );
+  if (picked != null) onSelected(picked);
+}
 
-  Future<void> _pickDate({
-    required DateTime? current,
-    required ValueChanged<DateTime> onSelected,
-  }) async {
-    final DateTime now = DateTime.now();
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: current ?? now,
-      firstDate: DateTime(now.year - 5),
-      lastDate: DateTime(now.year + 5),
-    );
-    if (picked != null) {
-      onSelected(picked);
-    }
-  }
+Future<void> _pickDate({
+  required String title,
+  required DateTime? current,
+  required ValueChanged<DateTime> onSelected,
+}) async {
+  final DateTime now = DateTime.now();
+  final DateTime? picked = await showAppDateSheet(
+    context,
+    title: title,
+    initialDate: current,
+    firstDate: DateTime(now.year - 5),
+    lastDate: DateTime(now.year + 5),
+  );
+  if (picked != null) onSelected(picked);
+}
 
   void _onSubmit() {}
 
@@ -112,10 +108,12 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                     width: 8.w,
                     height: 4.h,
                   ),
-                  onTap: () => _pickOption(
-                    options: _expenseTypes,
-                    onSelected: (String v) => setState(() => _expenseType = v),
-                  ),
+                 onTap: () => _pickOption(
+  title: 'Select Expense type',
+  options: _expenseTypes,
+  current: _expenseType,
+  onSelected: (String v) => setState(() => _expenseType = v),
+),
                 ),
                 AppTextField(
                   label: 'Reference Number',
@@ -137,10 +135,10 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                           height: 16.h,
                         ),
                         onTap: () => _pickDate(
-                          current: _fromDate,
-                          onSelected: (DateTime d) =>
-                              setState(() => _fromDate = d),
-                        ),
+  title: 'Select From Date',
+  current: _fromDate,
+  onSelected: (DateTime d) => setState(() => _fromDate = d),
+),
                       ),
                     ),
                     Expanded(
@@ -154,10 +152,10 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                           height: 16.h,
                         ),
                         onTap: () => _pickDate(
-                          current: _toDate,
-                          onSelected: (DateTime d) =>
-                              setState(() => _toDate = d),
-                        ),
+  title: 'Select To Date',
+  current: _toDate,
+  onSelected: (DateTime d) => setState(() => _toDate = d),
+),
                       ),
                     ),
                   ],
@@ -185,9 +183,12 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                     height: 4.h,
                   ),
                   onTap: () => _pickOption(
-                    options: _currencies,
-                    onSelected: (String v) => setState(() => _currency = v),
-                  ),
+  title: 'Select Currency',
+  options: _currencies,
+  current: _currency,
+  onSelected: (String v) => setState(() => _currency = v),
+),
+
                 ),
                 AppTextField(
                   label: 'Remarks',

@@ -7,7 +7,7 @@ import '../../core/theme/app_styles.dart';
 import '../../core/utils/enums.dart';
 
 class CustomButton extends StatefulWidget {
-  const CustomButton({
+  const   CustomButton({
     super.key,
     required this.buttonName,
     this.variant = AppButtonVariant.primary,
@@ -20,6 +20,7 @@ class CustomButton extends StatefulWidget {
     this.borderRadius,
     this.textStyle,
     this.icon,
+    this.textColor,
     this.iconSize,
     this.isReverse = false,
     this.gap,
@@ -30,6 +31,7 @@ class CustomButton extends StatefulWidget {
   final AppButtonSize size;
   final VoidCallback? onTap;
   final bool isLoading;
+  final Color? textColor;
   final bool isDisabled;
   final bool isFullWidth;
   final double? height;
@@ -72,7 +74,7 @@ class _CustomButtonState extends State<CustomButton> {
     _ => AppColors.statusSoftBg,
   };
 
-  Color get _textColor => switch (widget.variant) {
+  Color get _textColor => widget.textColor ?? switch (widget.variant) {
     AppButtonVariant.primary => AppColors.white,
     AppButtonVariant.secondary => AppColors.white,
     AppButtonVariant.dark => AppColors.white,

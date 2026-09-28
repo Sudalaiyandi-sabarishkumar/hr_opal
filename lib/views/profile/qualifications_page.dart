@@ -142,7 +142,7 @@ class QualificationsPage extends StatelessWidget {
               getCardTitle(cardType),
               style: textTheme.geist18Medium.copyWith(
                 color: AppColors.cardTitleBlack,
-                fontFamily: 'Reckless',
+                fontFamily: recklessFont,
               ),
             ),
             Text(
