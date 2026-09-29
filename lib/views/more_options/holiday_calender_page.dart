@@ -162,7 +162,8 @@ class _HolidayCalenderPageState extends State<HolidayCalenderPage> {
       right: 0,
       bottom: 0,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 26.h),
+        padding: EdgeInsets.symmetric(horizontal: 28.w)
+            .copyWith(top: 26.h, bottom: 20.h),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.only(
@@ -182,11 +183,11 @@ class _HolidayCalenderPageState extends State<HolidayCalenderPage> {
     );
   }
 
-  /// Outer list: one item per month, separated by a gap between months.
   Widget monthList({required TextTheme textTheme}) {
     return ListView.separated(
-      padding: EdgeInsets.only(bottom: 24.h),
+      padding: EdgeInsets.zero,
       itemCount: _months.length,
+      physics: const ClampingScrollPhysics(),
       separatorBuilder: (BuildContext context, int index) =>
           SizedBox(height: 20.h),
       itemBuilder: (BuildContext context, int index) {
@@ -203,7 +204,6 @@ class _HolidayCalenderPageState extends State<HolidayCalenderPage> {
     );
   }
 
-  /// Inner list: holidays of a single month, separated by a small gap.
   Widget holidayList({
     required TextTheme textTheme,
     required List<HolidayModel> holidays,
@@ -214,7 +214,7 @@ class _HolidayCalenderPageState extends State<HolidayCalenderPage> {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: holidays.length,
       separatorBuilder: (BuildContext context, int index) =>
-          SizedBox(height: 12.h),
+          SizedBox(height: 8.h),
       itemBuilder: (BuildContext context, int index) {
         final HolidayModel holiday = holidays[index];
         return holidayComponent(
