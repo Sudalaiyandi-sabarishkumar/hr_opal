@@ -126,4 +126,8 @@ class AppAssets {
   static const String payrollUpload = 'assets/icons/home/upload.svg';
   static const String payrollChevronRight ='assets/icons/home/go.svg';
   static const String down ='assets/icons/home/down.svg';
+  static const String payrollFilled = 'assets/icons/home/money-filled.svg';
+  static const String homeFilled = 'assets/icons/home/home-filled.svg';
+  static const String attendanceFilled =
+      'assets/icons/home/calendar-filled.svg';
 }

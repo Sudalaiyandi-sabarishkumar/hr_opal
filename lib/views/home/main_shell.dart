@@ -11,9 +11,10 @@ import '../payroll/payroll_screen.dart';
 import 'dummy_pages.dart';
 
 class _TabItem {
-  const _TabItem(this.label, this.asset);
+  const _TabItem(this.label, this.asset, this.selectedAsset);
   final String label;
   final String asset;
+  final String selectedAsset;
 }
 
 class _MenuItem {
@@ -35,9 +36,9 @@ class _MainShellState extends State<MainShell> {
   bool _menuOpen = false;
 
   static const List<_TabItem> _tabs = <_TabItem>[
-    _TabItem('Home', AppAssets.home),
-    _TabItem('Attendance', AppAssets.attendance),
-    _TabItem('Payroll', AppAssets.payroll),
+    _TabItem('Home', AppAssets.home, AppAssets.homeFilled),
+    _TabItem('Attendance', AppAssets.attendance, AppAssets.attendanceFilled),
+    _TabItem('Payroll', AppAssets.payroll, AppAssets.payrollFilled),
   ];
 
   static final List<_MenuItem> _menuItems = <_MenuItem>[
@@ -241,10 +242,10 @@ class _PillTabBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SvgPicture.asset(
-                      tabs[i].asset,
+                      selected ? tabs[i].selectedAsset : tabs[i].asset,
                       width: 26.r,
                       height: 26.r,
-                      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                      
                     ),
                     SizedBox(height: 4.h),
                     Text(
