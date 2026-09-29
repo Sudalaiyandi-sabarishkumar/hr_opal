@@ -15,6 +15,7 @@ import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/loader/app_loader.dart';
+import 'views/more_options/announcements_page.dart';
 import 'views/more_options/holiday_calender_page.dart';
 import 'views/payroll/expense_request.dart';
 import 'views/payroll/pay_breakdown_page.dart';
@@ -62,6 +63,7 @@ class RouteConstants {
   static String payslipsPage = 'payslips';
   static String payBreakdownPage = 'payBreakdown';
   static String holidayCalanderPage = 'holidayCalander';
+  static String announcementsPage = 'announcements';
 }
 
 class GoRouterInit {
@@ -253,6 +255,12 @@ class GoRouterInit {
         name: RouteConstants.holidayCalanderPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<HolidayCalenderPage>(child: HolidayCalenderPage()),
+      ),
+      GoRoute(
+        path: '/announcements',
+        name: RouteConstants.announcementsPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<AnnouncementsPage>(child: AnnouncementsPage()),
       ),
     ],
   );

@@ -41,3 +41,5 @@ enum InputFieldGroupType { gradient, neutral }
 enum HolidayCalenderColor { purple, green, yellow, orange, blue }
 
 enum HolidayType { none, optional, restricted }
+
+enum AnnouncementType { hrPolicy, benefits, policy, employeeEngagements }

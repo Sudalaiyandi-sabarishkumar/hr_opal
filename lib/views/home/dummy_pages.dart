@@ -52,10 +52,3 @@ class MyLeavesPage extends StatelessWidget {
   Widget build(BuildContext context) =>
       const _DummyPage(title: 'My Leaves', showBack: true);
 }
-
-class AnnouncementsPage extends StatelessWidget {
-  const AnnouncementsPage({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _DummyPage(title: 'Announcements', showBack: true);
-}

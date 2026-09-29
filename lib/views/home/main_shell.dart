@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../more_options/announcements_page.dart';
 import '../more_options/holiday_calender_page.dart';
 import '../payroll/payroll_screen.dart';
 import 'dummy_pages.dart';

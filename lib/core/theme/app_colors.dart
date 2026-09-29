@@ -217,4 +217,5 @@ class AppColors {
   static const Color calanderTextOrange = Color(0xFFB91C1C);
   static const Color calanderTextBlue = Color(0xFF1D4ED8);
   static const Color bg2Blue = Color(0xFFEFF6FF);
+  static const Color darkPurple2 = Color(0xFF412C76);
 }
