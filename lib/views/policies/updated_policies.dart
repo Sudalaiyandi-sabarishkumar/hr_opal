@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../core/utils/enums.dart';
+import '../../models/policy_model.dart';
 import '../../shared_components/button/custom_button.dart';
 import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
-import 'policy_model.dart';
 
 class UpdatedPolicyPage extends StatelessWidget {
   const UpdatedPolicyPage({
