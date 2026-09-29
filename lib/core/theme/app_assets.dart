@@ -130,4 +130,10 @@ class AppAssets {
   static const String homeFilled = 'assets/icons/home/home-filled.svg';
   static const String attendanceFilled =
       'assets/icons/home/calendar-filled.svg';
+  static const String moneyBag =
+      'assets/icons/home/money_bag.svg';
+      static const String beachGreen =
+      'assets/icons/home/beach_green.svg';
+       static const String calendarRed =
+      'assets/icons/home/calendar_red.svg';
 }

@@ -8,6 +8,7 @@ import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../payroll/payroll_screen.dart';
+import '../policies/policies.dart';
 import 'dummy_pages.dart';
 
 class _TabItem {
@@ -47,7 +48,7 @@ class _MainShellState extends State<MainShell> {
       AppAssets.holidayCalendar,
       (_) => const HolidayCalendarPage(),
     ),
-    _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const MyLeavesPage()),
+    _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const HrPoliciesPage()),
     _MenuItem(
       'Announcements',
       AppAssets.announcements,

@@ -25,6 +25,7 @@ class AppGradientHeaderScaffold extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
+    this.headerBottom,
     this.gradient = AppHeaderGradient.peach,
     this.headerHeight = 180,
     this.titleColor,
@@ -43,6 +44,10 @@ class AppGradientHeaderScaffold extends StatelessWidget {
   /// The scrollable content shown below the fixed header. This is what
   /// moves when the user scrolls — the header itself never does.
   final Widget body;
+
+  /// Optional widget shown in the gradient area, between the title row
+  /// and the white body (e.g. a notice card). Nothing is shown when null.
+  final Widget? headerBottom;
 
   /// Which gradient look to paint behind the header.
   final AppHeaderGradient gradient;
@@ -143,6 +148,14 @@ class AppGradientHeaderScaffold extends StatelessWidget {
                     ],
                   ),
                 ),
+
+                // Optional notice area between the title and the body.
+                if (headerBottom != null)
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+                    child: headerBottom,
+                  ),
+
                 Expanded(
                   child: Container(
                     width: double.infinity,

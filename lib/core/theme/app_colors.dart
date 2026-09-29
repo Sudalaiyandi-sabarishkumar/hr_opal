@@ -206,4 +206,10 @@ class AppColors {
   static const Color chartBlue1 = Color(0xFF566AC7);
   static const Color dropdownBlack = Color(0xFF140D26);
   static const Color disabledText = Color(0xFFD0D5DD);
+  static const Color lightPurple = Color(0xFFECECF3);
+  static const Color lightGreen = Color(0xFFECF3EE);
+  static const Color lightYellow = Color(0xFFF3F1EC);
+  static const Color bonusIconbg = Color(0xFFDDD3F5);
+  
+  
 }
