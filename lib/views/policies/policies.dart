@@ -5,15 +5,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../core/utils/enums.dart';
+import '../../models/policy_model.dart';
 import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
-import 'policy_model.dart';
 import 'updated_policies.dart';
 
-/// UI styling per policy type (keeps the model free of Flutter imports).
+
 class _PolicyStyle {
   const _PolicyStyle(this.iconAsset, this.iconBg, this.previewBg);
 
-  final String iconAsset; // SVG asset path
+  final String iconAsset;
   final Color iconBg;
   final Color previewBg;
 }
@@ -23,7 +24,7 @@ extension on PolicyType {
     switch (this) {
       case PolicyType.bonus:
         return const _PolicyStyle(
-          AppAssets.moneyBag, // TODO: replace with your asset constants
+          AppAssets.moneyBag,
           AppColors.bonusIconbg,
           AppColors.lightPurple,
         );
@@ -42,8 +43,8 @@ extension on PolicyType {
       case PolicyType.other:
         return const _PolicyStyle(
           AppAssets.calendarRed,
-          Color(0xFFE4E7EC),
-          Color(0xFFF2F4F7),
+          AppColors.statusWarningSubtleBg,
+          AppColors.lightYellow,
         );
     }
   }
@@ -165,8 +166,7 @@ class PolicyCard extends StatelessWidget {
   }
 }
 
-/// Miniature of the real policy document, built from the same [PolicyModel]
-/// and cropped at the bottom of the preview area.
+
 class _DocumentThumbnail extends StatelessWidget {
   const _DocumentThumbnail({required this.policy});
 
@@ -189,14 +189,14 @@ class _DocumentThumbnail extends StatelessWidget {
           width: double.infinity,
           padding: EdgeInsets.fromLTRB(12.w, 10.h, 12.w, 12.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(8.r)),
              boxShadow: const <BoxShadow>[
     BoxShadow(
-      color: Color(0xCC000000), // #000000CC
-      offset: Offset(0, -2),    // 0px -2px
-      blurRadius: 5,            // 5px
-      spreadRadius: -8,         // -8px
+      color: Color(0xCC000000), 
+      offset: Offset(0, -2),    
+      blurRadius: 5,           
+      spreadRadius: -8,        
     ),
   ],
           ),
@@ -224,7 +224,7 @@ class _DocumentThumbnail extends StatelessWidget {
                 'For any queries regarding this policy, please reach out to us at ${policy.contactEmail}',
                 style: bodyStyle,
               ),
-              // Only the first sections can ever be visible before the crop.
+              
               for (final PolicySection s
                   in policy.sections.take(2)) ...<Widget>[
                 SizedBox(height: 8.h),

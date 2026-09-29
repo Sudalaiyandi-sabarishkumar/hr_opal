@@ -1,15 +1,17 @@
-enum PolicyType { bonus, leave, holiday, other }
+
+
+import '../core/utils/enums.dart';
 
 class PolicySection {
   const PolicySection({required this.heading, required this.body});
-
-  final String heading;
-  final String body;
 
   factory PolicySection.fromJson(Map<String, dynamic> json) => PolicySection(
         heading: json['heading'] as String? ?? '',
         body: json['body'] as String? ?? '',
       );
+
+  final String heading;
+  final String body;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'heading': heading,
@@ -29,23 +31,6 @@ class PolicyModel {
     required this.sections,
   });
 
-  final String id;
-
-  /// Card title, e.g. "Bonus Policy".
-  final String title;
-
-  /// Display text, e.g. "Oct 2025".
-  final String lastUpdated;
-
-  /// Drives icon + colors on the card.
-  final PolicyType type;
-
-  /// Heading of the document itself, e.g. "Finance Payroll Policy".
-  final String documentTitle;
-  final String createdBy;
-  final String contactEmail;
-  final List<PolicySection> sections;
-
   factory PolicyModel.fromJson(Map<String, dynamic> json) => PolicyModel(
         id: json['id'].toString(),
         title: json['title'] as String? ?? '',
@@ -63,6 +48,23 @@ class PolicyModel {
             .toList(),
       );
 
+  final String id;
+
+  
+  final String title;
+
+  
+  final String lastUpdated;
+
+  
+  final PolicyType type;
+
+  
+  final String documentTitle;
+  final String createdBy;
+  final String contactEmail;
+  final List<PolicySection> sections;
+
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id,
         'title': title,
@@ -75,7 +77,7 @@ class PolicyModel {
       };
 }
 
-/// Sample data – replace with API / repository data.
+
 const List<PolicyModel> samplePolicies = <PolicyModel>[
   
   PolicyModel(

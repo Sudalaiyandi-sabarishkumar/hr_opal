@@ -5,8 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../core/utils/enums.dart';
 
-enum RequestStatus { pending, approved, rejected, filed }
+
 
 extension RequestStatusX on RequestStatus {
   String get label => switch (this) {

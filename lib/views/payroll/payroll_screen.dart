@@ -7,6 +7,7 @@ import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../../core/utils/enums.dart';
 import 'payroll_widgets.dart';
 
 class PayrollPage extends StatefulWidget {

@@ -210,6 +210,10 @@ class AppColors {
   static const Color lightGreen = Color(0xFFECF3EE);
   static const Color lightYellow = Color(0xFFF3F1EC);
   static const Color bonusIconbg = Color(0xFFDDD3F5);
+  static const Color borderbg = Color(0xFFCAD2E9);
+   static const Color white2 = Color(0x80FFFFFF);
+      static const Color white3 =Color(0x14FFFFFF);
   
+
   
 }

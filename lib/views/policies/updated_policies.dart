@@ -17,8 +17,6 @@ class UpdatedPolicyPage extends StatelessWidget {
 
   final PolicyModel policy;
 
-  /// Shows the "updated policy requires your acknowledgment" card
-  /// under the header when true.
   final bool showAcknowledgmentNotice;
 
   @override
@@ -124,7 +122,7 @@ class UpdatedPolicyPage extends StatelessWidget {
   }
 }
 
-/// Notice card shown in the gradient area under the header.
+
 class PolicyNoticeCard extends StatelessWidget {
   const PolicyNoticeCard({super.key, required this.message});
 
@@ -140,15 +138,10 @@ class PolicyNoticeCard extends StatelessWidget {
         borderRadius: radius,
         strokeWidth: 0.4,
         gradient: const LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          // CSS: #FFFFFF 1.7%, #BCC7E4 86.79%, #FFFFFF 151.79%
-          // The last stop is beyond 100%, so it's replaced with the
-          // interpolated colour at 100% (~#CAD2E9).
           colors: <Color>[
-            Color(0xFFFFFFFF),
-            Color(0xFFBCC7E4),
-            Color(0xFFCAD2E9),
+            AppColors.white,
+            AppColors.textFieldBorderMid,
+            AppColors.borderbg
           ],
           stops: <double>[0.017, 0.8679, 1.0],
         ),
@@ -157,11 +150,11 @@ class PolicyNoticeCard extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: const Color(0x80FFFFFF), // #FFFFFF80
+          color: AppColors.white2, 
           borderRadius: radius,
           boxShadow: const <BoxShadow>[
             BoxShadow(
-              color: Color(0x14FFFFFF), // #FFFFFF14
+              color: AppColors.white3, 
               offset: Offset(0, 3),
               blurRadius: 4.8,
             ),
@@ -192,7 +185,7 @@ class _GradientBorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Offset.zero & size;
-    // Deflate by half the stroke so the border stays inside the bounds.
+    
     final RRect rrect = borderRadius
         .toRRect(rect)
         .deflate(strokeWidth / 2);

@@ -37,3 +37,9 @@ enum TimelineType { anniversary, award }
 enum QualificationAndSkillsType { education, experience, skills, languages }
 
 enum InputFieldGroupType { gradient, neutral }
+
+enum AppHeaderGradient { peach, lavender }
+
+enum RequestStatus { pending, approved, rejected, filed }
+
+enum PolicyType { bonus, leave, holiday, other }
