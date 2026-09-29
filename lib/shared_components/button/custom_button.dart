@@ -118,36 +118,54 @@ class _CustomButtonState extends State<CustomButton> {
     AppButtonSize.small => textTheme.geist12Medium,
   };
 
-  Decoration get _decoration {
-    final BorderRadius radius = BorderRadius.circular(_borderRadius);
+ // Secondary overlay: rgba(102, 102, 102, 0.2) -> transparent
+static const Color _secondaryOverlay = Color(0x33666666);
 
-    if (_isSolid) {
-      final Color base = _pressed
-          ? Color.alphaBlend(AppColors.buttonPressedOverlay, _baseColor)
-          : _baseColor;
+Decoration get _decoration {
+  final BorderRadius radius = BorderRadius.circular(_borderRadius);
 
-      if (widget.size == AppButtonSize.large) {
-        return BoxDecoration(
-          borderRadius: radius,
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Color.alphaBlend(AppColors.buttonPressedOverlay, base),
-              base,
-            ],
-          ),
-        );
-      }
-      return BoxDecoration(color: base, borderRadius: radius);
+  if (_isSolid) {
+    final Color base = _pressed
+        ? Color.alphaBlend(AppColors.buttonPressedOverlay, _baseColor)
+        : _baseColor;
+
+    // Secondary: solid #5A3EA2 with a 180deg gray-to-transparent overlay (all sizes)
+    if (widget.variant == AppButtonVariant.secondary) {
+      return BoxDecoration(
+        borderRadius: radius,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[
+            Color.alphaBlend(_secondaryOverlay, base), // 0%
+            base,                                      // 100% (overlay fully transparent)
+          ],
+        ),
+      );
     }
 
-    return BoxDecoration(
-      color: _pressed ? _pressedFillColor : _baseColor,
-      borderRadius: radius,
-      border: _border,
-    );
+    if (widget.size == AppButtonSize.large) {
+      return BoxDecoration(
+        borderRadius: radius,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[
+            Color.alphaBlend(AppColors.buttonPressedOverlay, base),
+            base,
+          ],
+        ),
+      );
+    }
+    return BoxDecoration(color: base, borderRadius: radius);
   }
+
+  return BoxDecoration(
+    color: _pressed ? _pressedFillColor : _baseColor,
+    borderRadius: radius,
+    border: _border,
+  );
+}
 
   @override
   Widget build(BuildContext context) {
