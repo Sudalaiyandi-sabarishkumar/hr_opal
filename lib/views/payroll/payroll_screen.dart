@@ -52,7 +52,6 @@ class _PayrollPageState extends State<PayrollPage> {
           ),
 
           SafeArea(
-            bottom: false,
             child: SingleChildScrollView(
               padding: EdgeInsets.only(bottom: 120.h + bottomInset),
               child: Column(
