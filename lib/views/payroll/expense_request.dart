@@ -102,9 +102,12 @@ Future<void> _pickDate({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              InputFieldGroup(
-                type: InputFieldGroupType.neutral,
-                children: <Widget>[
+              TapRegion(
+                onTapOutside: (_) =>
+                    FocusManager.instance.primaryFocus?.unfocus(),
+                child: InputFieldGroup(
+                  type: InputFieldGroupType.neutral,
+                  children: <Widget>[
                   _SelectField(
                     label: 'Expense Type',
                     hint: 'Select',
@@ -201,7 +204,8 @@ Future<void> _pickDate({
                     hint: 'Enter Remarks',
                     controller: _remarksController,
                   ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 20.h),
               RichText(
