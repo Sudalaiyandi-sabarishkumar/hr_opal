@@ -34,6 +34,7 @@ class AppAssets {
   static const String chevronRightIcon = '$iconsPath/chevron_right.svg';
   static const String warningTriangle = '$iconsPath/alert-02.svg';
   static const String dangerCircle = '$iconsPath/alert-circle.svg';
+  static const String announcementIcon = '$iconsPath/announcement.svg';
   static const String closeButton = '$iconsPath/CloseButton.svg';
   static const String errorCircle = '$iconsPath/error.svg';
   static const String closeButtonDark = '$iconsPath/CloseButtonDark.svg';
@@ -95,6 +96,7 @@ class AppAssets {
   static const String purpleCardBg = '$imagesPath/purple_lines_bg.svg';
   static const String peachCardBg = '$imagesPath/peach_lines_bg.svg';
   static const String greenCardBg = '$imagesPath/green_lines_bg.svg';
+  static const String bottomSheetBg = '$imagesPath/bottom_sheet_bg.svg';
   static const String purpleTimelineSeparator =
       '$imagesPath/purple_timeline_separator.svg';
   static const String greenTimelineSeparator =
