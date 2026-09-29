@@ -184,10 +184,10 @@ class AppColors {
 
   static const Color payrollSummaryBg = Color(0xFFF5F6F8);
   static const Color payrollSummaryBorder = Color(0xFFEAECF0);
- 
+
   static const Color payrollFormCardBg = Color(0xFFF5F6F8);
- 
-    static const Color active = Color(0xFF16161D);
+
+  static const Color active = Color(0xFF16161D);
   static const Color inactive = Color(0xFF8A8A99);
   static const Color pillTabGradientStart = Color(0xFFE4DBFF);
   static const Color pillTabGradientEnd = Colors.white;
@@ -206,4 +206,15 @@ class AppColors {
   static const Color chartBlue1 = Color(0xFF566AC7);
   static const Color dropdownBlack = Color(0xFF140D26);
   static const Color disabledText = Color(0xFFD0D5DD);
+  static const Color calanderBgPurple = Color(0xFFDDD3F5);
+  static const Color calanderBgGreen = Color(0xFFB8F1B9);
+  static const Color calanderBgYellow = Color(0xFFFEF3C7);
+  static const Color calanderBgOrange = Color(0xFFFFB8B4);
+  static const Color calanderBgBlue = Color(0xFFBFDBFE);
+  static const Color calanderTextPurple = Color(0xFF7D5DCB);
+  static const Color calanderTextGreen = Color(0xFF1A8A1E);
+  static const Color calanderTextYellow = Color(0xFFB45309);
+  static const Color calanderTextOrange = Color(0xFFB91C1C);
+  static const Color calanderTextBlue = Color(0xFF1D4ED8);
+  static const Color bg2Blue = Color(0xFFEFF6FF);
 }

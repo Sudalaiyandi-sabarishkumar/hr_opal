@@ -46,13 +46,6 @@ class AttendancePage extends StatelessWidget {
 
 
 // Menu (speed-dial) pages
-class HolidayCalendarPage extends StatelessWidget {
-  const HolidayCalendarPage({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _DummyPage(title: 'Holiday Calendar', showBack: true);
-}
-
 class MyLeavesPage extends StatelessWidget {
   const MyLeavesPage({super.key});
   @override

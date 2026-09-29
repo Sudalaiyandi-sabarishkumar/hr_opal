@@ -37,3 +37,7 @@ enum TimelineType { anniversary, award }
 enum QualificationAndSkillsType { education, experience, skills, languages }
 
 enum InputFieldGroupType { gradient, neutral }
+
+enum HolidayCalenderColor { purple, green, yellow, orange, blue }
+
+enum HolidayType { none, optional, restricted }

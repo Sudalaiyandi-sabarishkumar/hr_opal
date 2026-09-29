@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../more_options/holiday_calender_page.dart';
 import '../payroll/payroll_screen.dart';
 import 'dummy_pages.dart';
 
@@ -45,7 +46,7 @@ class _MainShellState extends State<MainShell> {
     _MenuItem(
       'Holiday Calendar',
       AppAssets.holidayCalendar,
-      (_) => const HolidayCalendarPage(),
+      (_) => const HolidayCalenderPage(),
     ),
     _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const MyLeavesPage()),
     _MenuItem(
