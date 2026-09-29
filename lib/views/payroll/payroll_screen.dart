@@ -85,21 +85,26 @@ class _PayrollPageState extends State<PayrollPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Container(
-            width: 38.r,
-            height: 38.r,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: AppColors.white.withValues(alpha: 0.7),
-                width: 0.5.w,
+          GestureDetector(
+            onTap: () {
+              context.push(RouteConstants.profilePage);
+            },
+            child: Container(
+              width: 38.r,
+              height: 38.r,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppColors.white.withValues(alpha: 0.7),
+                  width: 0.5.w,
+                ),
               ),
-            ),
-            child: ClipOval(
-              child: Image.asset(
-                AppAssets.femaleImage,
-                fit: BoxFit.cover,
-                alignment: Alignment.topCenter,
+              child: ClipOval(
+                child: Image.asset(
+                  AppAssets.femaleImage,
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
               ),
             ),
           ),
