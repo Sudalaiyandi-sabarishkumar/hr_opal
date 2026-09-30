@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 
-
 class AppAccordion extends StatefulWidget {
   const AppAccordion({
     super.key,
@@ -17,22 +16,16 @@ class AppAccordion extends StatefulWidget {
     this.initiallyExpanded = false,
   });
 
-  
   final String title;
 
-  
   final String icon;
 
-  
   final Color headerColor;
 
-  
   final Color iconColor;
 
-  
   final Widget child;
 
-  
   final bool initiallyExpanded;
 
   @override
@@ -62,7 +55,6 @@ class _AppAccordionState extends State<AppAccordion> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          
           InkWell(
             onTap: _toggle,
             borderRadius: _expanded
@@ -86,7 +78,7 @@ class _AppAccordionState extends State<AppAccordion> {
               ),
               child: Row(
                 children: <Widget>[
-                  SvgPicture.asset(widget.icon,height: 14.h,width: 14.w,),
+                  SvgPicture.asset(widget.icon, height: 14.h, width: 14.w),
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Text(
@@ -109,10 +101,10 @@ class _AppAccordionState extends State<AppAccordion> {
               ),
             ),
           ),
-          
+
           if (_expanded)
             Divider(height: 1.h, thickness: 1, color: AppColors.neutral200),
-          
+
           AnimatedSize(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
@@ -129,13 +121,8 @@ class _AppAccordionState extends State<AppAccordion> {
   }
 }
 
-
 class AppInfoRow extends StatelessWidget {
-  const AppInfoRow({
-    super.key,
-    required this.label,
-    required this.value,
-  });
+  const AppInfoRow({super.key, required this.label, required this.value});
 
   final String label;
   final String value;

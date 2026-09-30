@@ -21,7 +21,10 @@ class AppOptionTile extends StatelessWidget {
     this.trailingIcon,
     this.trailingImageAsset,
     this.backgroundColor = AppColors.transparent,
-  }) : assert(icon != null || svgAsset != null, 'Either icon or svgAsset must be provided');
+  }) : assert(
+         icon != null || svgAsset != null,
+         'Either icon or svgAsset must be provided',
+       );
 
   /// Leading icon shown at the start of the row.
   final IconData? icon;
@@ -73,7 +76,7 @@ class AppOptionTile extends StatelessWidget {
             children: <Widget>[
               if (svgAsset != null)
                 SvgPicture.asset(
-                  svgAsset ??'',
+                  svgAsset ?? '',
                   width: 20.r,
                   height: 20.r,
                   colorFilter: iconColor != null
@@ -144,11 +147,7 @@ class AppOptionCard extends StatelessWidget {
   static const double _borderWidth = 0.4;
 
   static const LinearGradient _borderGradient = LinearGradient(
-    colors: <Color>[
-      AppColors.white,
-      AppColors.dark3blue,
-      AppColors.white
-    ],
+    colors: <Color>[AppColors.white, AppColors.dark3blue, AppColors.white],
     stops: <double>[0.0013, 0.8055, 1.0],
   );
 

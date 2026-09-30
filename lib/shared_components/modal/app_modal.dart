@@ -95,7 +95,6 @@ class AppModal extends StatelessWidget {
             description,
             style: textTheme.geist14Regular.copyWith(
               color: AppColors.statusNeutralText,
-              
             ),
           ),
           SizedBox(height: 20.h),
@@ -172,15 +171,15 @@ class AppModal extends StatelessWidget {
       },
       transitionBuilder:
           (BuildContext context, Animation<double> animation, _, Widget child) {
-        final CurvedAnimation curved = CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeOutBack,
-        );
-        return FadeTransition(
-          opacity: animation,
-          child: ScaleTransition(scale: curved, child: child),
-        );
-      },
+            final CurvedAnimation curved = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutBack,
+            );
+            return FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(scale: curved, child: child),
+            );
+          },
     );
   }
 

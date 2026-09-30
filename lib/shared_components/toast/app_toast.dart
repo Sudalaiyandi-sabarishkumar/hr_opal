@@ -140,9 +140,7 @@ class AppToast extends StatelessWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.geist14SemiBold.copyWith(
-                    color: _titleColor,
-                  ),
+                  style: textTheme.geist14SemiBold.copyWith(color: _titleColor),
                 ),
                 Text(
                   description,
@@ -164,7 +162,9 @@ class AppToast extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: surface== AppToastSurface.light ? AppColors.white : _titleColor,
+                  color: surface == AppToastSurface.light
+                      ? AppColors.white
+                      : _titleColor,
                   borderRadius: BorderRadius.circular(24.r),
                   border: surface == AppToastSurface.light
                       ? Border.all(color: AppColors.neutral200)

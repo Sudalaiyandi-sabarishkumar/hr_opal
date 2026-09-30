@@ -7,7 +7,7 @@ import '../../core/theme/app_styles.dart';
 import '../../core/utils/enums.dart';
 
 class CustomButton extends StatefulWidget {
-  const   CustomButton({
+  const CustomButton({
     super.key,
     required this.buttonName,
     this.variant = AppButtonVariant.primary,
@@ -74,25 +74,29 @@ class _CustomButtonState extends State<CustomButton> {
     _ => AppColors.statusSoftBg,
   };
 
-  Color get _textColor => widget.textColor ?? switch (widget.variant) {
-    AppButtonVariant.primary => AppColors.white,
-    AppButtonVariant.secondary => AppColors.white,
-    AppButtonVariant.dark => AppColors.white,
-    AppButtonVariant.light => AppColors.textPrimary,
-    AppButtonVariant.subtle => AppColors.textPrimary,
-    AppButtonVariant.outline => AppColors.textPrimary,
-    AppButtonVariant.neutral => AppColors.textPrimary,
-  };
+  Color get _textColor =>
+      widget.textColor ??
+      switch (widget.variant) {
+        AppButtonVariant.primary => AppColors.white,
+        AppButtonVariant.secondary => AppColors.white,
+        AppButtonVariant.dark => AppColors.white,
+        AppButtonVariant.light => AppColors.textPrimary,
+        AppButtonVariant.subtle => AppColors.textPrimary,
+        AppButtonVariant.outline => AppColors.textPrimary,
+        AppButtonVariant.neutral => AppColors.textPrimary,
+      };
 
   Border? get _border => widget.variant == AppButtonVariant.outline
       ? Border.all(color: AppColors.statusSoftBg)
       : null;
 
-  double get _height => widget.height ?? switch (widget.size) {
-    AppButtonSize.large => 48.h,
-    AppButtonSize.medium => 40.h,
-    AppButtonSize.small => 32.h,
-  };
+  double get _height =>
+      widget.height ??
+      switch (widget.size) {
+        AppButtonSize.large => 48.h,
+        AppButtonSize.medium => 40.h,
+        AppButtonSize.small => 32.h,
+      };
 
   double get _horizontalPadding => switch (widget.size) {
     AppButtonSize.large => 20.w,
@@ -100,17 +104,21 @@ class _CustomButtonState extends State<CustomButton> {
     AppButtonSize.small => 12.w,
   };
 
-  double get _borderRadius => widget.borderRadius ?? switch (widget.size) {
-    AppButtonSize.large => 12.r,
-    AppButtonSize.medium => 12.r,
-    AppButtonSize.small => 12.r,
-  };
+  double get _borderRadius =>
+      widget.borderRadius ??
+      switch (widget.size) {
+        AppButtonSize.large => 12.r,
+        AppButtonSize.medium => 12.r,
+        AppButtonSize.small => 12.r,
+      };
 
-  double get _iconSize => widget.iconSize ?? switch (widget.size) {
-    AppButtonSize.large => 18.r,
-    AppButtonSize.medium => 16.r,
-    AppButtonSize.small => 14.r,
-  };
+  double get _iconSize =>
+      widget.iconSize ??
+      switch (widget.size) {
+        AppButtonSize.large => 18.r,
+        AppButtonSize.medium => 16.r,
+        AppButtonSize.small => 14.r,
+      };
 
   TextStyle _labelStyle(TextTheme textTheme) => switch (widget.size) {
     AppButtonSize.large => textTheme.geist16Medium,
@@ -118,54 +126,54 @@ class _CustomButtonState extends State<CustomButton> {
     AppButtonSize.small => textTheme.geist12Medium,
   };
 
- // Secondary overlay: rgba(102, 102, 102, 0.2) -> transparent
-static const Color _secondaryOverlay = Color(0x33666666);
+  // Secondary overlay: rgba(102, 102, 102, 0.2) -> transparent
+  static const Color _secondaryOverlay = Color(0x33666666);
 
-Decoration get _decoration {
-  final BorderRadius radius = BorderRadius.circular(_borderRadius);
+  Decoration get _decoration {
+    final BorderRadius radius = BorderRadius.circular(_borderRadius);
 
-  if (_isSolid) {
-    final Color base = _pressed
-        ? Color.alphaBlend(AppColors.buttonPressedOverlay, _baseColor)
-        : _baseColor;
+    if (_isSolid) {
+      final Color base = _pressed
+          ? Color.alphaBlend(AppColors.buttonPressedOverlay, _baseColor)
+          : _baseColor;
 
-    // Secondary: solid #5A3EA2 with a 180deg gray-to-transparent overlay (all sizes)
-    if (widget.variant == AppButtonVariant.secondary) {
-      return BoxDecoration(
-        borderRadius: radius,
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[
-            Color.alphaBlend(_secondaryOverlay, base), // 0%
-            base,                                      // 100% (overlay fully transparent)
-          ],
-        ),
-      );
+      // Secondary: solid #5A3EA2 with a 180deg gray-to-transparent overlay (all sizes)
+      if (widget.variant == AppButtonVariant.secondary) {
+        return BoxDecoration(
+          borderRadius: radius,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[
+              Color.alphaBlend(_secondaryOverlay, base), // 0%
+              base, // 100% (overlay fully transparent)
+            ],
+          ),
+        );
+      }
+
+      if (widget.size == AppButtonSize.large) {
+        return BoxDecoration(
+          borderRadius: radius,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[
+              Color.alphaBlend(AppColors.buttonPressedOverlay, base),
+              base,
+            ],
+          ),
+        );
+      }
+      return BoxDecoration(color: base, borderRadius: radius);
     }
 
-    if (widget.size == AppButtonSize.large) {
-      return BoxDecoration(
-        borderRadius: radius,
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[
-            Color.alphaBlend(AppColors.buttonPressedOverlay, base),
-            base,
-          ],
-        ),
-      );
-    }
-    return BoxDecoration(color: base, borderRadius: radius);
+    return BoxDecoration(
+      color: _pressed ? _pressedFillColor : _baseColor,
+      borderRadius: radius,
+      border: _border,
+    );
   }
-
-  return BoxDecoration(
-    color: _pressed ? _pressedFillColor : _baseColor,
-    borderRadius: radius,
-    border: _border,
-  );
-}
 
   @override
   Widget build(BuildContext context) {

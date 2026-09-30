@@ -97,12 +97,18 @@ class PasswordDrawer extends StatelessWidget {
     final EdgeInsets m = _effectiveMargin;
     return switch (placement) {
       AppDrawerPlacement.top =>
-        m.top > 0 ? BorderRadius.circular(r) : BorderRadius.vertical(bottom: Radius.circular(r)),
+        m.top > 0
+            ? BorderRadius.circular(r)
+            : BorderRadius.vertical(bottom: Radius.circular(r)),
       AppDrawerPlacement.bottom => BorderRadius.circular(r),
       AppDrawerPlacement.left =>
-        m.left > 0 ? BorderRadius.circular(r) : BorderRadius.horizontal(right: Radius.circular(r)),
+        m.left > 0
+            ? BorderRadius.circular(r)
+            : BorderRadius.horizontal(right: Radius.circular(r)),
       AppDrawerPlacement.right =>
-        m.right > 0 ? BorderRadius.circular(r) : BorderRadius.horizontal(left: Radius.circular(r)),
+        m.right > 0
+            ? BorderRadius.circular(r)
+            : BorderRadius.horizontal(left: Radius.circular(r)),
     };
   }
 
@@ -119,10 +125,7 @@ class PasswordDrawer extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: radius,
-        border: Border.all(
-          color: borderColor,
-          width: borderWidth,
-        ),
+        border: Border.all(color: borderColor, width: borderWidth),
         // Shadow lives on this outer, unclipped Container so the inner
         // ClipRRect below can safely clip the background SVG to the
         // rounded corners without also clipping (and hiding) the shadow.
@@ -145,16 +148,14 @@ class PasswordDrawer extends StatelessWidget {
           children: <Widget>[
             if (backgroundImage != null)
               Positioned.fill(
-                child: SvgPicture.asset(
-                  AppAssets.bg3Image,
-                  fit: BoxFit.cover,
-                ),
+                child: SvgPicture.asset(AppAssets.bg3Image, fit: BoxFit.cover),
               ),
             Padding(
               padding: EdgeInsets.all(20.w),
               child: Column(
-                mainAxisSize:
-                    _isHorizontalEdge ? MainAxisSize.min : MainAxisSize.max,
+                mainAxisSize: _isHorizontalEdge
+                    ? MainAxisSize.min
+                    : MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   if (handle)
@@ -268,19 +269,22 @@ class PasswordDrawer extends StatelessWidget {
       pageBuilder: (BuildContext context, _, __) {
         return Align(
           alignment: alignment,
-          child: Material(color: AppColors.transparent, child: builder(context)),
+          child: Material(
+            color: AppColors.transparent,
+            child: builder(context),
+          ),
         );
       },
       transitionBuilder:
           (BuildContext context, Animation<double> animation, _, Widget child) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: beginOffset,
-            end: Offset.zero,
-          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        );
-      },
+            return SlideTransition(
+              position: Tween<Offset>(begin: beginOffset, end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            );
+          },
     );
   }
 }

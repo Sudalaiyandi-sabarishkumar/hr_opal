@@ -35,7 +35,9 @@ class AppChip extends StatelessWidget {
     AppChipVariant.solid => _base,
     AppChipVariant.outline => AppColors.white,
     AppChipVariant.soft =>
-      color == AppBadgeColor.info ? AppColors.statusInfoSoft : AppColors.statusSoftBg,
+      color == AppBadgeColor.info
+          ? AppColors.statusInfoSoft
+          : AppColors.statusSoftBg,
     AppChipVariant.subtle => switch (color) {
       AppBadgeColor.info => AppColors.statusInfoSoft,
       AppBadgeColor.neutral => AppColors.statusNeutralSubtleBg,
@@ -65,10 +67,8 @@ class AppChip extends StatelessWidget {
   };
 
   EdgeInsets get _padding => switch (size) {
-    AppChipSize.large =>
-      EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
-    AppChipSize.medium =>
-      EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+    AppChipSize.large => EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+    AppChipSize.medium => EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
     AppChipSize.small => EdgeInsets.symmetric(horizontal: 4.w),
   };
 
@@ -99,15 +99,9 @@ class AppChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            if (showLeadingDot) ...<Widget>[
-              _dot,
-              SizedBox(width: _gap.w),
-            ],
+            if (showLeadingDot) ...<Widget>[_dot, SizedBox(width: _gap.w)],
             Text(label, style: labelStyle),
-            if (showTrailingDot) ...<Widget>[
-              SizedBox(width: _gap.w),
-              _dot,
-            ],
+            if (showTrailingDot) ...<Widget>[SizedBox(width: _gap.w), _dot],
           ],
         ),
       ),

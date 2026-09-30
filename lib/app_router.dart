@@ -31,6 +31,7 @@ import 'views/profile/profile_page.dart';
 import 'views/profile/qualifications_page.dart';
 import 'views/profile/request_history.dart';
 import 'views/profile/timeline_page.dart';
+import 'views/request/request_screen.dart';
 
 class FirebaseUtils {
   static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
@@ -64,6 +65,7 @@ class RouteConstants {
   static String payBreakdownPage = 'payBreakdown';
   static String holidayCalanderPage = 'holidayCalander';
   static String announcementsPage = 'announcements';
+  static String requestPage = 'requests';
 }
 
 class GoRouterInit {
@@ -231,6 +233,12 @@ class GoRouterInit {
         name: RouteConstants.designPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<DesignPage>(child: DesignPage()),
+      ),
+       GoRoute(
+        path: '/requests',
+        name: RouteConstants.requestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<RequestPage>(child: RequestPage()),
       ),
       GoRoute(
         path: '/expenseRequest',

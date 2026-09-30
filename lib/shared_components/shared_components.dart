@@ -6,6 +6,7 @@ export 'checkbox/app_checkbox.dart';
 export 'checkbox/app_radio.dart';
 export 'chips/app_chip.dart';
 export 'drawer/app_drawer.dart';
+export 'input_field/app_text_area.dart';
 export 'modal/app_modal.dart';
 export 'option_tile/app_option_tile.dart';
 export 'tabs/app_segmented_tabs.dart';

@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 
-
-
 /// Generic rounded, bordered card shell reused by every history/list
 /// card (Amendments, Requests History, ...). Pass a [header] slot for
 /// the top (colored) section and a [body] slot for the detail rows.
@@ -40,10 +38,7 @@ class AppInfoCard2 extends StatelessWidget {
             child: header,
           ),
           const Divider(color: AppColors.neutral200, height: 1),
-          Padding(
-            padding: EdgeInsets.all(16.r),
-            child: body,
-          ),
+          Padding(padding: EdgeInsets.all(16.r), child: body),
         ],
       ),
     );
@@ -53,11 +48,7 @@ class AppInfoCard2 extends StatelessWidget {
 /// A single "label ......... value" line, label left / value right,
 /// used for the Amendments detail rows.
 class LabelValueRow extends StatelessWidget {
-  const LabelValueRow({
-    super.key,
-    required this.label,
-    required this.value,
-  });
+  const LabelValueRow({super.key, required this.label, required this.value});
 
   final String label;
   final String value;
@@ -176,10 +167,10 @@ class AppStatusBadge extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            color: AppColors.white,
-          ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.r),
+        color: AppColors.white,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -189,10 +180,7 @@ class AppStatusBadge extends StatelessWidget {
             decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           ),
           SizedBox(width: 4.w),
-          Text(
-            label,
-            style: textTheme.geist12Medium.copyWith(color: color),
-          ),
+          Text(label, style: textTheme.geist12Medium.copyWith(color: color)),
         ],
       ),
     );

@@ -138,4 +138,29 @@ class AppAssets {
       'assets/icons/home/beach_green.svg';
        static const String calendarRed =
       'assets/icons/home/calendar_red.svg';
+
+  static const String requestIconsPath = '$iconsPath/request';
+  static const String requestAirplane = '$requestIconsPath/airplane-01.svg';
+  static const String requestBeach = '$requestIconsPath/beach.svg';
+  static const String requestCalendarCheckIn =
+      '$requestIconsPath/calendar-check-in-01.svg';
+  static const String requestDocumentAttachment =
+      '$requestIconsPath/document-attachment.svg';
+  static const String requestFilterVertical =
+      '$requestIconsPath/filter-vertical.svg';
+  static const String requestInvoice = '$requestIconsPath/invoice-02.svg';
+  static const String requestLaptop = '$requestIconsPath/laptop.svg';
+  static const String requestLogout = '$requestIconsPath/logout-03.svg';
+  static const String requestMailOpen = '$requestIconsPath/mail-open.svg';
+  static const String requestMoneyReceive =
+      '$requestIconsPath/money-receive-02.svg';
+  static const String requestMoneySecurity =
+      '$requestIconsPath/money-security.svg';
+  static const String requestMoneySendFlow =
+      '$requestIconsPath/money-send-flow-02.svg';
+  static const String requestMoveTo = '$requestIconsPath/move-to.svg';
+  static const String requestStudentCard = '$requestIconsPath/student-card.svg';
+  static const String requestZakat = '$requestIconsPath/zakat.svg';
+    static const String requestCalendarBlock = '$requestIconsPath/calendar-block.svg';
+    static const String requestTime = '$iconsPath/time.svg';
 }

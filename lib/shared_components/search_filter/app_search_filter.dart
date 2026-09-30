@@ -39,7 +39,7 @@ class AppSearchFilterBar extends StatelessWidget {
             ),
             child: Row(
               children: [
-               SvgPicture.asset(AppAssets.profileSearch,height: 16.h,),
+                SvgPicture.asset(AppAssets.profileSearch, height: 16.h),
                 SizedBox(width: 8.w),
                 Expanded(
                   child: TextField(

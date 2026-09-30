@@ -10,42 +10,30 @@ import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/pickers/app_pickers.dart';
 import '../../shared_components/shared_components.dart';
 
-class ExpenseRequest extends StatefulWidget {
-  const ExpenseRequest({super.key});
+class LoanRequest extends StatefulWidget {
+  const LoanRequest({super.key});
 
   @override
-  State<ExpenseRequest> createState() => _ExpenseRequestState();
+  State<LoanRequest> createState() => _LoanRequestState();
 }
 
-class _ExpenseRequestState extends State<ExpenseRequest> {
-  final TextEditingController _referenceController = TextEditingController();
-  final TextEditingController _expenseIncurredController =
-      TextEditingController();
-  final TextEditingController _payFromCompanyController =
-      TextEditingController();
-  final TextEditingController _remarksController = TextEditingController();
+class _LoanRequestState extends State<LoanRequest> {
+  final TextEditingController _amountController = TextEditingController();
 
-  String? _expenseType;
-  String? _currency;
-  DateTime? _fromDate;
-  DateTime? _toDate;
+  String? _loanType;
+  DateTime? _repaymentStartDate;
 
-  static const List<String> _expenseTypes = <String>[
-    'Food',
-    'Travel',
-    'Accommodation',
-    'Client Relation',
-    'Tickets and Passes',
-    'Miscellaneous',
+  static const List<String> _loanTypes = <String>[
+    'Personal Loan',
+    'Salary Advance',
+    'Housing Loan',
+    'Vehicle Loan',
+    'Education Loan',
   ];
-  static const List<String> _currencies = <String>['INR', 'USD', 'EUR', 'AED'];
 
   @override
   void dispose() {
-    _referenceController.dispose();
-    _expenseIncurredController.dispose();
-    _payFromCompanyController.dispose();
-    _remarksController.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 
@@ -94,7 +82,7 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return AppGradientHeaderScaffold(
-      title: 'New Expense Request',
+      title: 'New Loan Request',
       body: SafeArea(
         top: false,
         child: Column(
@@ -112,105 +100,47 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                         type: InputFieldGroupType.neutral,
                         children: <Widget>[
                           _SelectField(
-                            label: 'Expense Type',
+                            label: 'Loan Type',
                             hint: 'Select',
-                            value: _expenseType,
+                            value: _loanType,
                             trailing: SvgPicture.asset(
                               AppAssets.down,
                               width: 8.w,
                               height: 4.h,
                             ),
                             onTap: () => _pickOption(
-                              title: 'Select Expense type',
-                              options: _expenseTypes,
-                              current: _expenseType,
+                              title: 'Select Loan Type',
+                              options: _loanTypes,
+                              current: _loanType,
                               onSelected: (String v) =>
-                                  setState(() => _expenseType = v),
+                                  setState(() => _loanType = v),
                             ),
                           ),
                           AppTextField(
-                            label: 'Reference Number',
-                            hint: 'Enter Reference Number',
-                            controller: _referenceController,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: _SelectField(
-                                  label: 'From Date',
-                                  hint: 'Select',
-                                  value: _fromDate == null
-                                      ? null
-                                      : _formatDate(_fromDate!),
-                                  trailing: SvgPicture.asset(
-                                    AppAssets.calanderIcon,
-                                    width: 16.w,
-                                    height: 16.h,
-                                  ),
-                                  onTap: () => _pickDate(
-                                    title: 'Select From Date',
-                                    current: _fromDate,
-                                    onSelected: (DateTime d) =>
-                                        setState(() => _fromDate = d),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: _SelectField(
-                                  label: 'To Date',
-                                  hint: 'Select',
-                                  value: _toDate == null
-                                      ? null
-                                      : _formatDate(_toDate!),
-                                  trailing: SvgPicture.asset(
-                                    AppAssets.calanderIcon,
-                                    width: 16.w,
-                                    height: 16.h,
-                                  ),
-                                  onTap: () => _pickDate(
-                                    title: 'Select To Date',
-                                    current: _toDate,
-                                    onSelected: (DateTime d) =>
-                                        setState(() => _toDate = d),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          AppTextField(
-                            label: 'Expense Incurred',
-                            hint: 'Enter Expense Incurred',
-                            controller: _expenseIncurredController,
+                            label: 'Amount',
+                            hint: 'Enter Amount',
+                            controller: _amountController,
                             keyboardType: const TextInputType.numberWithOptions(
                               decimal: true,
                             ),
                           ),
-                          AppTextField(
-                            label: 'Pay From Company',
-                            hint: 'Enter Pay from Company',
-                            controller: _payFromCompanyController,
-                          ),
                           _SelectField(
-                            label: 'Expense Currency',
+                            label: 'Repayment Start',
                             hint: 'Select',
-                            value: _currency,
+                            value: _repaymentStartDate == null
+                                ? null
+                                : _formatDate(_repaymentStartDate!),
                             trailing: SvgPicture.asset(
-                              AppAssets.down,
-                              width: 8.w,
-                              height: 4.h,
+                              AppAssets.calanderIcon,
+                              width: 16.w,
+                              height: 16.h,
                             ),
-                            onTap: () => _pickOption(
-                              title: 'Select Currency',
-                              options: _currencies,
-                              current: _currency,
-                              onSelected: (String v) =>
-                                  setState(() => _currency = v),
+                            onTap: () => _pickDate(
+                              title: 'Select Repayment Start Date',
+                              current: _repaymentStartDate,
+                              onSelected: (DateTime d) =>
+                                  setState(() => _repaymentStartDate = d),
                             ),
-                          ),
-                          AppTextField(
-                            label: 'Remarks',
-                            hint: 'Enter Remarks',
-                            controller: _remarksController,
                           ),
                         ],
                       ),

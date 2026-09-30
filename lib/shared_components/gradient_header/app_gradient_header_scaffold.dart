@@ -8,10 +8,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../core/utils/enums.dart';
 
-
-
-
-
 class AppGradientHeaderScaffold extends StatelessWidget {
   const AppGradientHeaderScaffold({
     super.key,
@@ -30,40 +26,30 @@ class AppGradientHeaderScaffold extends StatelessWidget {
     this.titleBottomSpacing = 20,
   });
 
-  
   final String title;
 
   final Widget body;
 
-
   final Widget? headerBottom;
 
-  
   final AppHeaderGradient gradient;
 
-  
   final double headerHeight;
-
 
   final Color? titleColor;
 
-
   final TextStyle? titleStyle;
-
 
   final VoidCallback? onBack;
 
   final Color scaffoldBackgroundColor;
 
-
   final Color bodyBackgroundColor;
 
   final double bodyBorderRadius;
 
-  
   final double topSpacing;
 
-  
   final double titleBottomSpacing;
 
   @override
@@ -134,7 +120,6 @@ class AppGradientHeaderScaffold extends StatelessWidget {
                   ),
                 ),
 
-                
                 if (headerBottom != null)
                   Padding(
                     padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),

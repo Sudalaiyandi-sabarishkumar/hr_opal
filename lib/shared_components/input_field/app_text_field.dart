@@ -100,8 +100,9 @@ class _AppTextFieldState extends State<AppTextField> {
                     keyboardType: widget.numericOnly
                         ? (widget.keyboardType ?? TextInputType.number)
                         : widget.keyboardType,
-                    inputFormatters:
-                        inputFormatters.isEmpty ? null : inputFormatters,
+                    inputFormatters: inputFormatters.isEmpty
+                        ? null
+                        : inputFormatters,
                     maxLength: widget.maxLength,
                     validator: widget.validator,
                     autovalidateMode: widget.autovalidateMode,

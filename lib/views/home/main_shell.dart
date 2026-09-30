@@ -11,6 +11,7 @@ import '../more_options/announcements_page.dart';
 import '../more_options/holiday_calender_page.dart';
 import '../payroll/payroll_screen.dart';
 import '../policies/policies.dart';
+import '../request/request_screen.dart';
 import 'dummy_pages.dart';
 
 class _TabItem {
@@ -50,7 +51,7 @@ class _MainShellState extends State<MainShell> {
       AppAssets.holidayCalendar,
       (_) => const HolidayCalenderPage(),
     ),
-    _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const HrPoliciesPage()),
+    _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const RequestPage()),
     _MenuItem(
       'Announcements',
       AppAssets.announcements,

@@ -10,47 +10,21 @@ import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/pickers/app_pickers.dart';
 import '../../shared_components/shared_components.dart';
 
-class ExpenseRequest extends StatefulWidget {
-  const ExpenseRequest({super.key});
+class TravelSettlementRequest extends StatefulWidget {
+  const TravelSettlementRequest({super.key});
 
   @override
-  State<ExpenseRequest> createState() => _ExpenseRequestState();
+  State<TravelSettlementRequest> createState() =>
+      _TravelSettlementRequestState();
 }
 
-class _ExpenseRequestState extends State<ExpenseRequest> {
-  final TextEditingController _referenceController = TextEditingController();
-  final TextEditingController _expenseIncurredController =
-      TextEditingController();
-  final TextEditingController _payFromCompanyController =
-      TextEditingController();
-  final TextEditingController _remarksController = TextEditingController();
+class _TravelSettlementRequestState extends State<TravelSettlementRequest> {
+  String? _travelType;
 
-  String? _expenseType;
-  String? _currency;
-  DateTime? _fromDate;
-  DateTime? _toDate;
-
-  static const List<String> _expenseTypes = <String>[
-    'Food',
-    'Travel',
-    'Accommodation',
-    'Client Relation',
-    'Tickets and Passes',
-    'Miscellaneous',
+  static const List<String> _travelTypes = <String>[
+    'Domestic',
+    'International',
   ];
-  static const List<String> _currencies = <String>['INR', 'USD', 'EUR', 'AED'];
-
-  @override
-  void dispose() {
-    _referenceController.dispose();
-    _expenseIncurredController.dispose();
-    _payFromCompanyController.dispose();
-    _remarksController.dispose();
-    super.dispose();
-  }
-
-  String _formatDate(DateTime d) =>
-      '${d.day.toString().padLeft(2, '0')}/${d.month.toString().padLeft(2, '0')}/${d.year}';
 
   Future<void> _pickOption({
     required String title,
@@ -69,24 +43,6 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
     }
   }
 
-  Future<void> _pickDate({
-    required String title,
-    required DateTime? current,
-    required ValueChanged<DateTime> onSelected,
-  }) async {
-    final DateTime now = DateTime.now();
-    final DateTime? picked = await showAppDateSheet(
-      context,
-      title: title,
-      initialDate: current,
-      firstDate: DateTime(now.year - 5),
-      lastDate: DateTime(now.year + 5),
-    );
-    if (picked != null) {
-      onSelected(picked);
-    }
-  }
-
   void _onSubmit() {}
 
   @override
@@ -94,7 +50,7 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return AppGradientHeaderScaffold(
-      title: 'New Expense Request',
+      title: 'Travel Settlement Request',
       body: SafeArea(
         top: false,
         child: Column(
@@ -112,110 +68,26 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                         type: InputFieldGroupType.neutral,
                         children: <Widget>[
                           _SelectField(
-                            label: 'Expense Type',
+                            label: 'Travel Type',
                             hint: 'Select',
-                            value: _expenseType,
+                            value: _travelType,
                             trailing: SvgPicture.asset(
                               AppAssets.down,
                               width: 8.w,
                               height: 4.h,
                             ),
                             onTap: () => _pickOption(
-                              title: 'Select Expense type',
-                              options: _expenseTypes,
-                              current: _expenseType,
+                              title: 'Select Travel Type',
+                              options: _travelTypes,
+                              current: _travelType,
                               onSelected: (String v) =>
-                                  setState(() => _expenseType = v),
+                                  setState(() => _travelType = v),
                             ),
-                          ),
-                          AppTextField(
-                            label: 'Reference Number',
-                            hint: 'Enter Reference Number',
-                            controller: _referenceController,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: _SelectField(
-                                  label: 'From Date',
-                                  hint: 'Select',
-                                  value: _fromDate == null
-                                      ? null
-                                      : _formatDate(_fromDate!),
-                                  trailing: SvgPicture.asset(
-                                    AppAssets.calanderIcon,
-                                    width: 16.w,
-                                    height: 16.h,
-                                  ),
-                                  onTap: () => _pickDate(
-                                    title: 'Select From Date',
-                                    current: _fromDate,
-                                    onSelected: (DateTime d) =>
-                                        setState(() => _fromDate = d),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: _SelectField(
-                                  label: 'To Date',
-                                  hint: 'Select',
-                                  value: _toDate == null
-                                      ? null
-                                      : _formatDate(_toDate!),
-                                  trailing: SvgPicture.asset(
-                                    AppAssets.calanderIcon,
-                                    width: 16.w,
-                                    height: 16.h,
-                                  ),
-                                  onTap: () => _pickDate(
-                                    title: 'Select To Date',
-                                    current: _toDate,
-                                    onSelected: (DateTime d) =>
-                                        setState(() => _toDate = d),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          AppTextField(
-                            label: 'Expense Incurred',
-                            hint: 'Enter Expense Incurred',
-                            controller: _expenseIncurredController,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                          ),
-                          AppTextField(
-                            label: 'Pay From Company',
-                            hint: 'Enter Pay from Company',
-                            controller: _payFromCompanyController,
-                          ),
-                          _SelectField(
-                            label: 'Expense Currency',
-                            hint: 'Select',
-                            value: _currency,
-                            trailing: SvgPicture.asset(
-                              AppAssets.down,
-                              width: 8.w,
-                              height: 4.h,
-                            ),
-                            onTap: () => _pickOption(
-                              title: 'Select Currency',
-                              options: _currencies,
-                              current: _currency,
-                              onSelected: (String v) =>
-                                  setState(() => _currency = v),
-                            ),
-                          ),
-                          AppTextField(
-                            label: 'Remarks',
-                            hint: 'Enter Remarks',
-                            controller: _remarksController,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 24.h),
                     RichText(
                       text: TextSpan(
                         text: 'Attachment',

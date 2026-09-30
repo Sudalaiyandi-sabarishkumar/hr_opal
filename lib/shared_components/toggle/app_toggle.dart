@@ -89,7 +89,9 @@ class _AppToggleState extends State<AppToggle> {
           onTapCancel: _interactive
               ? () => setState(() => _pressed = false)
               : null,
-          onTapUp: _interactive ? (_) => setState(() => _pressed = false) : null,
+          onTapUp: _interactive
+              ? (_) => setState(() => _pressed = false)
+              : null,
           onTap: _handleTap,
           child: trackWidget,
         ),

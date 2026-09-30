@@ -8,14 +8,25 @@ import '../../core/utils/enums.dart';
 EdgeInsets _tooltipPadding(AppTooltipPlacement placement) {
   final double tail = 6.r;
   return switch (placement) {
-    AppTooltipPlacement.top =>
-      EdgeInsets.fromLTRB(12.w, 8.h, 12.w, 8.h + tail),
-    AppTooltipPlacement.bottom =>
-      EdgeInsets.fromLTRB(12.w, 8.h + tail, 12.w, 8.h),
-    AppTooltipPlacement.left =>
-      EdgeInsets.fromLTRB(12.w, 8.h, 12.w + tail, 8.h),
-    AppTooltipPlacement.right =>
-      EdgeInsets.fromLTRB(12.w + tail, 8.h, 12.w, 8.h),
+    AppTooltipPlacement.top => EdgeInsets.fromLTRB(12.w, 8.h, 12.w, 8.h + tail),
+    AppTooltipPlacement.bottom => EdgeInsets.fromLTRB(
+      12.w,
+      8.h + tail,
+      12.w,
+      8.h,
+    ),
+    AppTooltipPlacement.left => EdgeInsets.fromLTRB(
+      12.w,
+      8.h,
+      12.w + tail,
+      8.h,
+    ),
+    AppTooltipPlacement.right => EdgeInsets.fromLTRB(
+      12.w + tail,
+      8.h,
+      12.w,
+      8.h,
+    ),
   };
 }
 

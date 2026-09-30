@@ -34,7 +34,9 @@ class AppBadge extends StatelessWidget {
   Color get _background => switch (variant) {
     AppBadgeVariant.solid => _base,
     AppBadgeVariant.soft =>
-      color == AppBadgeColor.info ? AppColors.statusInfoSoft : AppColors.statusSoftBg,
+      color == AppBadgeColor.info
+          ? AppColors.statusInfoSoft
+          : AppColors.statusSoftBg,
     AppBadgeVariant.subtle => switch (color) {
       AppBadgeColor.info => AppColors.statusInfoSoft,
       AppBadgeColor.neutral => AppColors.statusNeutralSubtleBg,
@@ -68,12 +70,9 @@ class AppBadge extends StatelessWidget {
   };
 
   EdgeInsets get _padding => switch (size) {
-    AppBadgeSize.large =>
-      EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
-    AppBadgeSize.medium =>
-      EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
-    AppBadgeSize.small =>
-      EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+    AppBadgeSize.large => EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+    AppBadgeSize.medium => EdgeInsets.symmetric(horizontal: 6.w, vertical: 6.h),
+    AppBadgeSize.small => EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
   };
 
   @override

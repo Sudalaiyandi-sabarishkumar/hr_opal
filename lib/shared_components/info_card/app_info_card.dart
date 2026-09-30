@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-
 
 class AppInfoCard extends StatelessWidget {
   const AppInfoCard({
@@ -15,12 +13,9 @@ class AppInfoCard extends StatelessWidget {
     required this.child,
   });
 
-  
   final String title;
 
-  
   final Color headerColor;
-
 
   final Widget child;
 
@@ -58,7 +53,7 @@ class AppInfoCard extends StatelessWidget {
               title,
               style: textTheme.geist14Medium.copyWith(
                 color: AppColors.black,
-                fontFamily: hostGroteskFont
+                fontFamily: hostGroteskFont,
               ),
             ),
           ),
@@ -71,7 +66,6 @@ class AppInfoCard extends StatelessWidget {
     );
   }
 }
-
 
 class AppStackedInfoRow extends StatelessWidget {
   const AppStackedInfoRow({
@@ -103,7 +97,7 @@ class AppStackedInfoRow extends StatelessWidget {
         Row(
           children: <Widget>[
             if (icon != null) ...<Widget>[
-             SvgPicture.asset(icon ?? '',height: 16.h,),
+              SvgPicture.asset(icon ?? '', height: 16.h),
               SizedBox(width: 6.w),
             ],
             Expanded(

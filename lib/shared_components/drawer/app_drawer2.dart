@@ -13,8 +13,7 @@ class AppDrawer2 extends StatelessWidget {
     required this.placement,
     required this.title,
     required this.body,
-   
-    
+
     this.onClose,
     this.onCancel,
     this.width,
@@ -41,8 +40,12 @@ class AppDrawer2 extends StatelessWidget {
   BorderRadius _radius(double r) => switch (placement) {
     AppDrawerPlacement.top => BorderRadius.vertical(bottom: Radius.circular(r)),
     AppDrawerPlacement.bottom => BorderRadius.vertical(top: Radius.circular(r)),
-    AppDrawerPlacement.left => BorderRadius.horizontal(right: Radius.circular(r)),
-    AppDrawerPlacement.right => BorderRadius.horizontal(left: Radius.circular(r)),
+    AppDrawerPlacement.left => BorderRadius.horizontal(
+      right: Radius.circular(r),
+    ),
+    AppDrawerPlacement.right => BorderRadius.horizontal(
+      left: Radius.circular(r),
+    ),
   };
 
   @override
@@ -86,24 +89,21 @@ class AppDrawer2 extends StatelessWidget {
                 ),
               ),
             ),
-             SvgPicture.asset(icon ?? '', width: 32.r, height: 29.r),
-          
+          SvgPicture.asset(icon ?? '', width: 32.r, height: 29.r),
+
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-
-            
               Expanded(
                 child: Text(
                   title,
                   style: textTheme.geist18SemiBold.copyWith(
                     color: AppColors.textPrimary,
-                    fontFamily: hostGroteskFont
+                    fontFamily: hostGroteskFont,
                   ),
                 ),
               ),
               SizedBox(width: 12.w),
-        
             ],
           ),
           SizedBox(height: 12.h),
@@ -116,19 +116,19 @@ class AppDrawer2 extends StatelessWidget {
           if (!_isHorizontalEdge) const Spacer(),
           SizedBox(height: 20.h),
           CustomButton(
-            buttonName:'Close',
+            buttonName: 'Close',
             variant: AppButtonVariant.outline,
             size: AppButtonSize.large,
             borderRadius: 60.r,
             height: 56.h,
-            onTap: (){Navigator.pop(context);},
+            onTap: () {
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
     );
   }
-
-
 
   static Future<T?> show<T>({
     required BuildContext context,
@@ -157,19 +157,22 @@ class AppDrawer2 extends StatelessWidget {
       pageBuilder: (BuildContext context, _, __) {
         return Align(
           alignment: alignment,
-          child: Material(color: AppColors.transparent, child: builder(context)),
+          child: Material(
+            color: AppColors.transparent,
+            child: builder(context),
+          ),
         );
       },
       transitionBuilder:
           (BuildContext context, Animation<double> animation, _, Widget child) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: beginOffset,
-            end: Offset.zero,
-          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        );
-      },
+            return SlideTransition(
+              position: Tween<Offset>(begin: beginOffset, end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            );
+          },
     );
   }
 }

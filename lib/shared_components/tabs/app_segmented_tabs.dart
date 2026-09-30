@@ -33,9 +33,11 @@ class AppSegmentedTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final TextStyle selectedStyle = selectedLabelStyle ??
+    final TextStyle selectedStyle =
+        selectedLabelStyle ??
         textTheme.geist14Regular.copyWith(color: AppColors.textPrimary);
-    final TextStyle unselectedStyle = unselectedLabelStyle ??
+    final TextStyle unselectedStyle =
+        unselectedLabelStyle ??
         textTheme.geist14Regular.copyWith(color: AppColors.textSecondary);
 
     final List<Widget> tabs = <Widget>[
@@ -59,10 +61,7 @@ class AppSegmentedTabs extends StatelessWidget {
       ),
       child: isExpanded
           ? row
-          : SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: row,
-            ),
+          : SingleChildScrollView(scrollDirection: Axis.horizontal, child: row),
     );
 
     if (textDirection == null) {

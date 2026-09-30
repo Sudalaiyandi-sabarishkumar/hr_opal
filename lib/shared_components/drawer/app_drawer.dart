@@ -41,8 +41,12 @@ class AppDrawer extends StatelessWidget {
   BorderRadius _radius(double r) => switch (placement) {
     AppDrawerPlacement.top => BorderRadius.vertical(bottom: Radius.circular(r)),
     AppDrawerPlacement.bottom => BorderRadius.vertical(top: Radius.circular(r)),
-    AppDrawerPlacement.left => BorderRadius.horizontal(right: Radius.circular(r)),
-    AppDrawerPlacement.right => BorderRadius.horizontal(left: Radius.circular(r)),
+    AppDrawerPlacement.left => BorderRadius.horizontal(
+      right: Radius.circular(r),
+    ),
+    AppDrawerPlacement.right => BorderRadius.horizontal(
+      left: Radius.circular(r),
+    ),
   };
 
   @override
@@ -94,7 +98,7 @@ class AppDrawer extends StatelessWidget {
                   title,
                   style: textTheme.geist18SemiBold.copyWith(
                     color: AppColors.textPrimary,
-                    fontFamily: hostGroteskFont
+                    fontFamily: hostGroteskFont,
                   ),
                 ),
               ),
@@ -178,19 +182,22 @@ class AppDrawer extends StatelessWidget {
       pageBuilder: (BuildContext context, _, __) {
         return Align(
           alignment: alignment,
-          child: Material(color: AppColors.transparent, child: builder(context)),
+          child: Material(
+            color: AppColors.transparent,
+            child: builder(context),
+          ),
         );
       },
       transitionBuilder:
           (BuildContext context, Animation<double> animation, _, Widget child) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: beginOffset,
-            end: Offset.zero,
-          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        );
-      },
+            return SlideTransition(
+              position: Tween<Offset>(begin: beginOffset, end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            );
+          },
     );
   }
 }

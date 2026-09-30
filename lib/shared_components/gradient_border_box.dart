@@ -51,7 +51,9 @@ class GradientBorderBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius - _borderWidth),
           color: AppColors.textFieldCardBackground,
         ),
-        child: padding != null ? Padding(padding: padding!, child: child) : child,
+        child: padding != null
+            ? Padding(padding: padding!, child: child)
+            : child,
       ),
     );
   }

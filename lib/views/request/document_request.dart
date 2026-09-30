@@ -10,41 +10,35 @@ import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/pickers/app_pickers.dart';
 import '../../shared_components/shared_components.dart';
 
-class ExpenseRequest extends StatefulWidget {
-  const ExpenseRequest({super.key});
+class DocumentRequest extends StatefulWidget {
+  const DocumentRequest({super.key});
 
   @override
-  State<ExpenseRequest> createState() => _ExpenseRequestState();
+  State<DocumentRequest> createState() => _DocumentRequestState();
 }
 
-class _ExpenseRequestState extends State<ExpenseRequest> {
+class _DocumentRequestState extends State<DocumentRequest> {
   final TextEditingController _referenceController = TextEditingController();
-  final TextEditingController _expenseIncurredController =
-      TextEditingController();
-  final TextEditingController _payFromCompanyController =
-      TextEditingController();
+  final TextEditingController _issuePlaceController = TextEditingController();
   final TextEditingController _remarksController = TextEditingController();
 
-  String? _expenseType;
-  String? _currency;
-  DateTime? _fromDate;
-  DateTime? _toDate;
+  String? _documentType;
+  DateTime? _issueDate;
+  DateTime? _expiryDate;
 
-  static const List<String> _expenseTypes = <String>[
-    'Food',
-    'Travel',
-    'Accommodation',
-    'Client Relation',
-    'Tickets and Passes',
-    'Miscellaneous',
+  static const List<String> _documentTypes = <String>[
+    'Passport',
+    'Visa',
+    'Driving License',
+    'National ID',
+    'Work Permit',
+    'Other',
   ];
-  static const List<String> _currencies = <String>['INR', 'USD', 'EUR', 'AED'];
 
   @override
   void dispose() {
     _referenceController.dispose();
-    _expenseIncurredController.dispose();
-    _payFromCompanyController.dispose();
+    _issuePlaceController.dispose();
     _remarksController.dispose();
     super.dispose();
   }
@@ -94,7 +88,7 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return AppGradientHeaderScaffold(
-      title: 'New Expense Request',
+      title: 'New Document Request',
       body: SafeArea(
         top: false,
         child: Column(
@@ -112,20 +106,20 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                         type: InputFieldGroupType.neutral,
                         children: <Widget>[
                           _SelectField(
-                            label: 'Expense Type',
+                            label: 'Document Type',
                             hint: 'Select',
-                            value: _expenseType,
+                            value: _documentType,
                             trailing: SvgPicture.asset(
                               AppAssets.down,
                               width: 8.w,
                               height: 4.h,
                             ),
                             onTap: () => _pickOption(
-                              title: 'Select Expense type',
-                              options: _expenseTypes,
-                              current: _expenseType,
+                              title: 'Select Document Type',
+                              options: _documentTypes,
+                              current: _documentType,
                               onSelected: (String v) =>
-                                  setState(() => _expenseType = v),
+                                  setState(() => _documentType = v),
                             ),
                           ),
                           AppTextField(
@@ -137,75 +131,50 @@ class _ExpenseRequestState extends State<ExpenseRequest> {
                             children: <Widget>[
                               Expanded(
                                 child: _SelectField(
-                                  label: 'From Date',
+                                  label: 'Issue Date',
                                   hint: 'Select',
-                                  value: _fromDate == null
+                                  value: _issueDate == null
                                       ? null
-                                      : _formatDate(_fromDate!),
+                                      : _formatDate(_issueDate!),
                                   trailing: SvgPicture.asset(
                                     AppAssets.calanderIcon,
                                     width: 16.w,
                                     height: 16.h,
                                   ),
                                   onTap: () => _pickDate(
-                                    title: 'Select From Date',
-                                    current: _fromDate,
+                                    title: 'Select Issue Date',
+                                    current: _issueDate,
                                     onSelected: (DateTime d) =>
-                                        setState(() => _fromDate = d),
+                                        setState(() => _issueDate = d),
                                   ),
                                 ),
                               ),
                               Expanded(
                                 child: _SelectField(
-                                  label: 'To Date',
+                                  label: 'Expiry Date',
                                   hint: 'Select',
-                                  value: _toDate == null
+                                  value: _expiryDate == null
                                       ? null
-                                      : _formatDate(_toDate!),
+                                      : _formatDate(_expiryDate!),
                                   trailing: SvgPicture.asset(
                                     AppAssets.calanderIcon,
                                     width: 16.w,
                                     height: 16.h,
                                   ),
                                   onTap: () => _pickDate(
-                                    title: 'Select To Date',
-                                    current: _toDate,
+                                    title: 'Select Expiry Date',
+                                    current: _expiryDate,
                                     onSelected: (DateTime d) =>
-                                        setState(() => _toDate = d),
+                                        setState(() => _expiryDate = d),
                                   ),
                                 ),
                               ),
                             ],
                           ),
                           AppTextField(
-                            label: 'Expense Incurred',
-                            hint: 'Enter Expense Incurred',
-                            controller: _expenseIncurredController,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                          ),
-                          AppTextField(
-                            label: 'Pay From Company',
-                            hint: 'Enter Pay from Company',
-                            controller: _payFromCompanyController,
-                          ),
-                          _SelectField(
-                            label: 'Expense Currency',
-                            hint: 'Select',
-                            value: _currency,
-                            trailing: SvgPicture.asset(
-                              AppAssets.down,
-                              width: 8.w,
-                              height: 4.h,
-                            ),
-                            onTap: () => _pickOption(
-                              title: 'Select Currency',
-                              options: _currencies,
-                              current: _currency,
-                              onSelected: (String v) =>
-                                  setState(() => _currency = v),
-                            ),
+                            label: 'Issue Place',
+                            hint: 'Enter Issue Place',
+                            controller: _issuePlaceController,
                           ),
                           AppTextField(
                             label: 'Remarks',
