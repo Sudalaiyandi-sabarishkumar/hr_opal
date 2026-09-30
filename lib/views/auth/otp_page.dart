@@ -25,6 +25,7 @@ class OtpPage extends StatefulWidget {
     this.resendSeconds = 60,
     this.onVerify,
     this.onResend,
+    this.successRoute = 'resetPassword',
   });
 
   final String maskedMobileNumber;
@@ -33,6 +34,7 @@ class OtpPage extends StatefulWidget {
   final int resendSeconds;
   final OtpVerificationCallback? onVerify;
   final VoidCallback? onResend;
+  final String successRoute;
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -64,7 +66,7 @@ class _OtpPageState extends State<OtpPage> {
         status: AppToastStatus.danger,
       );
     } else {
-      GoRouterInit.router.goNamed(RouteConstants.resetPasswordPage);
+      GoRouterInit.router.goNamed(widget.successRoute);
     }
   }
 

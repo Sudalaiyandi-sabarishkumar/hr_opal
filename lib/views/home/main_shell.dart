@@ -7,12 +7,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
+import '../leaves/my_leaves_page.dart';
 import '../more_options/announcements_page.dart';
 import '../more_options/holiday_calender_page.dart';
 import '../payroll/payroll_screen.dart';
 import '../policies/policies.dart';
 import '../request/request_screen.dart';
 import 'dummy_pages.dart';
+import 'home_screen.dart';
 
 class _TabItem {
   const _TabItem(this.label, this.asset, this.selectedAsset);
@@ -51,7 +53,7 @@ class _MainShellState extends State<MainShell> {
       AppAssets.holidayCalendar,
       (_) => const HolidayCalenderPage(),
     ),
-    _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const RequestPage()),
+    _MenuItem('My Leaves', AppAssets.myLeaves, (_) => const MyLeavesPage()),
     _MenuItem(
       'Announcements',
       AppAssets.announcements,
@@ -60,7 +62,7 @@ class _MainShellState extends State<MainShell> {
   ];
 
   static const List<Widget> _pages = <Widget>[
-    HomePage(),
+    HomeScreen(),
     AttendancePage(),
     PayrollPage(),
   ];

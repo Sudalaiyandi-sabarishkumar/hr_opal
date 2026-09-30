@@ -23,6 +23,11 @@ class _SignInPageState extends State<SignInPage> {
   final List<String> tabLabels = <String>['Email ID', 'Mobile Number'];
   int _segmentedIndex = 0;
   bool? _checkboxValue = false;
+  bool _credentialError = false;
+
+  static const String _tempEmail = 'admin@example.com';
+  static const String _tempPassword = 'Password@123';
+  static const String _tempOtp = '123456';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -56,15 +61,13 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   void _onFieldChanged() {
-    setState(() {});
+    setState(() => _credentialError = false);
   }
 
   bool get _canSignIn {
     if (_segmentedIndex == 0) {
-      return FormValidationHelper.emailValidator(_emailController.text) ==
-              null &&
-          FormValidationHelper.passwordValidator(_passwordController.text) ==
-              null;
+      return _emailController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty;
     }
     return FormValidationHelper.phoneValidator(_mobileController.text) == null;
   }
@@ -75,30 +78,20 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
     if (_segmentedIndex == 0) {
-      if (_segmentedIndex == 0) {
-        //  AppDrawers.show<void>(
-        //       context: context,
-        //       placement: AppDrawerPlacement.bottom,
-        //       builder: (BuildContext context) => Directionality(
-        //         textDirection: TextDirection.ltr,
-        //         child: AppDrawers(
-        //           placement: AppDrawerPlacement.bottom,
-        //          title: '3 attempts remaining',
-        //   body: 'You have 3 password attempts remaining before your account '
-        //       'is temporarily locked. Please ensure you enter the correct password.',
-
-        //           icon: AppAssets.alertImage,
-        //           onCancel: () => Navigator.of(context).pop(),
-        //           onClose: () => Navigator.of(context).pop(),
-        //         ),
-        //       ),
-        //     );
+      if (_emailController.text != _tempEmail ||
+          _passwordController.text != _tempPassword) {
+        setState(() => _credentialError = true);
+        _formKey.currentState?.validate();
+        return;
       }
+      context.goNamed(RouteConstants.mainShellPage);
     } else if (_segmentedIndex == 1) {
       context.goNamed(
         RouteConstants.otpPage,
-        extra: {
+        extra: <String, dynamic>{
           'maskedMobileNumber': _maskMobileNumber(_mobileController.text),
+          'on_verify': (String pin) => pin == _tempOtp,
+          'success_route': RouteConstants.mainShellPage,
         },
       );
     }
@@ -179,10 +172,14 @@ class _SignInPageState extends State<SignInPage> {
                                 hint: 'Enter Password',
                                 controller: _passwordController,
                                 isPassword: true,
-                                validator: (String? value) =>
-                                    FormValidationHelper.passwordValidator(
-                                      value,
-                                    ),
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'This field is mandatory';
+                                  }
+                                  return _credentialError
+                                      ? 'Incorrect email address and/or password'
+                                      : null;
+                                },
                               ),
                             ],
                           )

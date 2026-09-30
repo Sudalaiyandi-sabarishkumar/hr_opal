@@ -124,6 +124,10 @@ class AppAssets {
       'assets/icons/home/money_add.svg';
  
   static const String payrollPdf = 'assets/icons/home/pdf.svg';
+  static const String homeMenu = 'assets/icons/home/menu-01.svg';
+  static const String policy = 'assets/icons/home/policy.svg';
+  static const String messageAdd = 'assets/icons/home/message-add.svg';
+  static const String coinDollar = 'assets/icons/home/coins_dollar.svg';
   static const String payrollDownload = 'assets/icons/home/download.svg';
   static const String payrollUpload = 'assets/icons/home/upload.svg';
   static const String payrollChevronRight ='assets/icons/home/go.svg';

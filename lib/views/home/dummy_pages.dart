@@ -46,9 +46,4 @@ class AttendancePage extends StatelessWidget {
 
 
 // Menu (speed-dial) pages
-class MyLeavesPage extends StatelessWidget {
-  const MyLeavesPage({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _DummyPage(title: 'My Leaves', showBack: true);
-}
+

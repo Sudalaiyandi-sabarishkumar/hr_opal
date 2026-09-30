@@ -88,7 +88,9 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(height: 16.h),
                     Padding(
                       padding: EdgeInsets.only(left: 12.w),
-                      child: _LogoutRow(onTap: () {}),
+                      child: _LogoutRow(onTap: () {
+                        context.goNamed(RouteConstants.signInPage);
+                      }),
                     ),
                     SizedBox(height: 32.h),
                   ],

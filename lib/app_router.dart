@@ -14,12 +14,15 @@ import 'views/auth/reset_password.dart';
 import 'views/auth/sign_in_page.dart';
 import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
+import 'views/home/main_shell.dart';
+import 'views/leaves/my_leaves_page.dart';
 import 'views/loader/app_loader.dart';
 import 'views/more_options/announcements_page.dart';
 import 'views/more_options/holiday_calender_page.dart';
-import 'views/payroll/expense_request.dart';
+import 'views/request/expense_request.dart';
 import 'views/payroll/pay_breakdown_page.dart';
 import 'views/payroll/pay_slips_page.dart';
+import 'views/policies/policies.dart';
 import 'views/profile/amendments.dart';
 import 'views/profile/assets.dart';
 import 'views/profile/document.dart';
@@ -31,7 +34,17 @@ import 'views/profile/profile_page.dart';
 import 'views/profile/qualifications_page.dart';
 import 'views/profile/request_history.dart';
 import 'views/profile/timeline_page.dart';
+import 'views/request/asset_request.dart';
+import 'views/request/attendance_regularization_request.dart';
+import 'views/request/document_request.dart';
+import 'views/request/encashment_request.dart';
+import 'views/request/letter_request.dart';
+import 'views/request/loan_request.dart';
+import 'views/request/passport_request.dart';
 import 'views/request/request_screen.dart';
+import 'views/request/tax_request.dart';
+import 'views/request/travel_request.dart';
+import 'views/request/travel_settlement_request.dart';
 
 class FirebaseUtils {
   static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
@@ -48,6 +61,7 @@ class RouteConstants {
   static String changePasswordPage = 'changePassword';
   static String loginPage = 'login';
   static String homePage = 'home';
+  static String mainShellPage = 'mainShell';
   static String designPage = 'design';
   static String profilePage = 'profile';
   static String myteamPage = 'myteam';
@@ -66,6 +80,18 @@ class RouteConstants {
   static String holidayCalanderPage = 'holidayCalander';
   static String announcementsPage = 'announcements';
   static String requestPage = 'requests';
+  static String loanRequestPage = 'loanRequest';
+  static String assetRequestPage = 'assetRequest';
+  static String letterRequestPage = 'letterRequest';
+  static String travelRequestPage = 'travelRequest';
+  static String travelSettlementRequestPage = 'travelSettlementRequest';
+  static String documentRequestPage = 'documentRequest';
+  static String passportRequestPage = 'passportRequest';
+  static String encashmentRequestPage = 'encashmentRequest';
+  static String taxRequestPage = 'taxRequest';
+  static String attendanceRegularizationPage = 'attendanceRegularization';
+  static String myLeavesPage = 'myLeaves';
+  static String hrPoliciesPage = 'hrPolicies';
 }
 
 class GoRouterInit {
@@ -136,6 +162,9 @@ class GoRouterInit {
               maskedMobileNumber:
                   (data['maskedMobileNumber'] as String?) ?? '966*******56',
               onVerify: data['on_verify'] as OtpVerificationCallback?,
+              successRoute:
+                  (data['success_route'] as String?) ??
+                  RouteConstants.resetPasswordPage,
             ),
           );
         },
@@ -157,6 +186,12 @@ class GoRouterInit {
         name: RouteConstants.changePasswordPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<ChangePasswordPage>(child: ChangePasswordPage()),
+      ),
+      GoRoute(
+        path: '/main',
+        name: RouteConstants.mainShellPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<MainShell>(child: MainShell()),
       ),
       GoRoute(
         path: '/home',
@@ -234,11 +269,87 @@ class GoRouterInit {
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<DesignPage>(child: DesignPage()),
       ),
-       GoRoute(
+      GoRoute(
         path: '/requests',
         name: RouteConstants.requestPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<RequestPage>(child: RequestPage()),
+      ),
+      GoRoute(
+        path: '/loanRequest',
+        name: RouteConstants.loanRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<LoanRequest>(child: LoanRequest()),
+      ),
+      GoRoute(
+        path: '/assetRequest',
+        name: RouteConstants.assetRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<AssetRequest>(child: AssetRequest()),
+      ),
+      GoRoute(
+        path: '/letterRequest',
+        name: RouteConstants.letterRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<LetterRequest>(child: LetterRequest()),
+      ),
+      GoRoute(
+        path: '/travelRequest',
+        name: RouteConstants.travelRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<TravelRequest>(child: TravelRequest()),
+      ),
+      GoRoute(
+        path: '/travelSettlementRequest',
+        name: RouteConstants.travelSettlementRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<TravelSettlementRequest>(
+              child: TravelSettlementRequest(),
+            ),
+      ),
+      GoRoute(
+        path: '/documentRequest',
+        name: RouteConstants.documentRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<DocumentRequest>(child: DocumentRequest()),
+      ),
+      GoRoute(
+        path: '/passportRequest',
+        name: RouteConstants.passportRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<PassportRequest>(child: PassportRequest()),
+      ),
+      GoRoute(
+        path: '/encashmentRequest',
+        name: RouteConstants.encashmentRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<EncashmentRequest>(child: EncashmentRequest()),
+      ),
+      GoRoute(
+        path: '/taxRequest',
+        name: RouteConstants.taxRequestPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<TaxRequest>(child: TaxRequest()),
+      ),
+      GoRoute(
+        path: '/attendanceRegularization',
+        name: RouteConstants.attendanceRegularizationPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<AttendanceRegularizationRequest>(
+              child: AttendanceRegularizationRequest(),
+            ),
+      ),
+      GoRoute(
+        path: '/myLeaves',
+        name: RouteConstants.myLeavesPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<MyLeavesPage>(child: MyLeavesPage()),
+      ),
+      GoRoute(
+        path: '/hrPolicies',
+        name: RouteConstants.hrPoliciesPage,
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            const MaterialPage<HrPoliciesPage>(child: HrPoliciesPage()),
       ),
       GoRoute(
         path: '/expenseRequest',
@@ -262,7 +373,9 @@ class GoRouterInit {
         path: '/holidayCalander',
         name: RouteConstants.holidayCalanderPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
-            const MaterialPage<HolidayCalenderPage>(child: HolidayCalenderPage()),
+            const MaterialPage<HolidayCalenderPage>(
+              child: HolidayCalenderPage(),
+            ),
       ),
       GoRoute(
         path: '/announcements',

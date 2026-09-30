@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_router.dart';
 import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/input_field/app_text_field.dart';
 import '../../shared_components/shared_components.dart';
-import '../payroll/expense_request.dart';
-import 'asset_request.dart';
-import 'attendance_regularization_request.dart';
-import 'document_request.dart';
-import 'encashment_request.dart';
-import 'letter_request.dart';
-import 'loan_request.dart';
-import 'passport_request.dart';
-import 'tax_request.dart';
-import 'travel_request.dart';
-import 'travel_settlement_request.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({super.key});
@@ -36,58 +27,8 @@ class _RequestPageState extends State<RequestPage> {
   static const Color _loanBg = Color(0xFFDDF5D8);
   static const Color _othersBg = Color(0xFFE8ECF7);
 
-  void _onTap(String label) {
-    switch (label) {
-      case 'New Loan':
-        Navigator.of(context)
-            .push(MaterialPageRoute<void>(builder: (_) => const LoanRequest()));
-      case 'Expense':
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute<void>(builder: (_) => const ExpenseRequest()));
-      case 'Assets':
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute<void>(builder: (_) => const AssetRequest()));
-      case 'Letter':
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute<void>(builder: (_) => const LetterRequest()));
-      case 'New Travel':
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute<void>(builder: (_) => const TravelRequest()));
-      case 'Settlement':
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) => const TravelSettlementRequest(),
-          ),
-        );
-      case 'Document':
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (_) => const DocumentRequest()),
-        );
-
-      case 'Passport':
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (_) => const PassportRequest()),
-        );
-      case 'Encashment':
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(builder: (_) => const EncashmentRequest()),
-        );
-      case 'Tax':
-        Navigator.of(context)
-            .push(MaterialPageRoute<void>(builder: (_) => const TaxRequest()));
-      case 'Regularization':
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (_) => const AttendanceRegularizationRequest(),
-          ),
-        );
-      default:
-        debugPrint('Request tapped: $label');
-    }
+  void _go(String routeName) {
+    context.pushNamed(routeName);
   }
 
   @override
@@ -105,21 +46,32 @@ class _RequestPageState extends State<RequestPage> {
                 title: 'LEAVE & ATTENDANCE',
                 columns: _columns,
                 bgColor: _leaveBg,
-                onTap: _onTap,
-                items: const <_RequestItemData>[
-                  _RequestItemData('New Leave', AppAssets.requestBeach),
+                items: <_RequestItemData>[
+                  _RequestItemData(
+                    'New Leave',
+                    AppAssets.requestBeach,
+                    onTap: () => _go(RouteConstants.myLeavesPage),
+                  ),
                   _RequestItemData(
                     'Resumption',
                     AppAssets.requestCalendarCheckIn,
+                    onTap: () {},
                   ),
                   _RequestItemData(
                     'Cancellation',
                     AppAssets.requestCalendarBlock,
+                    onTap: () {},
                   ),
-                  _RequestItemData('Regularization', AppAssets.requestMoveTo),
+                  _RequestItemData(
+                    'Regularization',
+                    AppAssets.requestMoveTo,
+                    onTap: () =>
+                        _go(RouteConstants.attendanceRegularizationPage),
+                  ),
                   _RequestItemData(
                     'Encashment',
                     AppAssets.requestMoneySendFlow,
+                    onTap: () => _go(RouteConstants.encashmentRequestPage),
                   ),
                 ],
               ),
@@ -128,11 +80,23 @@ class _RequestPageState extends State<RequestPage> {
                 title: 'TRAVEL & EXPENSE',
                 columns: _columns,
                 bgColor: _travelBg,
-                onTap: _onTap,
-                items: const <_RequestItemData>[
-                  _RequestItemData('New Travel', AppAssets.requestAirplane),
-                  _RequestItemData('Settlement', AppAssets.requestMoneyReceive),
-                  _RequestItemData('Expense', AppAssets.requestInvoice),
+                items: <_RequestItemData>[
+                  _RequestItemData(
+                    'New Travel',
+                    AppAssets.requestAirplane,
+                    onTap: () => _go(RouteConstants.travelRequestPage),
+                  ),
+                  _RequestItemData(
+                    'Settlement',
+                    AppAssets.requestMoneyReceive,
+                    onTap: () =>
+                        _go(RouteConstants.travelSettlementRequestPage),
+                  ),
+                  _RequestItemData(
+                    'Expense',
+                    AppAssets.requestInvoice,
+                    onTap: () => _go(RouteConstants.expenseRequest),
+                  ),
                 ],
               ),
               SizedBox(height: 28.h),
@@ -140,19 +104,32 @@ class _RequestPageState extends State<RequestPage> {
                 title: 'LOAN & DOCUMENTS',
                 columns: _columns,
                 bgColor: _loanBg,
-                onTap: _onTap,
-                items: const <_RequestItemData>[
-                  _RequestItemData('New Loan', AppAssets.requestZakat),
+                items: <_RequestItemData>[
+                  _RequestItemData(
+                    'New Loan',
+                    AppAssets.requestZakat,
+                    onTap: () => _go(RouteConstants.loanRequestPage),
+                  ),
                   _RequestItemData(
                     'Adjustment',
                     AppAssets.requestFilterVertical,
+                    onTap: () {},
                   ),
                   _RequestItemData(
                     'Document',
                     AppAssets.requestDocumentAttachment,
+                    onTap: () => _go(RouteConstants.documentRequestPage),
                   ),
-                  _RequestItemData('Passport', AppAssets.requestStudentCard),
-                  _RequestItemData('Letter', AppAssets.requestMailOpen),
+                  _RequestItemData(
+                    'Passport',
+                    AppAssets.requestStudentCard,
+                    onTap: () => _go(RouteConstants.passportRequestPage),
+                  ),
+                  _RequestItemData(
+                    'Letter',
+                    AppAssets.requestMailOpen,
+                    onTap: () => _go(RouteConstants.letterRequestPage),
+                  ),
                 ],
               ),
               SizedBox(height: 28.h),
@@ -160,11 +137,22 @@ class _RequestPageState extends State<RequestPage> {
                 title: 'OTHERS',
                 columns: _columns,
                 bgColor: _othersBg,
-                onTap: _onTap,
-                items: const <_RequestItemData>[
-                  _RequestItemData('Assets', AppAssets.requestLaptop),
-                  _RequestItemData('Tax', AppAssets.requestMoneySecurity),
-                  _RequestItemData('Separation', AppAssets.requestLogout),
+                items: <_RequestItemData>[
+                  _RequestItemData(
+                    'Assets',
+                    AppAssets.requestLaptop,
+                    onTap: () => _go(RouteConstants.assetRequestPage),
+                  ),
+                  _RequestItemData(
+                    'Tax',
+                    AppAssets.requestMoneySecurity,
+                    onTap: () => _go(RouteConstants.taxRequestPage),
+                  ),
+                  _RequestItemData(
+                    'Separation',
+                    AppAssets.requestLogout,
+                    onTap: () {},
+                  ),
                 ],
               ),
             ],
@@ -176,10 +164,11 @@ class _RequestPageState extends State<RequestPage> {
 }
 
 class _RequestItemData {
-  const _RequestItemData(this.label, this.asset);
+  const _RequestItemData(this.label, this.asset, {required this.onTap});
 
   final String label;
   final String asset;
+  final VoidCallback onTap;
 }
 
 class _RequestSection extends StatelessWidget {
@@ -188,14 +177,12 @@ class _RequestSection extends StatelessWidget {
     required this.items,
     required this.columns,
     required this.bgColor,
-    required this.onTap,
   });
 
   final String title;
   final List<_RequestItemData> items;
   final int columns;
   final Color bgColor;
-  final ValueChanged<String> onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +198,7 @@ class _RequestSection extends StatelessWidget {
                 ? _RequestTile(
                     data: items[j],
                     bgColor: bgColor,
-                    onTap: () => onTap(items[j].label),
+                    onTap: items[j].onTap,
                   )
                 : const SizedBox.shrink(),
           ),

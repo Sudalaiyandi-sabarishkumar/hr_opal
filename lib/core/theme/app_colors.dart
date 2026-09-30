@@ -211,11 +211,9 @@ class AppColors {
   static const Color lightYellow = Color(0xFFF3F1EC);
   static const Color bonusIconbg = Color(0xFFDDD3F5);
   static const Color borderbg = Color(0xFFCAD2E9);
-   static const Color white2 = Color(0x80FFFFFF);
-      static const Color white3 =Color(0x14FFFFFF);
-  
+  static const Color white2 = Color(0x80FFFFFF);
+  static const Color white3 = Color(0x14FFFFFF);
 
-  
   static const Color calanderBgPurple = Color(0xFFDDD3F5);
   static const Color calanderBgGreen = Color(0xFFB8F1B9);
   static const Color calanderBgYellow = Color(0xFFFEF3C7);
@@ -228,4 +226,14 @@ class AppColors {
   static const Color calanderTextBlue = Color(0xFF1D4ED8);
   static const Color bg2Blue = Color(0xFFEFF6FF);
   static const Color darkPurple2 = Color(0xFF412C76);
+  static const Color leaveGeneralBg = Color(0xFFDCD5F2);
+  static const Color leaveGeneralFg = Color(0xFF3B2E6B);
+  static const Color leaveSickBg = Color(0xFFF9E58F);
+  static const Color leaveSickFg = Color(0xFF7A4A0A);
+  static const Color leaveCasualBg = Color(0xFFDBEAFE);
+  static const Color leaveCasualFg = Color(0xFF1E40AF);
+  static const Color leaveVacationBg = Color(0xFFC5F0C5);
+  static const Color leaveVacationFg = Color(0xFF14612A);
+  static const Color leaveIdBadgeBg = Color(0xFFEBEDF5);
+  static const Color sickLeaveBg = Color(0xFFFDE68A);
 }
