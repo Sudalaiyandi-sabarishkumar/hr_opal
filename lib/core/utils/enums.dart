@@ -24,7 +24,16 @@ enum AppTooltipSurface { light, dark }
 
 enum AppAvatarSize { small, medium, large }
 
-enum AppButtonVariant { primary, secondary, dark, light, subtle, outline, neutral }
+enum AppButtonVariant {
+  primary,
+  secondary,
+  dark,
+  light,
+  subtle,
+  outline,
+  neutral,
+  muted,
+}
 
 enum AppButtonSize { large, medium, small }
 

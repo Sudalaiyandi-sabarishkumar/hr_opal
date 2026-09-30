@@ -7,7 +7,7 @@ import '../../core/utils/utils.dart';
 import '../home/home_page.dart';
 import '../home/main_shell.dart';
 import '../loader/app_loader.dart';
-
+import 'landing_page.dart';
 
 class InitPage extends StatefulWidget {
   const InitPage({super.key});
@@ -31,26 +31,29 @@ class _InitPageState extends State<InitPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
-        builder: (BuildContext context, AppState state) {
+      builder: (BuildContext context, AppState state) {
         return BlocBuilder<AuthBloc, AuthState>(
-            buildWhen: (AuthState previous, AuthState current) => current is CheckForPreferenceSuccess,
-            builder: (BuildContext context, AuthState state) {
-              switch(state.runtimeType){
-                case const (AuthLoading):
-                  return const AppLoader();
-                case const (CheckForPreferenceSuccess):
-                  final CheckForPreferenceSuccess currentState = state as CheckForPreferenceSuccess;
-                  appBloc.add(SaveCurrentUser(user: currentState.user));
-                  if(Utils.nullOrEmpty(currentState.user?.firstname)){
-                    return const MainShell();
-                }else{
-                    return const HomePage();
-                  }
-                default:
-                  return const AppLoader();
-              }
-            });
-      }
+          buildWhen: (AuthState previous, AuthState current) =>
+              current is CheckForPreferenceSuccess,
+          builder: (BuildContext context, AuthState state) {
+            switch (state.runtimeType) {
+              case const (AuthLoading):
+                return const AppLoader();
+              case const (CheckForPreferenceSuccess):
+                final CheckForPreferenceSuccess currentState =
+                    state as CheckForPreferenceSuccess;
+                appBloc.add(SaveCurrentUser(user: currentState.user));
+                if (Utils.nullOrEmpty(currentState.user?.firstname)) {
+                  return const LandingPage();
+                } else {
+                  return const HomePage();
+                }
+              default:
+                return const AppLoader();
+            }
+          },
+        );
+      },
     );
   }
 }

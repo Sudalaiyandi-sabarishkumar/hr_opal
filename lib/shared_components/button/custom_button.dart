@@ -57,6 +57,7 @@ class _CustomButtonState extends State<CustomButton> {
     AppButtonVariant.subtle => false,
     AppButtonVariant.outline => false,
     AppButtonVariant.neutral => false,
+    AppButtonVariant.muted => false,
   };
 
   Color get _baseColor => switch (widget.variant) {
@@ -67,10 +68,12 @@ class _CustomButtonState extends State<CustomButton> {
     AppButtonVariant.subtle => AppColors.neutral50,
     AppButtonVariant.outline => AppColors.white,
     AppButtonVariant.neutral => AppColors.statusSoftBg,
+    AppButtonVariant.muted => AppColors.neutral50,
   };
 
   Color get _pressedFillColor => switch (widget.variant) {
     AppButtonVariant.neutral => AppColors.neutral200,
+    AppButtonVariant.muted => AppColors.neutral50,
     _ => AppColors.statusSoftBg,
   };
 
@@ -84,6 +87,7 @@ class _CustomButtonState extends State<CustomButton> {
         AppButtonVariant.subtle => AppColors.textPrimary,
         AppButtonVariant.outline => AppColors.textPrimary,
         AppButtonVariant.neutral => AppColors.textPrimary,
+        AppButtonVariant.muted => AppColors.disabledText,
       };
 
   Border? get _border => widget.variant == AppButtonVariant.outline
@@ -211,7 +215,9 @@ class _CustomButtonState extends State<CustomButton> {
           );
 
     return Opacity(
-      opacity: widget.isDisabled ? 0.4 : 1,
+      opacity: widget.isDisabled && widget.variant != AppButtonVariant.muted
+          ? 0.4
+          : 1,
       child: GestureDetector(
         onTapDown: interactive ? (_) => setState(() => _pressed = true) : null,
         onTapCancel: interactive

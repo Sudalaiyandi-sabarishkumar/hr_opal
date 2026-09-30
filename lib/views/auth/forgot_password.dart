@@ -23,25 +23,39 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final TextEditingController _emailController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(_onEmailChanged);
+  }
+
+  void _onEmailChanged() {
+    setState(() {});
+  }
+
+  bool get _canSend =>
+      FormValidationHelper.emailValidator(_emailController.text) == null;
+
+  @override
   void dispose() {
+    _emailController.removeListener(_onEmailChanged);
     _emailController.dispose();
     super.dispose();
   }
 
- void _onSignInTap() {
-  final bool isValid = _formKey.currentState?.validate() ?? false;
-  if (!isValid) {
-    return;
-  }
+  void _onSignInTap() {
+    final bool isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) {
+      return;
+    }
 
-  context.goNamed(
-    RouteConstants.otpPage,
-    extra: <String, dynamic>{
-      'email': _emailController.text,
-      'on_verify': (String pin) => pin == '123456',
-    },
-  );
-}
+    context.goNamed(
+      RouteConstants.otpPage,
+      extra: <String, dynamic>{
+        'email': _emailController.text,
+        'on_verify': (String pin) => pin == '123456',
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +159,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         textStyle: textTheme.geist14Regular,
                         buttonName: 'Send OTP',
                         size: AppButtonSize.large,
-                        variant: AppButtonVariant.secondary,
+                        isDisabled: !_canSend,
+                        variant: _canSend
+                            ? AppButtonVariant.secondary
+                            : AppButtonVariant.muted,
                         borderRadius: 60.r,
                         height: 56.h,
                         onTap: _onSignInTap,

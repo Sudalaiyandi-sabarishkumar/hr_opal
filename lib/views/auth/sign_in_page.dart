@@ -47,6 +47,28 @@ class _SignInPageState extends State<SignInPage> {
     return '$start$masked$end';
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(_onFieldChanged);
+    _passwordController.addListener(_onFieldChanged);
+    _mobileController.addListener(_onFieldChanged);
+  }
+
+  void _onFieldChanged() {
+    setState(() {});
+  }
+
+  bool get _canSignIn {
+    if (_segmentedIndex == 0) {
+      return FormValidationHelper.emailValidator(_emailController.text) ==
+              null &&
+          FormValidationHelper.passwordValidator(_passwordController.text) ==
+              null;
+    }
+    return FormValidationHelper.phoneValidator(_mobileController.text) == null;
+  }
+
   void _onSignInTap() {
     final bool isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) {
@@ -54,36 +76,37 @@ class _SignInPageState extends State<SignInPage> {
     }
     if (_segmentedIndex == 0) {
       if (_segmentedIndex == 0) {
-//  AppDrawers.show<void>(
-//       context: context,
-//       placement: AppDrawerPlacement.bottom,
-//       builder: (BuildContext context) => Directionality(
-//         textDirection: TextDirection.ltr,
-//         child: AppDrawers(
-//           placement: AppDrawerPlacement.bottom,
-//          title: '3 attempts remaining',
-//   body: 'You have 3 password attempts remaining before your account '
-//       'is temporarily locked. Please ensure you enter the correct password.',
-          
-          
-//           icon: AppAssets.alertImage,
-//           onCancel: () => Navigator.of(context).pop(),
-//           onClose: () => Navigator.of(context).pop(),
-//         ),
-//       ),
-//     );
-}
+        //  AppDrawers.show<void>(
+        //       context: context,
+        //       placement: AppDrawerPlacement.bottom,
+        //       builder: (BuildContext context) => Directionality(
+        //         textDirection: TextDirection.ltr,
+        //         child: AppDrawers(
+        //           placement: AppDrawerPlacement.bottom,
+        //          title: '3 attempts remaining',
+        //   body: 'You have 3 password attempts remaining before your account '
+        //       'is temporarily locked. Please ensure you enter the correct password.',
+
+        //           icon: AppAssets.alertImage,
+        //           onCancel: () => Navigator.of(context).pop(),
+        //           onClose: () => Navigator.of(context).pop(),
+        //         ),
+        //       ),
+        //     );
+      }
+    } else if (_segmentedIndex == 1) {
+      context.goNamed(
+        RouteConstants.otpPage,
+        extra: {
+          'maskedMobileNumber': _maskMobileNumber(_mobileController.text),
+        },
+      );
     }
-    else if (_segmentedIndex == 1) {
-     
-        context.goNamed(
-      RouteConstants.otpPage,
-       extra: {
-    'maskedMobileNumber': _maskMobileNumber(_mobileController.text),
-       }
-    );
   }
-  }
+
+  void _onTermsTap() {}
+
+  void _onPrivacyTap() {}
 
   @override
   Widget build(BuildContext context) {
@@ -92,18 +115,16 @@ class _SignInPageState extends State<SignInPage> {
 
     return Background(
       child: Scaffold(
-    
         resizeToAvoidBottomInset: true,
         backgroundColor: AppColors.transparent,
         body: SafeArea(
           child: Form(
             key: _formKey,
-            
+
             child: SingleChildScrollView(
-              
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-  
-              padding: EdgeInsets.only(bottom: 100.h),
+
+              padding: EdgeInsets.only(bottom: 140.h),
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 59.h),
@@ -125,7 +146,9 @@ class _SignInPageState extends State<SignInPage> {
                   Text(
                     'Enter your credentials to access your account',
                     textAlign: TextAlign.center,
-                    style: textTheme.geist12Regular.copyWith(color: AppColors.white),
+                    style: textTheme.geist12Regular.copyWith(
+                      color: AppColors.white,
+                    ),
                   ),
                   SizedBox(height: 24.h),
                   AppSegmentedTabs(
@@ -140,7 +163,8 @@ class _SignInPageState extends State<SignInPage> {
                         ? InputFieldGroup(
                             children: <Widget>[
                               AppTextField(
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 label: 'Email ID',
                                 hint: 'Enter your mail ID',
                                 controller: _emailController,
@@ -149,13 +173,16 @@ class _SignInPageState extends State<SignInPage> {
                                     FormValidationHelper.emailValidator(value),
                               ),
                               AppTextField(
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 label: 'Password',
                                 hint: 'Enter Password',
                                 controller: _passwordController,
                                 isPassword: true,
                                 validator: (String? value) =>
-                                    FormValidationHelper.passwordValidator(value),
+                                    FormValidationHelper.passwordValidator(
+                                      value,
+                                    ),
                               ),
                             ],
                           )
@@ -168,7 +195,7 @@ class _SignInPageState extends State<SignInPage> {
                                 numericOnly: true,
                                 maxLength: 10,
                                 keyboardType: TextInputType.phone,
-                                
+
                                 validator: (String? value) =>
                                     FormValidationHelper.phoneValidator(value),
                               ),
@@ -182,27 +209,36 @@ class _SignInPageState extends State<SignInPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
-  behavior: HitTestBehavior.opaque,
-  onTap: () => setState(() => _checkboxValue = !(_checkboxValue ?? false)),
-  child: Row(
-    children: <Widget>[
-      AppCheckbox(
-        value: _checkboxValue,
-        onChanged: (bool? v) => setState(() => _checkboxValue = v),
-      ),
-      SizedBox(width: 3.w),
-      Text(
-        'Remember me for 30 days',
-        style: textTheme.geist12Regular.copyWith(color: AppColors.statusNeutralText),
-      ),
-    ],
-  ),
-),
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => setState(
+                            () => _checkboxValue = !(_checkboxValue ?? false),
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              AppCheckbox(
+                                value: _checkboxValue,
+                                onChanged: (bool? v) =>
+                                    setState(() => _checkboxValue = v),
+                              ),
+                              SizedBox(width: 3.w),
+                              Text(
+                                'Remember me for 30 days',
+                                style: textTheme.geist12Regular.copyWith(
+                                  color: AppColors.statusNeutralText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         GestureDetector(
-                          onTap: () => context.pushNamed(RouteConstants.forgotPasswordPage),
+                          onTap: () => context.pushNamed(
+                            RouteConstants.forgotPasswordPage,
+                          ),
                           child: Text(
                             'Forgot password?',
-                            style: textTheme.geist12Regular.copyWith(color: AppColors.toastMessage),
+                            style: textTheme.geist12Regular.copyWith(
+                              color: AppColors.toastMessage,
+                            ),
                           ),
                         ),
                       ],
@@ -213,31 +249,76 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
         ),
-      floatingActionButton: AnimatedSlide(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-        offset: isKeyboardOpen ? const Offset(0, 1.2) : Offset.zero,
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 150),
-          opacity: isKeyboardOpen ? 0 : 1,
-          child: IgnorePointer(
-            ignoring: isKeyboardOpen,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
-              child: CustomButton(
-                textStyle: textTheme.geist14Regular,
-                buttonName: 'Sign In',
-                size: AppButtonSize.large,
-                variant: AppButtonVariant.secondary,
-                borderRadius: 60.r,
-                height: 56.h,
-                onTap: _onSignInTap,
+        bottomNavigationBar: SafeArea(
+          child: AnimatedSlide(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+            offset: isKeyboardOpen ? const Offset(0, 1.2) : Offset.zero,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 150),
+              opacity: isKeyboardOpen ? 0 : 1,
+              child: IgnorePointer(
+                ignoring: isKeyboardOpen,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 5.h),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      CustomButton(
+                        textStyle: textTheme.geist14Regular,
+                        buttonName: 'Sign In',
+                        size: AppButtonSize.large,
+                        variant: AppButtonVariant.secondary,
+                        // isDisabled: !_canSignIn,
+                        // variant: _canSignIn
+                        //     ? AppButtonVariant.secondary
+                        //     : AppButtonVariant.muted,
+                        borderRadius: 60.r,
+                        height: 56.h,
+                        onTap: _onSignInTap,
+                      ),
+                      SizedBox(height: 16.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: _onTermsTap,
+                            child: Text(
+                              'Terms & Conditions',
+                              style: textTheme.geist10Regular.copyWith(
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: Container(
+                              width: 3.r,
+                              height: 3.r,
+                              decoration: const BoxDecoration(
+                                color: AppColors.white,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: _onPrivacyTap,
+                            child: Text(
+                              'Privacy Policy',
+                              style: textTheme.geist10Regular.copyWith(
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

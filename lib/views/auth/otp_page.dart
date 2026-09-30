@@ -22,7 +22,7 @@ class OtpPage extends StatefulWidget {
     this.maskedMobileNumber = '966*******56',
     this.email = '',
     this.otpLength = 6,
-    this.resendSeconds = 277,
+    this.resendSeconds = 60,
     this.onVerify,
     this.onResend,
   });
@@ -47,27 +47,26 @@ class _OtpPageState extends State<OtpPage> {
   bool _hasVerificationError = false;
 
   // otp_page.dart
-Future<void> _verifyPin(String pin) async {
-  final bool isValid = await widget.onVerify?.call(pin) ?? true;
+  Future<void> _verifyPin(String pin) async {
+    final bool isValid = await widget.onVerify?.call(pin) ?? true;
 
-  if (!mounted) {
-    return;
-  }
+    if (!mounted) {
+      return;
+    }
 
-  setState(() => _hasVerificationError = !isValid);
+    setState(() => _hasVerificationError = !isValid);
 
-  if (!isValid) {
-    AppToast.show(
-      context, // OtpPage's own context — a real descendant of the Overlay
-      title: 'Error',
-      description: 'Invalid OTP. Please try again.',
-      status: AppToastStatus.danger,
-    );
+    if (!isValid) {
+      AppToast.show(
+        context, // OtpPage's own context — a real descendant of the Overlay
+        title: 'Error',
+        description: 'Invalid OTP. Please try again.',
+        status: AppToastStatus.danger,
+      );
+    } else {
+      GoRouterInit.router.goNamed(RouteConstants.resetPasswordPage);
+    }
   }
-  else{
-     GoRouterInit.router.goNamed(RouteConstants.changePasswordPage);
-  }
-}
 
   @override
   void initState() {
@@ -138,7 +137,6 @@ Future<void> _verifyPin(String pin) async {
     );
 
     final PinTheme focusedPinTheme = defaultPinTheme.copyWith(
-      
       decoration: BoxDecoration(
         color: AppColors.textFieldCardBackground,
         borderRadius: BorderRadius.circular(14.r),
@@ -159,7 +157,6 @@ Future<void> _verifyPin(String pin) async {
         color: AppColors.textFieldCardBackground,
         borderRadius: BorderRadius.circular(14.r),
         border: Border.all(color: AppColors.statusDanger, width: 0.7.w),
-        
       ),
     );
 
@@ -273,10 +270,13 @@ Future<void> _verifyPin(String pin) async {
             textStyle: textTheme.geist14Regular,
             buttonName: 'Verify Code',
             size: AppButtonSize.large,
+            // variant: _pinController.text.length == widget.otpLength
+            //     ? AppButtonVariant.secondary
+            //     : AppButtonVariant.muted,
             variant: AppButtonVariant.secondary,
             borderRadius: 60.r,
             height: 56.h,
-            isDisabled: _pinController.text.length != widget.otpLength,
+            //isDisabled: _pinController.text.length != widget.otpLength,
             onTap: () => _verifyPin(_pinController.text),
           ),
         ),
