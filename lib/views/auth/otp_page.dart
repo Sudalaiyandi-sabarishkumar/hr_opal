@@ -272,10 +272,10 @@ class _OtpPageState extends State<OtpPage> {
             textStyle: textTheme.geist14Regular,
             buttonName: 'Verify Code',
             size: AppButtonSize.large,
-            // variant: _pinController.text.length == widget.otpLength
-            //     ? AppButtonVariant.secondary
-            //     : AppButtonVariant.muted,
-            variant: AppButtonVariant.secondary,
+            variant: _pinController.text.length == widget.otpLength
+                ? AppButtonVariant.secondary
+                : AppButtonVariant.muted,
+            // variant: AppButtonVariant.secondary,
             borderRadius: 60.r,
             height: 56.h,
             //isDisabled: _pinController.text.length != widget.otpLength,

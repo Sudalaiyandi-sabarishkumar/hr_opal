@@ -265,11 +265,11 @@ class _SignInPageState extends State<SignInPage> {
                         textStyle: textTheme.geist14Regular,
                         buttonName: 'Sign In',
                         size: AppButtonSize.large,
-                        variant: AppButtonVariant.secondary,
-                        // isDisabled: !_canSignIn,
-                        // variant: _canSignIn
-                        //     ? AppButtonVariant.secondary
-                        //     : AppButtonVariant.muted,
+                        // variant: AppButtonVariant.secondary,
+                        isDisabled: !_canSignIn,
+                        variant: _canSignIn
+                            ? AppButtonVariant.secondary
+                            : AppButtonVariant.muted,
                         borderRadius: 60.r,
                         height: 56.h,
                         onTap: _onSignInTap,

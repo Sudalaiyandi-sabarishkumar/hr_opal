@@ -421,8 +421,8 @@ class AnnouncementDetailsBottomSheet extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: SvgPicture.asset(
-                  AppAssets.bottomSheetBg,
+                child: Image.asset(
+                  AppAssets.bottomSheetBgPng,
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.fitWidth,

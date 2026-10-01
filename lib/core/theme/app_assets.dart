@@ -97,6 +97,12 @@ class AppAssets {
   static const String peachCardBg = '$imagesPath/peach_lines_bg.svg';
   static const String greenCardBg = '$imagesPath/green_lines_bg.svg';
   static const String bottomSheetBg = '$imagesPath/bottom_sheet_bg.svg';
+  static const String bottomSheetBgPng = '$imagesPath/bottom_sheet_bg_png.png';
+  static const String blueCardPng = '$imagesPath/blue_card.png';
+  static const String greenCardPng = '$imagesPath/green_card.png';
+  static const String purpleCardPng = '$imagesPath/purple_card.png';
+  static const String yellowCardPng = '$imagesPath/yellow_card.png';
+  static const String familyBgPng = '$imagesPath/family_bg.png';
   static const String purpleTimelineSeparator =
       '$imagesPath/purple_timeline_separator.svg';
   static const String greenTimelineSeparator =

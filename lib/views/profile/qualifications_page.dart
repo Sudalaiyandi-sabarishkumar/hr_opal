@@ -658,14 +658,10 @@ class _QualificationCardState extends State<_QualificationCard> {
                 top: 0,
                 left: 0,
                 right: 0,
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    return SvgPicture.asset(
-                      getCardBg(widget.cardType),
-                      width: constraints.maxWidth,
-                      fit: BoxFit.fitWidth,
-                    );
-                  },
+                child: Image.asset(
+                  getCardBg(widget.cardType),
+                  width: double.infinity,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               AnimatedSize(
@@ -701,12 +697,12 @@ List<Color> getCardBorderGradientColors(QualificationAndSkillsType cardType) {
 String getCardBg(QualificationAndSkillsType cardType) {
   switch (cardType) {
     case QualificationAndSkillsType.education:
-      return AppAssets.blueCardBg;
+      return AppAssets.blueCardPng;
     case QualificationAndSkillsType.experience:
-      return AppAssets.purpleCardBg;
+      return AppAssets.purpleCardPng;
     case QualificationAndSkillsType.skills:
-      return AppAssets.peachCardBg;
+      return AppAssets.yellowCardPng;
     case QualificationAndSkillsType.languages:
-      return AppAssets.greenCardBg;
+      return AppAssets.greenCardPng;
   }
 }

@@ -318,8 +318,8 @@ class _FamilyAddressPageState extends State<FamilyAddressPage> {
             children: [
               SizedBox(
                 width: double.infinity,
-                child: SvgPicture.asset(
-                  AppAssets.memberCardBg,
+                child: Image.asset(
+                  AppAssets.familyBgPng,
                   width: double.infinity,
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.topCenter,

@@ -171,9 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _clockAndLeaveRow() {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return SizedBox(
-      height: 62.h,
-      child: Row(
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: 62.h),
+      child: IntrinsicHeight(
+        child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
@@ -296,6 +297,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
+        ),
       ),
     );
   }
