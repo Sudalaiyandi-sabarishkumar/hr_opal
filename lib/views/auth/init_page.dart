@@ -5,7 +5,6 @@ import '../../core/bloc/app_bloc/app_bloc.dart';
 import '../../core/bloc/auth_bloc/auth_bloc.dart';
 import '../../core/utils/utils.dart';
 import '../home/home_page.dart';
-import '../home/main_shell.dart';
 import '../loader/app_loader.dart';
 import 'landing_page.dart';
 

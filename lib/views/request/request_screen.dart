@@ -263,7 +263,6 @@ class _RequestTile extends StatelessWidget {
               data.asset,
               width: 24.w,
               height: 24.w,
-              fit: BoxFit.contain,
             ),
           ),
           SizedBox(height: 8.h),

@@ -11,8 +11,6 @@ import '../leaves/my_leaves_page.dart';
 import '../more_options/announcements_page.dart';
 import '../more_options/holiday_calender_page.dart';
 import '../payroll/payroll_screen.dart';
-import '../policies/policies.dart';
-import '../request/request_screen.dart';
 import 'dummy_pages.dart';
 import 'home_screen.dart';
 

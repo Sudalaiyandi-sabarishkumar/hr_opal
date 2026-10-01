@@ -42,8 +42,3 @@ class AttendancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const _DummyPage(title: 'Attendance');
 }
-
-
-
-// Menu (speed-dial) pages
-

@@ -350,51 +350,74 @@ class _AnnouncementsPageState extends State<AnnouncementsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Announcement',
-          style: textTheme.geist24SemiBold.copyWith(
-            color: AppColors.darkPurple2,
-            fontFamily: 'HostGrotesk',
+        Padding(
+          padding: EdgeInsets.fromLTRB(28.5.w, 24.h, 28.5.w, 0),
+          child: Text(
+            'Announcement',
+            style: textTheme.geist24SemiBold.copyWith(
+              color: AppColors.darkPurple2,
+              fontFamily: 'HostGrotesk',
+            ),
           ),
         ),
         SizedBox(height: 32.h),
-        typeTag(textTheme: textTheme, announcementType: announcementType),
-        SizedBox(height: 8.h),
-        Text(
-          date,
-          style: textTheme.geist10Regular.copyWith(
-            color: AppColors.statusNeutralText,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 28.5.w),
+          child: typeTag(
+            textTheme: textTheme,
+            announcementType: announcementType,
           ),
         ),
         SizedBox(height: 8.h),
-        Text(
-          title,
-          style: textTheme.geist16Regular.copyWith(
-            color: AppColors.statusNeutralText,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 28.5.w),
+          child: Text(
+            date,
+            style: textTheme.geist10Regular.copyWith(
+              color: AppColors.statusNeutralText,
+            ),
+          ),
+        ),
+        SizedBox(height: 8.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 28.5.w),
+          child: Text(
+            title,
+            style: textTheme.geist16Regular.copyWith(
+              color: AppColors.statusNeutralText,
+            ),
           ),
         ),
         SizedBox(height: 18.h),
         Expanded(
-          child: SingleChildScrollView(
-            child: Text(
-              announcement,
-              style: textTheme.geist12Regular.copyWith(
-                color: AppColors.toastMessage,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.5.w),
+            child: SingleChildScrollView(
+              child: Text(
+                announcement,
+                style: textTheme.geist12Regular.copyWith(
+                  color: AppColors.toastMessage,
+                ),
               ),
             ),
           ),
         ),
-
         SizedBox(height: 18.h),
-
-        CustomButton(
-          buttonName: 'Done',
-          variant: AppButtonVariant.secondary,
-          height: 52.h,
-          onTap: () {
-            context.pop();
-          },
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: CustomButton(
+            textStyle: textTheme.geist14Regular,
+            buttonName: 'Done',
+            size: AppButtonSize.large,
+            variant: AppButtonVariant.secondary,
+            borderRadius: 60.r,
+            height: 56.h,
+            onTap: () {
+              context.pop();
+            },
+          ),
         ),
+        SizedBox(height: 24.h),
       ],
     );
   }
@@ -429,10 +452,7 @@ class AnnouncementDetailsBottomSheet extends StatelessWidget {
                   alignment: Alignment.topCenter,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(28.5.w, 24.h, 28.5.w, 24.h),
-                child: widget,
-              ),
+              widget,
             ],
           ),
         ),
