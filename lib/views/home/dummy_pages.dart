@@ -3,23 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Simple placeholder used by every dummy page.
 class _DummyPage extends StatelessWidget {
-  const _DummyPage({required this.title, this.showBack = false});
+  const _DummyPage({required this.title});
 
   final String title;
-  final bool showBack;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: showBack
-          ? AppBar(
-              title: Text(title),
-              backgroundColor: Colors.white,
-              elevation: 0,
-              foregroundColor: const Color(0xFF16161D),
-            )
-          : null,
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        foregroundColor: const Color(0xFF16161D),
+      ),
       body: Center(
         child: Text(
           title,

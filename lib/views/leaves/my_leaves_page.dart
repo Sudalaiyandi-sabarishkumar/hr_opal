@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
-import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
 import '../../shared_components/shared_components.dart';
+import '../profile/family_address_details.dart';
 
 class _LeaveBalance {
   const _LeaveBalance({
@@ -94,6 +96,13 @@ class MyLeavesPage extends StatelessWidget {
       dateLabel: 'Approved On',
       date: '21 Jun 2026',
     ),
+    _LeaveRecord(
+      id: 'TR-202606',
+      title: 'Optional Leave',
+      approver: 'Olivia Rhye',
+      dateLabel: 'Approved On',
+      date: '21 Jun 2026',
+    ),
   ];
 
   void _onApplyLeave() {}
@@ -102,15 +111,60 @@ class MyLeavesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return AppGradientHeaderScaffold(
-      title: 'My Leaves',
+    return Scaffold(
+      backgroundColor: AppColors.white,
+      extendBodyBehindAppBar: true,
+      appBar: ProfileAppBar(title: 'My Leaves', textTheme: textTheme),
       body: SafeArea(
         top: false,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            pageBackground(),
+            pageForeground(textTheme: textTheme),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget pageBackground() {
+    return SvgPicture.asset(
+      AppAssets.familyPageBg,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
+    );
+  }
+
+  Widget pageForeground({required TextTheme textTheme}) {
+    return Positioned(
+      top: 101.h,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w).copyWith(top: 24.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.r),
+            topRight: Radius.circular(16.r),
+          ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: AppColors.black.withValues(alpha: 0.05),
+              blurRadius: 12.r,
+              spreadRadius: 0.r,
+            ),
+          ],
+        ),
         child: Column(
           children: <Widget>[
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 16.h),
+                physics: const ClampingScrollPhysics(),
+                padding: EdgeInsets.only(bottom: 16.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -120,7 +174,6 @@ class MyLeavesPage extends StatelessWidget {
                         'Leave Summary',
                         style: textTheme.geist14Medium.copyWith(
                           color: AppColors.textPrimary,
-                          
                         ),
                       ),
                     ),
@@ -145,7 +198,7 @@ class MyLeavesPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 16.h),
+              padding: EdgeInsets.only(top: 10.h, bottom: 16.h),
               child: CustomButton(
                 textStyle: textTheme.geist14Regular,
                 buttonName: 'Apply Leave',
@@ -168,64 +221,102 @@ class _BalanceBar extends StatelessWidget {
 
   final _LeaveBalance balance;
 
+  double _textWidth(BuildContext context, String text, TextStyle style) {
+    final TextPainter painter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout();
+    return painter.width;
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final TextStyle leftStyle = textTheme.geist12Regular.copyWith(
+      color: balance.fg,
+    );
+    final TextStyle usedStyle = textTheme.geist12Regular.copyWith(
+      color: AppColors.appBarTitleColor,
+    );
+
+    final String leftText = '${balance.left} left';
+    final String usedText = '${balance.used} Used';
 
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: balance.left,
-            child: Container(
-              height: 28.h,
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              decoration: BoxDecoration(
-                color: balance.bg,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      balance.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.geist12Regular.copyWith(
-                        color: balance.fg,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final double gap = 6.w;
+          final double innerGap = 8.w;
+          final double hPadding = 12.w * 2;
+          final double available = constraints.maxWidth - gap;
+          final int total = balance.left + balance.used;
+
+          // Minimum width each bar needs so its text never overflows.
+          final double leftMin =
+              hPadding +
+              _textWidth(context, balance.name, leftStyle) +
+              innerGap +
+              _textWidth(context, leftText, leftStyle) +
+              2;
+          final double usedMin =
+              hPadding + _textWidth(context, usedText, usedStyle) + 2;
+
+          double leftWidth = total == 0
+              ? available / 2
+              : available * balance.left / total;
+          double usedWidth = available - leftWidth;
+
+          if (leftWidth < leftMin) {
+            leftWidth = leftMin;
+            usedWidth = available - leftWidth;
+          } else if (usedWidth < usedMin) {
+            usedWidth = usedMin;
+            leftWidth = available - usedWidth;
+          }
+
+          return Row(
+            children: <Widget>[
+              Container(
+                width: leftWidth,
+                height: 28.h,
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                decoration: BoxDecoration(
+                  color: balance.bg,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        balance.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: leftStyle,
                       ),
                     ),
-                  ),
-                  Text(
-                    '${balance.left} left',
-                    style: textTheme.geist12Regular.copyWith(color: balance.fg),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(width: 6.w),
-          Expanded(
-            flex: balance.used,
-            child: Container(
-              height: 30.h,
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              decoration: BoxDecoration(
-                color: AppColors.neutral50,
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Text(
-                '${balance.used} Used',
-                maxLines: 1,
-                style: textTheme.geist12Regular.copyWith(
-                  color: AppColors.appBarTitleColor,
+                    SizedBox(width: innerGap),
+                    Text(leftText, maxLines: 1, style: leftStyle),
+                  ],
                 ),
               ),
-            ),
-          ),
-        ],
+              SizedBox(width: gap),
+              Container(
+                width: usedWidth,
+                height: 30.h,
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                decoration: BoxDecoration(
+                  color: AppColors.neutral50,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Text(usedText, maxLines: 1, style: usedStyle),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

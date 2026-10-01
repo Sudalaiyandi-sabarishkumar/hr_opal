@@ -8,8 +8,6 @@ import '../../core/theme/app_assets.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_styles.dart';
 import '../../shared_components/gradient_header/app_gradient_header_scaffold.dart';
-import '../../shared_components/input_field/app_text_field.dart';
-import '../../shared_components/shared_components.dart';
 
 class RequestPage extends StatefulWidget {
   const RequestPage({super.key});
@@ -276,83 +274,6 @@ class _RequestTile extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SelectField extends StatelessWidget {
-  const _SelectField({
-    required this.label,
-    required this.hint,
-    required this.trailing,
-    required this.onTap,
-    this.value,
-  });
-
-  final String label;
-  final String hint;
-  final String? value;
-  final Widget trailing;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    final InputFieldGroupType groupType = InputFieldGroupScope.of(context);
-
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      text: label,
-                      style: textTheme.geist13Regular.copyWith(
-                        color: groupType.labelColor,
-                      ),
-                      children: <InlineSpan>[
-                        TextSpan(
-                          text: ' *',
-                          style: textTheme.geist13Regular.copyWith(
-                            color: AppColors.statusDanger,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 4.h),
-                  Text(
-                    value ?? hint,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: value == null
-                        ? textTheme.geist16Regular.copyWith(
-                            color: groupType.hintColor,
-                          )
-                        : textTheme.geist16Regular.copyWith(
-                            color: AppColors.textPrimary,
-                          ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 8.w),
-            Padding(
-              padding: EdgeInsets.only(top: 20.h),
-              child: trailing,
-            ),
-          ],
-        ),
       ),
     );
   }
