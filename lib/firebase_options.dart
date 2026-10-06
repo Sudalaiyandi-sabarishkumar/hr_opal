@@ -59,12 +59,12 @@ class FlavorFirebaseOptions {
   );
  
   static const FirebaseOptions _iosDev = FirebaseOptions(
-    apiKey: 'AIzaSyCV-OsMEiqWOMi4wIN5vaMfuMWlIKhCPtg',
-    appId: '1:256627936922:ios:c0feedb87f4aaf7fddd923',
-    messagingSenderId: '256627936922',
-    projectId: 'vuka-dev-89a61',
-    storageBucket: 'vuka-dev-89a61.firebasestorage.app',
-    iosBundleId: 'com.vuka.app',
+    apiKey: 'AIzaSyCS0fuR46YpYGq7ye_egU7RiIi8QqcXZls',
+    appId: '1:404765026055:ios:9144f854939e9e44c107a2',
+    messagingSenderId: '404765026055',
+    projectId: 'elixir-hropal',
+    storageBucket: 'elixir-hropal.firebasestorage.app',
+    iosBundleId: 'com.hropal.app.dev',
   );
  
   // ===== STAGING =====
@@ -77,12 +77,12 @@ class FlavorFirebaseOptions {
   );
  
   static const FirebaseOptions _iosStaging = FirebaseOptions(
-    apiKey: 'AIzaSyDOg96VXWJxybJFMPJ-d7xYrsU0Vf0NTwo',
-    appId: '1:560756357406:ios:25dafb3ebe264242e2310f',
-    messagingSenderId: '560756357406',
-    projectId: 'vuka-staging',
-    storageBucket: 'vuka-staging.firebasestorage.app',
-    iosBundleId: 'com.vuka.app.staging',
+    apiKey: 'AIzaSyCS0fuR46YpYGq7ye_egU7RiIi8QqcXZls',
+    appId: '1:404765026055:ios:981344b727286c6fc107a2',
+    messagingSenderId: '404765026055',
+    projectId: 'elixir-hropal',
+    storageBucket: 'elixir-hropal.firebasestorage.app',
+    iosBundleId: 'com.hropal.app.staging',
   );
  
   // ===== PROD =====
@@ -95,11 +95,11 @@ class FlavorFirebaseOptions {
   );
  
   static const FirebaseOptions _iosProd = FirebaseOptions(
-    apiKey: 'AIzaSyDy5IH1uk662jBaVD-74axmzfi7IrJ-rag',
-    appId: '1:463821756854:ios:4494edfbef71332f348917',
-    messagingSenderId: '463821756854',
-    projectId: 'vuka-51c9b',
-    storageBucket: 'vuka-51c9b.firebasestorage.app',
-    iosBundleId: 'com.vuka.app',
+    apiKey: 'AIzaSyCS0fuR46YpYGq7ye_egU7RiIi8QqcXZls',
+    appId: '1:404765026055:ios:7db63f209392955fc107a2',
+    messagingSenderId: '404765026055',
+    projectId: 'elixir-hropal',
+    storageBucket: 'elixir-hropal.firebasestorage.app',
+    iosBundleId: 'com.hropal.app',
   );
 }
