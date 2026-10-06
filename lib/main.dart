@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' as services;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nested/nested.dart';
 
@@ -11,7 +12,7 @@ import 'app.dart';
 import 'core/api_repository/api_repository.dart';
 import 'core/bloc/app_bloc/app_bloc.dart';
 import 'core/bloc/auth_bloc/auth_bloc.dart';
-import 'core/config/app_config.dart';
+import 'core/config/app_config.dart' hide Flavor;
 import 'firebase_options.dart';
 import 'flavors.dart';
 
@@ -24,7 +25,11 @@ Future<void> main() async {
 
       await ApiRepository.init();
 
-     FlavorFirebaseOptions.flavor = F.appFlavor;
+      F.appFlavor = Flavor.values.firstWhere(
+        (Flavor flavor) => flavor.name == services.appFlavor,
+        orElse: () => Flavor.dev,
+      );
+      FlavorFirebaseOptions.flavor = F.appFlavor;
       await Firebase.initializeApp(
         options: FlavorFirebaseOptions.currentPlatform,
       );

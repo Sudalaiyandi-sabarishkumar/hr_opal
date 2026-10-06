@@ -54,12 +54,15 @@ must not be in the Runner Resources phase, flavored Runner configs need
 `DEVELOPMENT_TEAM`, and `ios/firebaseScript.sh` / the "Firebase Setup" build phase must
 match `*-dev` / `*-staging` (it only handles Debug/Release).
 
-Firebase per-flavor config files live under `firebase/<flavor>/`, but only `dev/` and
-`staging/` exist, and only `dev/` is registered for the current app ids. `staging/` still
-targets the old `com.example.flutter_bloc_bp` ids, so Android `staging` builds fail in
-`processStagingDebugGoogleServices`; `prod` has no Firebase entry in `flavorizr.yaml` and
-Android `prod` builds fail on the missing `google-services.json`. The FlutterFire
-Crashlytics upload build phase needs the `flutterfire` CLI on `PATH`.
+Firebase is initialised in `main()` with `FlavorFirebaseOptions.currentPlatform`
+(`lib/firebase_options.dart`, hand-maintained, not FlutterFire-generated), keyed by
+`F.appFlavor`, which `main()` sets from Flutter's `appFlavor` (the `--flavor` value, falling
+back to `dev`). All three flavors use the Firebase project `elixir-hropal` with one app id per
+flavor and platform. Native config also exists: source copies under `firebase/<flavor>/`,
+Android copies in `android/app/src/<flavor>/google-services.json`, iOS plists in
+`ios/Runner/<flavor>/`. `flavorizr.yaml` has no `firebase` entry for `prod`, so a flavorizr
+rerun will not copy the prod Android config. The FlutterFire Crashlytics upload build phase
+needs the `flutterfire` CLI on `PATH`.
 
 Do **not** run `build_runner` — the README mentions it but there is no codegen dependency
 and all models are hand-written.
