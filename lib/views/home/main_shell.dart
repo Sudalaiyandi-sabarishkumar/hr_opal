@@ -11,7 +11,7 @@ import '../leaves/my_leaves_page.dart';
 import '../more_options/announcements_page.dart';
 import '../more_options/holiday_calender_page.dart';
 import '../payroll/payroll_screen.dart';
-import 'dummy_pages.dart';
+import 'attendance_page.dart';
 import 'home_screen.dart';
 
 class _TabItem {

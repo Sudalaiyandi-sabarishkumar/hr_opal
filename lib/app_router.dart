@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/utils/firebase_utils.dart';
+import 'core/utils/route_constants.dart';
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
@@ -45,51 +44,6 @@ import 'views/request/request_screen.dart';
 import 'views/request/tax_request.dart';
 import 'views/request/travel_request.dart';
 import 'views/request/travel_settlement_request.dart';
-
-
-
-class RouteConstants {
-  static String initPage = 'init';
-  static String appLoaderPage = 'appLoader';
-  static String landingPage = 'landing';
-  static String signInPage = 'signIn';
-  static String forgotPasswordPage = 'forgotPassword';
-  static String otpPage = 'otp';
-  static String resetPasswordPage = 'resetPassword';
-  static String changePasswordPage = 'changePassword';
-  static String loginPage = 'login';
-  static String homePage = 'home';
-  static String mainShellPage = 'mainShell';
-  static String profilePage = 'profile';
-  static String myteamPage = 'myteam';
-  static String familyAddressPage = 'familyaddress';
-  static String personalInformationPage = 'personalInformation';
-  static String jobDetailsPage = 'jobdetails';
-  static String amendmentsPage = 'amendments';
-  static String requestHistoryPage = 'requestHistory';
-  static String documentsPage = 'documents';
-  static String assetsPage = 'assets';
-  static String qualificationsPage = 'qualifications';
-  static String timeleinePage = 'timeline';
-  static String expenseRequest = 'expenseRequest';
-  static String payslipsPage = 'payslips';
-  static String payBreakdownPage = 'payBreakdown';
-  static String holidayCalanderPage = 'holidayCalander';
-  static String announcementsPage = 'announcements';
-  static String requestPage = 'requests';
-  static String loanRequestPage = 'loanRequest';
-  static String assetRequestPage = 'assetRequest';
-  static String letterRequestPage = 'letterRequest';
-  static String travelRequestPage = 'travelRequest';
-  static String travelSettlementRequestPage = 'travelSettlementRequest';
-  static String documentRequestPage = 'documentRequest';
-  static String passportRequestPage = 'passportRequest';
-  static String encashmentRequestPage = 'encashmentRequest';
-  static String taxRequestPage = 'taxRequest';
-  static String attendanceRegularizationPage = 'attendanceRegularization';
-  static String myLeavesPage = 'myLeaves';
-  static String hrPoliciesPage = 'hrPolicies';
-}
 
 class GoRouterInit {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
