@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter BLoC Boiler Plate', style: textTheme.titleLarge),
+        title: Text('HR Opal Plus', style: textTheme.titleLarge),
       ),
       body: SafeArea(
         child: Form(

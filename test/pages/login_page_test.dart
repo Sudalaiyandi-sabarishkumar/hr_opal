@@ -32,7 +32,7 @@ void main() {
     testWidgets('renders the static elements', (WidgetTester tester) async {
       await pumpLoginPage(tester);
 
-      expect(find.text('Flutter BLoC Boiler Plate'), findsOneWidget);
+      expect(find.text('HR Opal Plus'), findsOneWidget);
       expect(find.byKey(const Key('username_textfield_key')), findsOneWidget);
       expect(find.byKey(const Key('password_textfield_key')), findsOneWidget);
       expect(find.byKey(const Key('login_button_key')), findsOneWidget);

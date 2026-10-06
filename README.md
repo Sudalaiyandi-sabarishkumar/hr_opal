@@ -1,11 +1,11 @@
-# Flutter BLoC Boilerplate with State Management
+# HR Opal Plus
 
-A comprehensive Flutter boilerplate project using the BLoC (Business Logic Component) pattern for state management. This project demonstrates best practices for structuring Flutter applications with Firebase integration, multi-flavor support, and automated CI/CD pipelines.
+A comprehensive Flutter HR app using the BLoC (Business Logic Component) pattern for state management. It includes Firebase integration, multi-flavor support, and automated CI/CD pipelines.
 
 ## Project Structure
 
 ```
-mobile_boiler_plate_with_bloc_state_management/
+hr_opal/
 ├── lib/                           # Main Flutter application code
 │   ├── main.dart                  # Application entry point
 │   ├── app.dart                   # Main app configuration and setup
@@ -123,7 +123,7 @@ mobile_boiler_plate_with_bloc_state_management/
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd mobile_boiler_plate_with_bloc_state_management
+cd hr_opal
 ```
 
 2. Install dependencies:

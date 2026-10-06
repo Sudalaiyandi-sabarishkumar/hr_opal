@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context, AuthState state) {
         return Scaffold(
           appBar: AppBar(
-              title: Text('Flutter BLoC Boiler Plate',
+              title: Text('HR Opal Plus',
                   style: textTheme.titleLarge)),
           body: Column(
             children: <Widget>[
