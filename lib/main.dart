@@ -12,6 +12,8 @@ import 'core/api_repository/api_repository.dart';
 import 'core/bloc/app_bloc/app_bloc.dart';
 import 'core/bloc/auth_bloc/auth_bloc.dart';
 import 'core/config/app_config.dart';
+import 'firebase_options.dart';
+import 'flavors.dart';
 
 Future<void> main() async {
   // ✅ Zone-based error handling
@@ -22,7 +24,10 @@ Future<void> main() async {
 
       await ApiRepository.init();
 
-      await Firebase.initializeApp();
+     FlavorFirebaseOptions.flavor = F.appFlavor;
+      await Firebase.initializeApp(
+        options: FlavorFirebaseOptions.currentPlatform,
+      );
       // ✅ Enable / Disable Crashlytics by build mode
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
         !kDebugMode,
