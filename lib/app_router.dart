@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'core/utils/firebase_utils.dart';
 import 'views/auth/change_password.dart';
 import 'views/auth/forgot_password.dart';
 import 'views/auth/init_page.dart';
@@ -45,9 +46,7 @@ import 'views/request/tax_request.dart';
 import 'views/request/travel_request.dart';
 import 'views/request/travel_settlement_request.dart';
 
-class FirebaseUtils {
-  static bool isFlutterTest = Platform.environment.containsKey('FLUTTER_TEST');
-}
+
 
 class RouteConstants {
   static String initPage = 'init';
