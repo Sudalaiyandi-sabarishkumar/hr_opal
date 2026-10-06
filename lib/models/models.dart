@@ -1,2 +1,2 @@
-export 'package:flutter_bloc_bp/models/app_user.dart';
-export 'package:flutter_bloc_bp/models/token.dart';
+export 'package:hr_opal_plus/models/app_user.dart';
+export 'package:hr_opal_plus/models/token.dart';

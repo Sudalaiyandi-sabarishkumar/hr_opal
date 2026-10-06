@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A Flutter app boilerplate built around a custom `BaseBloc` abstraction, `go_router`,
 `network_flutter` (a Dio-based API client vendored locally, see Networking below), Firebase
 (Crashlytics/Analytics), and a three-flavor build setup (`dev` / `staging` / `prod`).
-Package name: `flutter_bloc_bp`.
+Package name: `hr_opal_plus`.
 
 ## Commands
 
