@@ -11,14 +11,15 @@ Package name: `flutter_bloc_bp`.
 
 ## Commands
 
-Flutter is pinned via FVM (`.fvmrc` → 3.47.2, Dart 3.13.x). Run every Flutter/Dart
+Flutter is pinned via FVM (`.fvmrc` → 3.47.5). Run every Flutter/Dart
 command through `fvm` (e.g. `fvm flutter test`) so it uses the pinned SDK.
 
 ```bash
 flutter pub get
 
 # Run — pass env via --dart-define-from-file. The checked-in .env holds staging values;
-# .env.staging and .env.production also exist. There is NO .env.dev despite the README.
+# .env.dev, .env.staging and .env.prod exist. .vscode/launch.json's "production release"
+# config still points at a nonexistent .env.production.
 flutter run -t lib/main.dart --flavor dev     --dart-define-from-file=.env
 flutter run -t lib/main.dart --flavor staging --dart-define-from-file=.env.staging
 
@@ -89,10 +90,10 @@ size 380×844), a forced `AppTheme.lightTheme`, and disabled text scaling.
 
 `GoRouterInit` (in `lib/app_router.dart`) is a static holder: `router`, `navigatorKey`,
 `routeObserver`, plus `initialLocation` / `initialExtra` that tests overwrite before
-pumping. Five routes, with names as mutable string statics in `RouteConstants`:
-`/` (`init` → `InitPage`), `/loader` (`appLoader`), `/auth/login` (`login`),
-`/home` (`home`), `/design` (`design` → `DesignPage`, a showcase screen for
-`lib/shared_components/`). A `FirebaseAnalyticsObserver` is attached unless running under
+pumping. About 40 flat routes (auth flow under `/auth/*`, `/main`, `/home`, profile
+sub-pages, `/requests` plus one route per request type, `/myLeaves`, `/payslips`,
+`/hrPolicies`, `/holidayCalander`, `/announcements`), with names as mutable string statics
+in `RouteConstants`. Read `lib/app_router.dart` for the full list. A `FirebaseAnalyticsObserver` is attached unless running under
 `FLUTTER_TEST`.
 
 `lib/app_router.dart` also declares its own local `FirebaseUtils` class (identical body to
@@ -168,7 +169,7 @@ services never touch UI.
 
 ### UI
 
-Screens in `lib/views/<feature>/`; shared widgets in `lib/global_widgets/`
+Screens in `lib/views/<feature>/` (auth, home, profile, leaves, payroll, policies, request, more_options, loader); shared widgets in `lib/global_widgets/`
 (`CommonButton`, `CommonTextField`, form validators in `form_helper/`, `ToastHelper`).
 Theme tokens in `lib/core/theme/` (`AppTheme.lightTheme`, colors, Satoshi typography).
 
@@ -177,8 +178,7 @@ Theme tokens in `lib/core/theme/` (`AppTheme.lightTheme`, colors, Satoshi typogr
 A second, newer component layer alongside `global_widgets/`: `lib/shared_components/`
 holds one subfolder per component (`avatar`, `badges`, `button`, `checkbox`, `chips`,
 `drawer`, `modal`, `tabs`, `toast`, `toggle`, `tooltip`), re-exported from the barrel
-`shared_components.dart`. `lib/views/design/` (`DesignPage` + three sub-pages, routed at
-`/design`) is a live showcase of every component — check it when adding or changing one.
+`shared_components.dart`.
 
 These components (and any new feature code) must follow the theme tokens rather than
 literals:

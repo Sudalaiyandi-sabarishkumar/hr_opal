@@ -12,7 +12,6 @@ import 'views/auth/login_page.dart';
 import 'views/auth/otp_page.dart';
 import 'views/auth/reset_password.dart';
 import 'views/auth/sign_in_page.dart';
-import 'views/design/design_page.dart';
 import 'views/home/home_page.dart';
 import 'views/home/main_shell.dart';
 import 'views/leaves/my_leaves_page.dart';
@@ -62,7 +61,6 @@ class RouteConstants {
   static String loginPage = 'login';
   static String homePage = 'home';
   static String mainShellPage = 'mainShell';
-  static String designPage = 'design';
   static String profilePage = 'profile';
   static String myteamPage = 'myteam';
   static String familyAddressPage = 'familyaddress';
@@ -262,12 +260,6 @@ class GoRouterInit {
         name: RouteConstants.amendmentsPage,
         pageBuilder: (BuildContext context, GoRouterState state) =>
             const MaterialPage<AmendmentsScreen>(child: AmendmentsScreen()),
-      ),
-      GoRoute(
-        path: '/design',
-        name: RouteConstants.designPage,
-        pageBuilder: (BuildContext context, GoRouterState state) =>
-            const MaterialPage<DesignPage>(child: DesignPage()),
       ),
       GoRoute(
         path: '/requests',
